@@ -1,0 +1,43 @@
+sur http://localhost:8000/index.php?menu=admin&page=adminPage
+
+ - faire l'affichage d'une lesson http://localhost:8000/index.php?menu=admin&page=adminPage&editLesson=html
+ - creer le modele de données elements
+ - creer le point d'entrée ajax
+ - creer le sauvegardeur de modif
+  		- a chaque modification sur le front on peut
+  			- sauvegarder la modif effectuer sans l'appliquer sur le code de l'element
+  			- appliquer les modifs sauvegarder sur un element
+ - permettre l'ajout d'une page dans la lesson
+ - permettre la suppression d'une page dans la lesson
+ - afficher le contenu d'une page
+ - permettre l'ajout d'un element (en passant par le modifieur d'elements)
+ - permettre la modification d'un element (en passant par le modifieur d'elements)
+ - permettre la suppresion d'un element (en passant par le modifieur d'elements)
+
+ - permettre la visualisation des commentaires associé à un elements
+ - permettre de repondre à un commentaire associé à un element
+
+sur http://localhost:8000/index.php?menu=lessons&page=html
+ - recuperer toutes les pages (ordonnées) associées a une lesson
+ - gestion cache?
+ - charger la lesson correspondante
+ - afficher la premiere page de la lesson correspondante
+ - bouton page usivante/precedente
+ - afficher  une page par son numero de page
+ - afficher le sommaire
+
+sur http://localhost:8000/index.php?menu=admin&page=adminPage
+ - afficher tous les users
+ - permmettre l'affichage du detail d'un user
+ - permettre la modification d'un user
+ - permettre le re-init password
+
+ sur http://localhost:8000/index.php?menu=profile&page=general
+  - visualiser le compte utilisateur
+  - permmettre la mise a jour des infos utilisteurs
+
+ sur http://localhost:8000/index.php?menu=profile&page=group
+  - permettre la creation d'un groupe
+  - permettre le choix d'un groupe
+
+ ....

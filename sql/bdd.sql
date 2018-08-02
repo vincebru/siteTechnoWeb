@@ -16,54 +16,55 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `lesson`
+-- Table structure for table `element`
 --
 
-DROP TABLE IF EXISTS `lesson`;
+DROP TABLE IF EXISTS `element`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lesson` (
-  `lesson_id` int(3) NOT NULL AUTO_INCREMENT,
-  `menu_lesson_id` int(3) NOT NULL,
+CREATE TABLE `element` (
+  `element_id` int(3) NOT NULL AUTO_INCREMENT,
+  `type` varchar(100) NOT NULL,
   `code` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
-  PRIMARY KEY (`lesson_id`)
+  PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `lesson`
+-- Dumping data for table `element`
 --
 
-LOCK TABLES `lesson` WRITE;
-/*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
-INSERT INTO `lesson` VALUES (5,3,'html','html'),(6,3,'css','css'),(7,3,'php','php'),(8,3,'database','database');
-/*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
+LOCK TABLES `element` WRITE;
+/*!40000 ALTER TABLE `element` DISABLE KEYS */;
+INSERT INTO `element` VALUES (1,'PAGE','html1','html part 1'),(2,'PAGE','html2','html part 2'),(3,'MENU','lessons','Lessons'),(4,'MENU','exercice','Exercices'),(5,'LESSON','html','html'),(6,'LESSON','css','css'),(7,'LESSON','php','php'),(8,'LESSON','database','database');
+/*!40000 ALTER TABLE `element` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `element_element`
+--
 
-DROP TABLE IF EXISTS `page`;
+DROP TABLE IF EXISTS `element_element`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `page` (
-  `page_id` int(3) NOT NULL AUTO_INCREMENT,
-  `code` varchar(100) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  PRIMARY KEY (`page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+CREATE TABLE `element_element` (
+  `parent_id` int(3) NOT NULL,
+  `child_id` int(3) NOT NULL,
+  `rank` int(9) NOT NULL,
+  PRIMARY KEY (`parent_id`,`child_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `element_element`
+--
 
-
-DROP TABLE IF EXISTS `lesson_page`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lesson_page` (
-  `lesson_id` int(3) NOT NULL,
-  `page_id` int(3) NOT NULL,
-  `page_number` int(9) NOT NULL,
-  PRIMARY KEY (`lesson_id`,`page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+LOCK TABLES `element_element` WRITE;
+/*!40000 ALTER TABLE `element_element` DISABLE KEYS */;
+INSERT INTO `element_element` VALUES (3,5,1),(3,6,2),(3,7,3),(3,8,4),(5,1,1),(5,2,2);
+/*!40000 ALTER TABLE `element_element` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lesson_session_group`
@@ -87,31 +88,6 @@ LOCK TABLES `lesson_session_group` WRITE;
 /*!40000 ALTER TABLE `lesson_session_group` DISABLE KEYS */;
 INSERT INTO `lesson_session_group` VALUES (5,1);
 /*!40000 ALTER TABLE `lesson_session_group` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `menu_lesson`
---
-
-DROP TABLE IF EXISTS `menu_lesson`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `menu_lesson` (
-  `menu_lesson_id` int(3) NOT NULL AUTO_INCREMENT,
-  `code` varchar(100) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  PRIMARY KEY (`menu_lesson_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `menu_lesson`
---
-
-LOCK TABLES `menu_lesson` WRITE;
-/*!40000 ALTER TABLE `menu_lesson` DISABLE KEYS */;
-INSERT INTO `menu_lesson` VALUES (3,'lessons','Lessons'),(4,'exercice','Exercices');
-/*!40000 ALTER TABLE `menu_lesson` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -228,4 +204,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-29 21:26:30
+-- Dump completed on 2018-08-02 23:17:08

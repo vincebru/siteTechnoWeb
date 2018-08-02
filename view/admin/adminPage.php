@@ -1,5 +1,4 @@
 <?php
-
 $lessonList=LessonModel::getAllLessonsForMenu("lessons",null,null);
 $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 ?>
@@ -34,5 +33,20 @@ Lesson List:
 
 <?php if(isset($_GET['editLesson'])){
 	$lesson = LessonModel::getLessonWithPages($_GET['editLesson']);
-	var_dump($lesson);
+
+	?>
+	<div id='summary'>
+		<ul>
+		<?php 
+		foreach ($lesson->getPageList() as $rank => $page) {
+			echo "<li><a href='index.php?menu=admin&page=adminPage&editLesson=".$_GET['editLesson']
+				."&lessonPageId=".$page->getId()."'>".$rank." - ".$page->getTitle()."</a></li>"; 
+		}?>
+	</ul>
+	</div>
+
+
+	<div id='pageName'><?php echo $lesson->getTitle();?><div>
+<?php
+
 }?>

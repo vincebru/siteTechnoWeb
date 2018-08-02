@@ -6,6 +6,7 @@ include_once("utils/Database.php");
 
 //include dto
 include_once("dto/MenuLink.php");
+include_once("dto/Element.php");
 include_once("dto/Rights.php");
 include_once("dto/Role.php");
 include_once("dto/SessionGroup.php");

@@ -8,16 +8,16 @@ class LessonModel{
 
 	public static function getAllLessonsForMenu($menu,$sessionGroupId,$lesson){
 		$bdd = Database::getDb();		
-		$request = "select lesson.code, lesson.title from lesson";
+		$request = "select lesson.code, lesson.title from element lesson";
 
 		if (isset($sessionGroupId)){
-			$request.=" join lesson_session_group on lesson.lesson_id=lesson_session_group.lesson_id";
+			$request.=" join lesson_session_group on lesson.element_id=lesson_session_group.lesson_id";
 		}
 
-		$request.=" join menu_lesson on lesson.menu_lesson_id=menu_lesson.menu_lesson_id"
-			." where menu_lesson.code=:menu";
+		$request.=" join element_element menu_lesson on lesson.element_id=menu_lesson.child_id"
+			." join element menu on menu.element_id=menu_lesson.parent_id"
+			." where menu.type='".Element::TYPE_MENU."' and lesson.type='".Element::TYPE_LESSON."' and menu.code=:menu";
 		$param=array('menu'=>$menu);
-
 
 		if (isset($sessionGroupId)){
 			$request.=" and session_group_id=:sessionGroupId";
@@ -28,6 +28,7 @@ class LessonModel{
 			$request.=" and lesson.code=:lesson";
 			$param['lesson']=$lesson;
 		}
+
 
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute($param);
@@ -41,7 +42,9 @@ class LessonModel{
 	
 	public static function getLessonWithPages($lessonCode){
 		$bdd = Database::getDb();		
-		$request = "select * from lesson where code=:code";
+		$request = "select lesson.element_id as lesson_id, lesson.code, lesson.title"
+			." from element lesson"
+			." where lesson.type='".Element::TYPE_LESSON."' and code=:code";
 
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute(array('code'=>$lessonCode));
@@ -57,21 +60,19 @@ class LessonModel{
 
 	private static function getPagesListForLesson($lessonId){
 		$bdd = Database::getDb();		
-		$request = "select p.*,lp.page_number as rank "
-			." from page p join lesson_page lp on p.page_id=lp.page_id "
-		 	." where lp.lesson_id=:id";
+		$request = "select p.element_id as page_id, p.*,lp.rank"
+			." from element p join element_element lp on p.element_id=lp.child_id "
+		 	." where p.type='".Element::TYPE_PAGE."' and lp.parent_id=:id";
 
-
-var_dump($request);
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute(array('id'=>$lessonId));
 		
 		$result=array();
 		while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
-			$lesson=new Page($data);
-			$result[$data['rank']]=$lesson;
+			$page=new Page($data);
+			$result[$data['rank']]=$page;
 		}
 
-		return $lesson;
+		return $result;
 	}
 }

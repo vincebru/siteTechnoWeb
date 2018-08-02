@@ -1,0 +1,12 @@
+body{
+	text-align: center;
+}
+section{
+	display: inline-block;
+}
+input {
+	display: block;
+}
+table, th, td{
+	border: 1px solid black;;
+}

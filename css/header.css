@@ -1,0 +1,49 @@
+header{
+	text-align: center;
+}
+
+header #headerTitle a{
+	color : #76A2DB;
+	text-decoration: none !important;
+}
+
+
+#userBlock{
+	text-align: right;
+}
+
+#userInfo{
+	text-align: right;
+	width: 30%;
+	display:inline-block;
+}
+
+#loginForm input[type=text]{
+	width: 25%
+}
+
+nav{
+	text-align: center;
+	background-color: #76A2DB;
+}
+
+.menu {
+	text-align: left;
+	display: inline-block;
+	vertical-align: top;
+	width: 15%
+}
+
+.menu:hover .subMenu{
+	display: block;
+}
+
+.subMenu{
+	text-align: left;
+	display: none;
+}
+
+.menu a{
+	color : white;
+	text-decoration: none !important;
+}

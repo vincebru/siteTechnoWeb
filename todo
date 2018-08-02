@@ -1,0 +1,50 @@
+lesson 1: html/css
+ - cours
+ 	- "editeur de texte" pour ajouter du contenu en BDD
+ - exercice
+ 	- "editeur d'exercice" pour ajouter du contenu en BDD
+ 	- maquettage du site internet
+ 		-> faire la specification sous forme de serie d'image
+ 		- une page de creation de compte
+ 		- une page produit (contenant un header ou on peut se connecter)
+ 		- une page panier (contenant un header ou on peut se connecter)
+ 		- Une page resultat de recherche produit (contenant un header ou on peut se connecter)
+		- le header doit permettre de descendre ds la structure de gamme
+
+lesson 2 : php
+	- utilisation de php pour faire de l'include
+	- affichage conditionnel des produits a partir d'un tableau de produit 
+		-> code php fournissant un tableau avec :
+			- code produit
+			- libelle
+			- description 
+			- nom image
+
+lesson 3 : utilisation BDD
+	-> schema de BDD incluant
+		- gestion des produits
+		- gestion de la hierarchie produit
+		- gestion des commandes (utilisation de cookies)
+		- gestion des user (a utiliser plus tard sauf si le reste est fini)
+		
+
+lesson 4 : mise en place du framework
+	-> fournir une spec
+	ok-> fournir une correction
+
+lesson 5 : gestion utilisateurs
+	-> fournir une spec
+
+chaque utilisateur a un role (admin, student....)
+chaque utilisateur est dans un groupSession session2018,session2019 pour autoriser les pages au fur et a mesure de la progression du cours
+chaque utilisateur a un group de travail (workGroup) pour le compte rendu du projet etc
+
+l'acces a une page se fait grace au droit utilisteur mais aussi eventuellement en fonction du groupSession si role student
+
+lesson 6 et 7 : implementation du site de e-commerce
+	a minima:
+		- les pages vu dans la lesson 1
+	en option:
+		- ecran d'administration des produits
+		- ecran d'administration des utilisateurs
+		- page panier + confirmation une fois que le panier est converti en commande

@@ -12,18 +12,57 @@ class Header{
 	}
 
 	public function getHtml(){
-
-		if ($this->page!="newAccount" && $this->page!="login"){
+		if ($this->page == "newAccount"){
 			?>
 			<header>
-				<div id="headerTitle">
-					<a href="index.php">
-						<h1>Techno Web Module</h1>
-					</a>
-				</div>
-				<div id="userBlock">
-					<div id="userInfo">
-						<?php 
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<a class="navbar-brand" href="index.php">Techno Web Module</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+						</ul>
+					</div>
+				</nav>
+			</header>
+			<?php
+
+		} else if ($this->page!="newAccount" && $this->page!="login"){
+			?>
+			<header>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand" href="index.php">Techno Web Module</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+				<!--
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Dropdown
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Action</a>
+								<a class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</li>
+					-->
+					</ul>
+					<?php 
+					if (!UserModel::isConnected()){
+						logDebug("user not connected");
+						include("view/createAccount.php");
+					} else {
+						logDebug("user connected");
+						include("view/logout.php");
+					} ?>
+					<?php 
 						if (!UserModel::isConnected()){
 							logDebug("user not connected");
 							include("view/login.php");
@@ -31,9 +70,10 @@ class Header{
 							logDebug("user connected");?>
 							welcome <?php echo UserModel::getCurrentUserName(); ?>
 							<a href="index.php?page=disconnect">Disconnect</a>
-						<?php } ?>
-					</div>
+					<?php } ?>
 				</div>
+			</nav>
+			<!--
 				<nav>
 					<?php 
 					$menu = PageModel::getMenu();
@@ -44,6 +84,7 @@ class Header{
 					}
 					?>
 				</nav>
+			-->
 			</header>
 			<?php
 		}

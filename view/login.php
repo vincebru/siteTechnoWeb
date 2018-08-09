@@ -4,9 +4,8 @@ if(isset($loginMessage) && $loginMessage!=""){
 }
 ?>
 
-<form id="loginForm" action="index.php?page=login" method="POST">
-	<input type="text" name="login" placeholder="login"  value="<?php echo(isset($login)?$login:"")?>"/>
-	<input type="password" name="password" placeholder="password" />
-	<input type="submit" value="Login" />
+<form class="form-inline my-2 my-lg-0" id="loginForm" action="index.php?page=login" method="POST">
+	<input class="form-control form-control-sm mr-sm-2" type="text" name="login" placeholder="login" aria-label="login" value="<?php echo(isset($login)?$login:"")?>"/>
+	<input class="form-control form-control-sm mr-sm-2" type="password" name="password" placeholder="password" />
+	<button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit" value="Login">Login</button>
 </form>
-<a id="newLogin" href="index.php?page=newAccount">Create account</a>

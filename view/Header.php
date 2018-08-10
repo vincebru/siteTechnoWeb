@@ -40,6 +40,13 @@ class Header{
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
+					<?php 
+					$menu = PageModel::getMenu();
+
+					foreach ($menu as $menuInfo) {
+						$this->displayMenuElement($menuInfo->getMenuLabel(),$menuInfo->getMenuLink(), $menuInfo->getPage());
+					}
+					?>
 				<!--
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,48 +65,52 @@ class Header{
 					if (!UserModel::isConnected()){
 						logDebug("user not connected");
 						include("view/createAccount.php");
+						include("view/loginForm.php");
 					} else {
 						logDebug("user connected");
-						include("view/logout.php");
+						echo "welcome ";
+						echo UserModel::getCurrentUserName();
+						include("view/logoutForm.php");
 					} ?>
-					<?php 
-						if (!UserModel::isConnected()){
-							logDebug("user not connected");
-							include("view/login.php");
-						} else { 
-							logDebug("user connected");?>
-							welcome <?php echo UserModel::getCurrentUserName(); ?>
-							<a href="index.php?page=disconnect">Disconnect</a>
-					<?php } ?>
 				</div>
 			</nav>
-			<!--
-				<nav>
-					<?php 
-					$menu = PageModel::getMenu();
-
-					foreach ($menu as $menuInfo) {
-						$this->displayMenuElement($menuInfo->getMenuLabel(),$menuInfo->getMenuLink(),
-							$menuInfo->getPage());
-					}
-					?>
-				</nav>
-			-->
 			</header>
 			<?php
 		}
 	}
 
 	
-
+/**
+ * 
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Dropdown
+		</a>
+		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			<a class="dropdown-item" href="#">Action</a>
+			<a class="dropdown-item" href="#">Another action</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">Something else here</a>
+		</div>
+	</li>
+ */
 	function displayMenuElement($label,$link, $subMenu){
-		$html="<div class='menu'><a href='index.php?page=".$link."' >".$label."</a>";
 		if (isset($subMenu) && is_array($subMenu)){
+			$html="<li class='nav-item dropdown'>";
+			$html .="<a  class='nav-link dropdown-toggle' id='".$link."' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' href='#' >".$label."</a>";
+			$html.="<div class='dropdown-menu' aria-labelledby='".$link."'>";
+
 			foreach ( $subMenu as $subMenuElement=>$subMenuLink){
-				$html.="<div class='subMenu'><a href='index.php?menu=".$link."&page=".$subMenuLink."' >".$subMenuElement."</a></div>";
+				$html.="<a class='dropdown-item' href='index.php?menu=".$link."&page=".$subMenuLink."' >".$subMenuElement."</a>";
 			}
+
+			$html.="</div>";
+			$html.="</li>";
+		}else{
+			$html="<li class='nav-item'>";
+			$html.="<a class='nav-link' href='index.php?page=".$link."' >".$label."</a>";
+			$html.="</li>";
 		}
-		$html.="</div>";
 		echo($html);
 	}
 }

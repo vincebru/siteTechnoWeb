@@ -2,18 +2,23 @@
 $lessonList=LessonModel::getAllLessonsForMenu("lessons",null,null);
 $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 ?>
-Lesson List:
-<table>
-	<tr>
-		<th>page name</th>
-		<th>action</th>
-	</tr>
+<div class="container">
+<h2>Lesson List</h2>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Page name</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
 	<?php foreach ( $lessonList as $code=>$label){ ?>
 		<tr>
 			<td><?php echo $code?></td>
 			<td><a href="index.php?menu=admin&page=adminPage&editLesson=<?php echo $code?>">Edit</a></td>
 		</tr>
 	<?php } ?>
+	</tbody>
 </table>
 <!--Exercices List:
 <table>
@@ -50,3 +55,5 @@ Lesson List:
 <?php
 
 }?>
+
+</div>

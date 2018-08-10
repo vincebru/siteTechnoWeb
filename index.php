@@ -74,20 +74,18 @@ $header = new Header($page);
 		?>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<?php
+			// load content header file
+			$header->getHtml($page);
+		?>
+
+		<section class="container-fluid">
 			<?php
-				// load content header file
-				$header->getHtml($page);
+			// load content view file
+			include("view/".$pagePath.".php");
+
 			?>
-
-			<section class="container-fluid">
-				<?php
-				// load content view file
-				include("view/".$pagePath.".php");
-
-				?>
-			</section>
-		</div>
+		</section>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>

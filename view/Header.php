@@ -44,22 +44,9 @@ class Header{
 					$menu = PageModel::getMenu();
 
 					foreach ($menu as $menuInfo) {
-						$this->displayMenuElement($menuInfo->getMenuLabel(),$menuInfo->getMenuLink(), $menuInfo->getPage());
+						$this->displayMenuElement($menuInfo->getMenuLabel(), $menuInfo->getMenuLink(), $menuInfo->getPage());
 					}
 					?>
-				<!--
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Dropdown
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Something else here</a>
-							</div>
-						</li>
-					-->
 					</ul>
 					<?php 
 					if (!UserModel::isConnected()){
@@ -94,7 +81,7 @@ class Header{
 		</div>
 	</li>
  */
-	function displayMenuElement($label,$link, $subMenu){
+	function displayMenuElement($label, $link, $subMenu){
 		if (isset($subMenu) && is_array($subMenu)){
 			$html="<li class='nav-item dropdown'>";
 			$html .="<a  class='nav-link dropdown-toggle' id='".$link."' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' href='#' >".$label."</a>";
@@ -107,7 +94,11 @@ class Header{
 			$html.="</div>";
 			$html.="</li>";
 		}else{
-			$html="<li class='nav-item'>";
+			if ($link == $this->page){
+				$html="<li class='nav-item active'>";
+			}else{
+				$html="<li class='nav-item'>";
+			}
 			$html.="<a class='nav-link' href='index.php?page=".$link."' >".$label."</a>";
 			$html.="</li>";
 		}

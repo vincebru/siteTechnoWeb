@@ -1,12 +1,12 @@
-body{
+.lessonEdition {
+	position: relative;
+    height: 350px;
+    overflow: auto;
+}
+.lessonEdition p {
+	clear: both;
+}
+
+H2, H3 {
 	text-align: center;
-}
-section{
-	display: inline-block;
-}
-input {
-	display: block;
-}
-table, th, td{
-	border: 1px solid black;;
 }

@@ -12,8 +12,7 @@ class Element{
 	private $code;
 	private $title;
 
-
-	function __construct($id,$type,$code, $title){
+	function __construct($id, $type, $code, $title){
 		$this->id=$id;
 		$this->type=$type;
 		$this->code=$code;
@@ -22,44 +21,41 @@ class Element{
 
 	public function getId()
 	{
-	    return $this->id;
+		return $this->id;
 	}
-	 
 	public function setId($id)
 	{
-	    $this->id = $id;
-	    return $this;
+		$this->id = $id;
+		return $this;
 	}
 
 	public function getType()
 	{
-	    return $this->type;
+		return $this->type;
 	}
-	 
 	public function setType($type)
 	{
-	    $this->type = $type;
-	    return $this;
+		$this->type = $type;
+		return $this;
 	}
 
 	public function getCode()
 	{
-	    return $this->code;
+		return $this->code;
 	}
-	 
 	public function setCode($code)
 	{
-	    $this->code = $code;
-	    return $this;
+		$this->code = $code;
+		return $this;
 	}
+
 	public function getTitle()
 	{
-	    return $this->title;
+		return $this->title;
 	}
-	 
 	public function setTitle($title)
 	{
-	    $this->title = $title;
-	    return $this;
+		$this->title = $title;
+		return $this;
 	}
 }

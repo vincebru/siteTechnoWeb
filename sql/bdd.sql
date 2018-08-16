@@ -27,6 +27,7 @@ CREATE TABLE `element` (
   `type` varchar(100) NOT NULL,
   `code` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
+  `content` text,
   PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +38,14 @@ CREATE TABLE `element` (
 
 LOCK TABLES `element` WRITE;
 /*!40000 ALTER TABLE `element` DISABLE KEYS */;
-INSERT INTO `element` VALUES (1,'PAGE','html1','html part 1'),(2,'PAGE','html2','html part 2'),(3,'MENU','lessons','Lessons'),(4,'MENU','exercice','Exercices'),(5,'LESSON','html','html'),(6,'LESSON','css','css'),(7,'LESSON','php','php'),(8,'LESSON','database','database');
+INSERT INTO `element` VALUES (1,'PAGE','html1','html part 1'),
+    (2,'PAGE','html2','html part 2'),
+    (3,'MENU','lessons','Lessons'),
+    (4,'MENU','exercice','Exercices'),
+    (5,'LESSON','html','html'),
+    (6,'LESSON','css','css'),
+    (7,'LESSON','php','php'),
+    (8,'LESSON','database','database');
 /*!40000 ALTER TABLE `element` ENABLE KEYS */;
 UNLOCK TABLES;
 

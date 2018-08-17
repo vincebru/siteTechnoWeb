@@ -20,7 +20,7 @@ $(document).ready(function () {
         console.log("pageTitle:" + pageTitle);
 
         var request = $.ajax({
-            url: "index.php",
+            url: "ajax.php",
             method: "POST",
             data: { page: "admin", action: "pageAdd", pageTitle : pageTitle },
             dataType: "html"
@@ -28,7 +28,6 @@ $(document).ready(function () {
        
       request.done(function( msg ) {
         $('#addPageModal').modal('toggle');
-        $('#addPageModal').html( msg );
       });
        
       request.fail(function( jqXHR, textStatus ) {

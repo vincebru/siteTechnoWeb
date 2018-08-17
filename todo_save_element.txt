@@ -1,0 +1,24 @@
+ajax.php
+	menu
+	page
+	object=Element
+	
+retour toujours du html ou erreur 500+libelle erreur	
+
+GET/POST/DELETE(cascade)/PATCH(hors enfant)
+
+Element
+	id
+	content
+	type
+	position
+	
+	
+lesson/page/paragraph/form(tjs post)/
+
+lien + label
+img + width+height
+title + level
+input(texte) + label
+
+

@@ -1,6 +1,11 @@
 <?php
 
-class User{
+class User extends DTO{
+
+	static protected $tableName="user";
+	static protected $colId="user_id";
+	static protected $isAdminRequestable=true;
+
 	private $id;
 	private $login;
 	private $firstname;
@@ -21,7 +26,6 @@ class User{
 
 	public function constructFromValue($id,$login, $firstname, $lastname,$email,$password,
 		$role,$sessionGroupId,$workGroupId){
-
 		$this->id=$id;
 		$this->login=$login;
 		$this->firstname=$firstname;
@@ -31,6 +35,8 @@ class User{
 		$this->role=$role;
 		$this->sessionGroupId=$sessionGroupId;
 		$this->workGroupId=$workGroupId;
+		$this->tableName="user";
+		$this->colId="user_id";
 	}
 
 	public function getId()

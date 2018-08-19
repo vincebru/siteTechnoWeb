@@ -8,21 +8,11 @@ include("utils/include.php");
 // database connexion
 //nothing todo, database connexion will be initialised when needed
 
+$pagePath=(isset($menu)?$menu."/":"").$page;
+logDebug("load ".$pagePath." page.");
+
 // control on user
 UserModel::init();
-
-// get action/page requested
-$menu=null;
-if (isset($_GET['menu'])) {
-	$menu = $_GET['menu'];
-}
-$page = "main";
-$pagePath=$page;
-if (isset($_GET['page'])) {
-	$page = $_GET['page'];
-	$pagePath=(isset($menu)?$menu."/":"").$page;
-}
-logDebug("load ".$pagePath." page.");
 
 //control page access
 if (!RoleModel::isAllowed($menu, $page)) {

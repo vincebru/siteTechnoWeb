@@ -1,6 +1,8 @@
 <?php
 
-class Page extends Element{
+class Form extends Element{
+
+	static protected $colType=Element::TYPE_FORM;
 
 
 	function __construct($data){
@@ -8,8 +10,6 @@ class Page extends Element{
 	}
 
 	public function constructFromValue($id,$code, $title, $position){
-		parent::__construct($id,Element::TYPE_PAGE,$code, $title, $position);
+		parent::__construct($id,static::$colType,$code, $title, $position);
 	}
-
-	
 }

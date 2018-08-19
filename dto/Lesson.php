@@ -1,27 +1,28 @@
 <?php
 
 class Lesson extends Element{
-	private $pageList;
+
+	static protected $colType=Element::TYPE_LESSON;
 
 
 	function __construct($data){
-		self::constructFromValue($data['lesson_id'],$data['code'],$data['title']);
+		self::constructFromValue($data['element_id'],$data['code'],$data['title'],$data['rank']);
 	}
 
-	public function constructFromValue($id,$code, $title){
-		parent::__construct($id,Element::TYPE_LESSON,$code, $title);
+	public function constructFromValue($id,$code, $title, $position){
+		parent::__construct($id,Element::TYPE_LESSON,$code, $title, $position);
 	}
 
 	public function getPageList()
 	{
-	    return $this->pageList;
+	    return $this->subElements;
 	}
 	 
 	public function setPageList($pageList)
 	{
-		$this->pageList = array();
+		$this->subElements = array();
 		if (!is_null($pageList )){	
-			$this->pageList = $pageList;
+			$this->subElements = $pageList;
 		}
 	    
 	    return $this;

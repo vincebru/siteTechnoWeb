@@ -1,5 +1,15 @@
 <?php
 
+// get action/page requested
+$menu=null;
+if (isset($_GET['menu'])) {
+	$menu = $_GET['menu'];
+}
+$page = "main";
+if (isset($_GET['page'])) {
+	$page = $_GET['page'];
+}
+
 include('manageAction.php');
 
 

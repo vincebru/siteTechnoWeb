@@ -1,6 +1,4 @@
 ajax.php
-	menu
-	page
 	object=Element
 	
 retour toujours du html ou erreur 500+libelle erreur	

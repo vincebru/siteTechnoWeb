@@ -20,8 +20,15 @@ if (isset($menu) && file_exists("css/".$menu.".css")){
 
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
 		<title><?php echo $page ?></title>
 		<?php 
 			
@@ -33,15 +40,19 @@ if (isset($menu) && file_exists("css/".$menu.".css")){
 	<body>
 		<?php
 			// load content header file
-			$header->getHtml($page);
+			$header->getHtml();
 		?>
 
-		<section>
-			<?php
+		<section class="container-fluid">
+		<?php
 			// load content view file
 			include("view/".$pagePath.".php");
-
-			?>
+		?>
 		</section>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="js/jquery-3.3.1.slim.min.js"></script>
+		<script src="js/popper.min.js" ></script>
+		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>

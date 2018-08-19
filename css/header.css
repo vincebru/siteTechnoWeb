@@ -22,11 +22,6 @@ header #headerTitle a{
 	width: 25%
 }
 
-nav{
-	text-align: center;
-	background-color: #76A2DB;
-}
-
 .menu {
 	text-align: left;
 	display: inline-block;

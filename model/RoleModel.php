@@ -28,8 +28,6 @@ class RoleModel{
 	
 	public static function isAllowed ($menu,$page){
 
-
-
 		$currentRole=UserModel::getCurrentRole();
 
 		$pageToCheckInRights=$page;

@@ -14,6 +14,7 @@ class PageModel{
 	*/
 	public static function getMenu(){
 		$result = array();
+
 		// lesson menu
 		if (RoleModel::isAllowed('lessons',null)) {
 			$result [] = new MenuLink('Lessons','lessons',LessonModel::getAllLessonsForMenu('lessons',
@@ -40,7 +41,7 @@ class PageModel{
 		// admin menu
 		if (RoleModel::isAllowed('admin',null)) {
 			$result [] = new MenuLink('Admin','admin',
-				array('Page Administration'=>'adminPage'));
+				array('adminPage' => 'Page Administration'));
 		}
 
 		return $result;

@@ -20,22 +20,19 @@ abstract class Element extends DTO{
 
 	private $id;
 	private $type;
-	private $code;
-	private $title;
 	private $content;
 	private $subElements;
 	private $position;
 	
 
 	function __construct($data){
-		self::constructFromValue($data['element_id'],$data['code'],$data['title'],$data['rank']);
+		self::constructFromValue($data['element_id'], $data['content'], $data['rank']);
 	}
 
-	public function constructFromValue($id,$code, $title, $position){
+	public function constructFromValue($id, $content, $position){
 		$this->id=$id;
 		$this->type=static::$colType;
-		$this->code=$code;
-		$this->title=$title;
+		$this->content=$content;
 		$this->position=$position;
 	}
 	public static function getRequestById(){
@@ -69,26 +66,6 @@ abstract class Element extends DTO{
 	public function setType($type)
 	{
 		$this->type = $type;
-		return $this;
-	}
-
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setCode($code)
-	{
-		$this->code = $code;
-		return $this;
-	}
-
-	public function getTitle()
-	{
-		return $this->title;
-	}
-	public function setTitle($title)
-	{
-		$this->title = $title;
 		return $this;
 	}
 

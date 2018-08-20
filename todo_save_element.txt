@@ -1,5 +1,6 @@
 ajax.php
-	object=Element
+	object (la classe du dto)
+	id
 	
 retour toujours du html ou erreur 500+libelle erreur	
 
@@ -15,8 +16,11 @@ Element
 lesson/page/paragraph/form(tjs post)/
 
 lien + label
-img + width+height + label (alt)
+img + width+height
 title + level
 input(texte) + label
+table
+line
+column span
 
 

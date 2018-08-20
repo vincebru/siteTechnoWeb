@@ -14,8 +14,14 @@ include_once("dto/Role.php");
 include_once("dto/SessionGroup.php");
 include_once("dto/User.php");
 include_once("dto/WorkGroup.php");
-include_once("dto/Lesson.php");
-include_once("dto/Page.php");
+include_once("dto/elements/Paragraph.php");
+include_once("dto/elements/Lesson.php");
+include_once("dto/elements/Page.php");
+include_once("dto/elements/Form.php");
+include_once("dto/elements/Image.php");
+include_once("dto/elements/Input.php");
+include_once("dto/elements/Link.php");
+include_once("dto/elements/Title.php");
 
 
 //include model

@@ -1,7 +1,7 @@
 sur http://localhost:8000/index.php?menu=admin&page=adminPage
 
  - faire l'affichage d'une lesson http://localhost:8000/index.php?menu=admin&page=adminPage&editLesson=html
- - creer le modele de données elements
+ ok - creer le modele de données elements
  - creer le point d'entrée ajax
  - creer le sauvegardeur de modif
   		- a chaque modification sur le front on peut

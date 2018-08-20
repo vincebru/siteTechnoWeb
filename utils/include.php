@@ -5,6 +5,8 @@ include_once("log.php");
 include_once("utils/Database.php");
 
 //include dto
+
+include_once("dto/DTO.php");
 include_once("dto/MenuLink.php");
 include_once("dto/Element.php");
 include_once("dto/Rights.php");
@@ -17,6 +19,7 @@ include_once("dto/Page.php");
 
 
 //include model
+include_once("model/GlobalModel.php");
 include_once("model/RoleModel.php");
 include_once("model/UserModel.php");
 include_once("model/PageModel.php");

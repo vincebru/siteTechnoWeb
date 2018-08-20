@@ -1,6 +1,11 @@
 <?php
 
-class Role{
+class Role extends DTO{
+
+	static protected $tableName="role";
+	static protected $colId="role_id";
+	static protected $isAdminRequestable=true;
+
 	private $id;
 	private $code;
 	private $name;
@@ -11,10 +16,11 @@ class Role{
 	}
 
 	public function constructFromValue($id,$code, $name){
-
 		$this->id=$id;
 		$this->code=$code;
 		$this->name=$name;
+		$this->tableName="role";
+		$this->colId="role_id";
 	}
 
 	public function getId()

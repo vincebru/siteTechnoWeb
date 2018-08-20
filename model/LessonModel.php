@@ -42,7 +42,7 @@ class LessonModel{
 	
 	public static function getLessonWithPages($lessonCode){
 		$bdd = Database::getDb();		
-		$request = "select lesson.element_id as lesson_id, lesson.code, lesson.title"
+		$request = "select lesson.element_id, lesson.code, lesson.title"
 			." from element lesson"
 			." where lesson.type='".Element::TYPE_LESSON."' and code=:code";
 
@@ -60,7 +60,7 @@ class LessonModel{
 
 	private static function getPagesListForLesson($lessonId){
 		$bdd = Database::getDb();		
-		$request = "select p.element_id as page_id, p.*,lp.rank"
+		$request = "select p.element_id, p.*,lp.rank"
 			." from element p join element_element lp on p.element_id=lp.child_id "
 		 	." where p.type='".Element::TYPE_PAGE."' and lp.parent_id=:id";
 

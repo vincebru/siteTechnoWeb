@@ -15,7 +15,7 @@ Element
 lesson/page/paragraph/form(tjs post)/
 
 lien + label
-img + width+height
+img + width+height + label (alt)
 title + level
 input(texte) + label
 

@@ -41,3 +41,10 @@ sur http://localhost:8000/index.php?menu=admin&page=adminPage
   - permettre le choix d'un groupe
 
  ....
+
+
+ GET:    retreive data
+ POST:   submit to create object
+ PUT:    NO PUT
+ DELETE: delete an object
+ PATCH:  update object data but not the children

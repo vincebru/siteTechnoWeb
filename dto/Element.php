@@ -48,45 +48,42 @@ abstract class Element extends DTO{
 
 	public function getId()
 	{
-	    return $this->id;
+		return $this->id;
 	}
-	 
 	public function setId($id)
 	{
-	    $this->id = $id;
-	    return $this;
+		$this->id = $id;
+		return $this;
 	}
 
 	public function getType()
 	{
-	    return $this->type;
+		return $this->type;
 	}
-	 
 	public function setType($type)
 	{
-	    $this->type = $type;
-	    return $this;
+		$this->type = $type;
+		return $this;
 	}
 
 	public function getCode()
 	{
-	    return $this->code;
+		return $this->code;
 	}
-	 
 	public function setCode($code)
 	{
-	    $this->code = $code;
-	    return $this;
+		$this->code = $code;
+		return $this;
 	}
+
 	public function getTitle()
 	{
-	    return $this->title;
+		return $this->title;
 	}
-	 
 	public function setTitle($title)
 	{
-	    $this->title = $title;
-	    return $this;
+		$this->title = $title;
+		return $this;
 	}
 
 	public function addSubElement($subElement){

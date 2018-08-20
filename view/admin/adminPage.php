@@ -72,9 +72,9 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 						</button>
 					</div>
 					<div class="modal-body">
-						<div class="alert alert-warning alert-dismissible fade" role="alert">
+						<div class="alert alert-warning alert-dismissible fade show d-none" role="alert">
 							<strong>Something went wrong!</strong> Fail to save the new page.
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<button type="button" class="close" data-hide="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -105,15 +105,18 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 						</button>
 					</div>
 					<div class="modal-body">
+						<div class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+							<strong>Something went wrong!</strong> Fail to save the new page.
+							<button type="button" class="close" data-hide="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 						<form>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label" for="editPageTitle">Title</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="editPageTitle" placeholder="Title"/>
 								</div>
-							</div>
-							<div class="form-group">
-								<textarea class="form-control" id="editPageContent" placeholder="Content" rows="6"></textarea >
 							</div>
 						</form>
 					</div>
@@ -135,6 +138,12 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 						</button>
 					</div>
 					<div class="modal-body">
+						<div class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+							<strong>Something went wrong!</strong> Fail to save the new page.
+							<button type="button" class="close" data-hide="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 						<p>Remove the page?</p>
 					</div>
 					<div class="modal-footer">

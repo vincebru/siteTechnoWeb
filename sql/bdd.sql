@@ -38,14 +38,27 @@ CREATE TABLE `element` (
 
 LOCK TABLES `element` WRITE;
 /*!40000 ALTER TABLE `element` DISABLE KEYS */;
-INSERT INTO `element` VALUES (1,'PAGE','html1','html part 1'),
-    (2,'PAGE','html2','html part 2'),
-    (3,'MENU','lessons','Lessons'),
-    (4,'MENU','exercice','Exercices'),
-    (5,'LESSON','html','html'),
-    (6,'LESSON','css','css'),
-    (7,'LESSON','php','php'),
-    (8,'LESSON','database','database');
+INSERT INTO `element` 
+VALUES 
+    (1,'PAGE','html1','html part 1', 'Part 1'),
+    (2,'PAGE','html2','html part 2', 'Part 2'),
+    (3,'MENU','lessons','Lessons', 'Lessons'),
+    (4,'MENU','exercice','Exercices', 'Exercices'),
+    (5,'LESSON','html','html', 'HTML'),
+    (6,'LESSON','css','css', 'CSS'),
+    (7,'LESSON','php','php', 'PHP'),
+    (8,'LESSON','database','database', 'Database'),
+    (9,'TITLE','client_server','client / server', 'Client / Server'),
+    (10,'PARAGRAPH','blabla','blabla', 'Amet tempor mollit aliquip pariatur excepteur commodo do ea cillum commodo Lorem et occaecat elit qui et. Aliquip labore ex ex esse voluptate occaecat Lorem ullamco deserunt. Aliqua cillum excepteur irure consequat id quis ea. Sit proident ullamco aute magna pariatur nostrud labore. Reprehenderit aliqua commodo eiusmod aliquip est do duis amet proident magna consectetur consequat eu commodo fugiat non quis. Enim aliquip exercitation ullamco adipisicing voluptate excepteur minim exercitation minim minim commodo adipisicing exercitation officia nisi adipisicing. Anim id duis qui consequat labore adipisicing sint dolor elit cillum anim et fugiat.'),
+    (11,'TITLE','file_structure','file structure', 'File structure'),
+    (12,'PARAGRAPH','bleble','bleble', 'Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum nisi sit est tempor laborum mollit labore officia laborum excepteur commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur ipsum commodo tempor sunt in proident.'),
+    (13,'LINK','all_tags','all tags', 'All TAGS'),
+    (14,'TITLE','welcome','welcome page', 'Welcome page'),
+    (15,'IMAGE','welcome_image','welcome image', 'Welcome image'),
+    (16,'TITLE','yours','yours', 'Your production'),
+    (17,'FORM','yours_form','yours form', 'index.php?action=saveForm&lesson=html&page=html1'),
+    (18,'INPUT','github_link','github link', 'Github Link')
+    ;
 /*!40000 ALTER TABLE `element` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +83,7 @@ CREATE TABLE `element_element` (
 
 LOCK TABLES `element_element` WRITE;
 /*!40000 ALTER TABLE `element_element` DISABLE KEYS */;
-INSERT INTO `element_element` VALUES (3,5,1),(3,6,2),(3,7,3),(3,8,4),(5,1,1),(5,2,2);
+INSERT INTO `element_element` VALUES (3,5,1),(3,6,2),(3,7,3),(3,8,4),(5,1,1),(5,2,2),(1,1,9),(1,2,10),(1,3,11),(1,4,12),(1,5,13),(1,6,14),(1,7,15),(1,8,16),(1,9,17),(1,10,18);
 /*!40000 ALTER TABLE `element_element` ENABLE KEYS */;
 UNLOCK TABLES;
 

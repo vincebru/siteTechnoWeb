@@ -8,7 +8,7 @@ class LessonModel{
 
 	public static function getAllLessonsForMenu($menu,$sessionGroupId,$lesson){
 		$bdd = Database::getDb();		
-		$request = "select lesson.code, lesson.title from element lesson";
+		$request = "select lesson.code, lesson.title, menu_lesson.rank from element lesson";
 
 		if (isset($sessionGroupId)){
 			$request.=" join lesson_session_group on lesson.element_id=lesson_session_group.lesson_id";
@@ -16,7 +16,8 @@ class LessonModel{
 
 		$request.=" join element_element menu_lesson on lesson.element_id=menu_lesson.child_id"
 			." join element menu on menu.element_id=menu_lesson.parent_id"
-			." where menu.type='".Element::TYPE_MENU."' and lesson.type='".Element::TYPE_LESSON."' and menu.code=:menu";
+			." where menu.type='".Element::TYPE_MENU."' and lesson.type='".Element::TYPE_LESSON
+			."' and menu.code=:menu";
 		$param=array('menu'=>$menu);
 
 		if (isset($sessionGroupId)){
@@ -42,8 +43,9 @@ class LessonModel{
 	
 	public static function getLessonWithPages($lessonCode){
 		$bdd = Database::getDb();		
-		$request = "select lesson.element_id, lesson.code, lesson.title"
+		$request = "select lesson.element_id, lesson.code, lesson.title, element_element.rank "
 			." from element lesson"
+			." join element_element on lesson.element_id=element_element.child_id"
 			." where lesson.type='".Element::TYPE_LESSON."' and code=:code";
 
 		$preparedRequest = $bdd->prepare($request);

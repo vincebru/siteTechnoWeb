@@ -1,11 +1,11 @@
 <?php
-class FormView extends Element {
+class TableCellView extends Element {
 
     protected function render(){
         ?>
-        <form action="<?php echo $this->getContent(); ?>" method="post">
+        <div class="col-<?php echo $this->getSpan(); ?>">
         <?php echo $this->renderChildren(); ?>
-        </form>
+        </div>
         <?php
     }
 

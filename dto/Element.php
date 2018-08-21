@@ -12,6 +12,9 @@ abstract class Element extends DTO{
 	const TYPE_IMAGE='Image';
 	const TYPE_TITLE='Title';
 	const TYPE_INPUT='Input';
+	const TYPE_TABLE='Table';
+	const TYPE_TABLE_ROW='TableRow';
+	const TYPE_TABLE_CELL='TableCell';
 
 	static protected $tableName="element";
 	static protected $colId="element_id";

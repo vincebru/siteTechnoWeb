@@ -1,5 +1,16 @@
-<?php echo $this->type;
+<?php
+class TitleView extends Element {
 
-foreach($this->getSubElements() as $subElement){
-	$subElement->getHtml();
+    protected function render(){
+        ?>
+        <h<? echo $this->element.getLevel(); ?>><? echo $this->element.getContent(); ?></h<? echo $this->element.getLevel(); ?>>
+        <?php
+    }
+    
+
+    protected function renderOutline(){
+        ?>
+        <a class="nav-link" href="#title-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getTitle(); ?></a>
+        <?php
+    }
 }

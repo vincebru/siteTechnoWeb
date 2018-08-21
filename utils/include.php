@@ -22,7 +22,22 @@ include_once("dto/elements/Image.php");
 include_once("dto/elements/Input.php");
 include_once("dto/elements/Link.php");
 include_once("dto/elements/Title.php");
+include_once("dto/elements/Table.php");
+include_once("dto/elements/TableRow.php");
+include_once("dto/elements/TableCell.php");
 
+include_once("view/model/Element.php");
+include_once("view/model/ParagraphView.php");
+include_once("view/model/LessonView.php");
+include_once("view/model/PageView.php");
+include_once("view/model/FormView.php");
+include_once("view/model/ImageView.php");
+include_once("view/model/InputInput.php");
+include_once("view/model/LinkView.php");
+include_once("view/model/TitleView.php");
+include_once("view/model/TableView.php");
+include_once("view/model/TableRowView.php");
+include_once("view/model/TableCellView.php");
 
 //include model
 include_once("model/GlobalModel.php");

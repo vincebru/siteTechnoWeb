@@ -1,5 +1,5 @@
 <?php
-class InputView extends Element {
+class InputView extends ElementView {
 
     protected function render(){
         ?>

@@ -1,5 +1,5 @@
 <?php
-class TableCellView extends Element {
+class TableCellView extends ElementView {
 
     protected function render(){
         ?>

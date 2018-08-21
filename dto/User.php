@@ -4,7 +4,7 @@ class User extends DTO{
 
 	static protected $tableName="user";
 	static protected $colId="user_id";
-	static protected $isAdminRequestable=true;
+	static protected $isAdminUptable=true;
 
 	private $id;
 	private $login;

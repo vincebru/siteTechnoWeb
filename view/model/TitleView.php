@@ -1,5 +1,5 @@
 <?php
-class TitleView extends Element {
+class TitleView extends ElementView {
 
     protected function render(){
         ?>

@@ -19,7 +19,7 @@ abstract class Element extends DTO{
 	static protected $tableName="element";
 	static protected $colId="element_id";
 	static protected $colType;
-	static protected $isAdminRequestable=true;
+	static protected $isAdminUptable=true;
 
 	private $id;
 	private $type;
@@ -47,9 +47,19 @@ abstract class Element extends DTO{
 		return "select * from ".static::$tableName." e join element_element on e.".static::$colId.
 			"=element_element.child_id where parent_id=:id";
 	}
+
+	public static function getInsertRequests(){
+		return array("insert into element (type, content) values (:object,:content)",
+			"insert into element_element (parent_id,child_id,rank) values (:parent_id,:id,:rank)");
+	}
 	
 	public function getHtml(){
-		include "view/model/".$this->type."View.php";
+		echo $this->id;
+	echo $this->type;
+	echo $this->content;
+	echo $this->subElements;
+	echo $this->position;
+		//include "view/model/".$this->type."View.php";
 	}
 
 	public function getId()

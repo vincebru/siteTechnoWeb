@@ -1,5 +1,5 @@
 <?php
-abstract class Element {
+abstract class ElementView {
 
     private $element;
 

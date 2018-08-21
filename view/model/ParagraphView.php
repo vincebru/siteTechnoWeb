@@ -1,5 +1,5 @@
 <?php
-class ParagraphView extends Element {
+class ParagraphView extends ElementView {
 
     protected function render(){
         ?>

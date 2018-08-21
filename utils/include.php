@@ -26,7 +26,7 @@ include_once("dto/elements/Table.php");
 include_once("dto/elements/TableRow.php");
 include_once("dto/elements/TableCell.php");
 
-include_once("view/model/Element.php");
+include_once("view/model/ElementView.php");
 include_once("view/model/ParagraphView.php");
 include_once("view/model/LessonView.php");
 include_once("view/model/PageView.php");

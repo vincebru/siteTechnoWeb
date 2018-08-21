@@ -1,5 +1,5 @@
 <?php
-class PageView extends Element {
+class PageView extends ElementView {
 
     protected function render(){
         ?>

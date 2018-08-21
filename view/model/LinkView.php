@@ -1,5 +1,5 @@
 <?php
-class LinkView extends Element {
+class LinkView extends ElementView {
 
     protected function render(){
         ?>

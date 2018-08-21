@@ -1,5 +1,5 @@
 <?php
-class FormView extends Element {
+class FormView extends ElementView {
 
     protected function render(){
         ?>

@@ -1,5 +1,7 @@
 <?php
 
+
+
 // get action/page requested
 $menu=null;
 if (isset($_GET['menu'])) {
@@ -8,6 +10,13 @@ if (isset($_GET['menu'])) {
 $page = "main";
 if (isset($_GET['page'])) {
 	$page = $_GET['page'];
+}
+
+include('init.php');
+
+//control page access
+if (!RoleModel::isAllowed($menu, $page)) {
+	$pagePath='notAllowed';
 }
 
 include('manageAction.php');

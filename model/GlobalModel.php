@@ -23,4 +23,42 @@ class GlobalModel{
 		}
 		return $result;
 	}
+
+	private static function extractUsefullValueForInsert($request,$array){
+		$list=split(':',$request);
+		$paramList=array();
+		for ($i=1; $i < count($list); $i++) { 
+			//skip first element because it's insert command
+			$list2=split(",",$list[$i]);
+			$list3=split(")",$list2[0]);
+			$paramList[$list3[0]]=$array[$list3[0]];
+		}
+		return $paramList;
+	}
+
+	public static function createInstance($class,$data){
+		$bdd = Database::getDb();
+		$requests = $class::getInsertRequests();
+		$id;
+		foreach ($requests as $request) {	
+			$req = $bdd->prepare($request);
+
+			$usefulData = self::extractUsefullValueForInsert($request,$data);
+
+		 	$req->execute($usefulData);
+
+			if (!isset($id)){
+				$id=$bdd->lastInsertId();
+				$data['id']=$id;
+			}
+		}
+		return $id;
+	}
+
+	public static function isUpdateAllowed($class){
+		if (Usermodel::isAdminConnectedUser()){
+			return $class::isAdminUptable();
+		}
+		return $class::isUptable();
+	}
 }

@@ -1,15 +1,15 @@
 <?php
-class FormView extends Element {
+class TableView extends Element {
 
     protected function render(){
         ?>
-        <form action="<?php echo $this->getContent(); ?>" method="post">
+        <div class="container-fluid">
         <?php echo $this->renderChildren(); ?>
-        </form>
+        </div>
         <?php
     }
 
     protected function renderOutline(){
-        return "";
+       return "";
     }
 }

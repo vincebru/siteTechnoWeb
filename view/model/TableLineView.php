@@ -1,9 +1,11 @@
 <?php
-class LinkView extends Element {
+class TableLineView extends Element {
 
     protected function render(){
         ?>
-        <a href="<? echo $this->element.getContent(); ?>"><? echo $this->element.getLabel(); ?></a>
+        <div class="row">
+        <?php echo $this->renderChildren(); ?>
+        </div>
         <?php
     }
 

@@ -27,7 +27,7 @@ $(document).ready(function () {
         $.ajax({
             url: "ajax.php",
             method: "POST",
-            data: { page: "admin", action: "page", title : pageTitle },
+            data: { object: "Page", content : pageTitle },
             dataType: "json"
         }).done(function( msg ) {
             $('#addPageModal').modal('toggle');
@@ -44,7 +44,7 @@ $(document).ready(function () {
         $.ajax({
             url: "ajax.php",
             method: "DELETE",
-            data: { page: "admin", action: "page", id: pageId },
+            data: { object: "Page", id: pageId },
             dataType: "json"
         }).done(function( msg ) {
             $('#removePageModal').modal('toggle');
@@ -62,7 +62,7 @@ $(document).ready(function () {
         $.ajax({
             url: "ajax.php",
             method: "PATCH",
-            data: { page: "admin", action: "page", id: pageId, title: pageTitle },
+            data: { object: "Page", id: pageId, content: pageTitle },
             dataType: "json"
         }).done(function( msg ) {
             $('#editPageModal').modal('toggle');

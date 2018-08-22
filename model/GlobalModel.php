@@ -25,13 +25,21 @@ class GlobalModel{
 	}
 
 	private static function extractUsefullValueForInsert($request,$array){
-		$list=split(':',$request);
+		// $request format:
+		// insert.....(...)values (:var1 ,:var2 )....
+		$split1=split(':',$request);
+		// $split1 [0]: insert.....(...)values (
+		// $split1 [1]: var1 ,
+		// $split1 [2]: var2 )....
 		$paramList=array();
-		for ($i=1; $i < count($list); $i++) { 
-			//skip first element because it's insert command
-			$list2=split(",",$list[$i]);
-			$list3=split(")",$list2[0]);
-			$paramList[$list3[0]]=$array[$list3[0]];
+		for ($i=1; $i < count($split1); $i++) { 
+			//skip first element because it's insert command (insert.....(...)values ()
+			$split2=split(",",$split1[$i]);
+			//$split2[0]: var1  or var2 )....
+			$split3=split(")",$split2[0]);
+			//$split3[0]: var1  or var2 
+			$varName=trim($split3[0]);
+			$paramList[$varName]=$array[$varName];
 		}
 		return $paramList;
 	}

@@ -39,8 +39,10 @@ abstract class Element extends DTO{
 		$this->position=$position;
 	}
 	public static function getRequestById(){
-		return "select * from ".static::$tableName." where ".
-			static::$colId."=:id and type='".static::$colType."'";
+		return "select e.*, link.rank from ".static::$tableName.
+			" e join element_element link on e.element_id=link.child_id".
+			" where e.".
+			static::$colId."=:id and e.type='".static::$colType."'";
 	}
 
 	public static function getRequestSubElementById(){

@@ -2,7 +2,6 @@
 
 //include utils
 include_once("log.php");
-include_once("utils/Database.php");
 
 //include dto
 
@@ -32,11 +31,11 @@ include_once("view/model/LessonView.php");
 include_once("view/model/PageView.php");
 include_once("view/model/FormView.php");
 include_once("view/model/ImageView.php");
-include_once("view/model/InputInput.php");
+include_once("view/model/InputView.php");
 include_once("view/model/LinkView.php");
 include_once("view/model/TitleView.php");
 include_once("view/model/TableView.php");
-include_once("view/model/TableRowView.php");
+include_once("view/model/TableLineView.php");
 include_once("view/model/TableCellView.php");
 
 //include model

@@ -46,7 +46,9 @@ function debugToConsole( $data ) {
     $output = $data;
     if ( is_array( $output ) ){
         $output = implode( ',', $output);
-    }
+	}
+	
+	$output = str_replace("'", "\'", $output);
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }

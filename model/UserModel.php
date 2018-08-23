@@ -97,13 +97,14 @@ class UserModel{
 			." join role r on r.role_id=u.role_id"
 			." where u.login=:login"
 			." and u.password=:pwd";
+
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute(array('login'=>$login,'pwd'=>User::cryptPassword($password)));
 		
 		if($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
 			return new User($data);
 		}
-		return "";
+		return null;
 	}
 
 	/*

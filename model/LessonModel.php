@@ -6,7 +6,7 @@ class LessonModel{
 		return count(self::getAllLessonsForMenu($menu,$sessionGroupId, $lesson))>0;		
 	}
 
-	public static function getAllLessonsForMenu($menu,$sessionGroupId,$lesson){
+	public static function getAllLessonsForMenu($menu, $sessionGroupId, $lesson){
 		$bdd = Database::getDb();		
 		$request = "select lesson.element_id, lesson.content, menu_lesson.rank from element lesson";
 
@@ -29,8 +29,6 @@ class LessonModel{
 			$request.=" and lesson.code=:lesson";
 			$param['lesson']=$lesson;
 		}
-
-		logDebug("Request: '".$request."'.");
 
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute($param);

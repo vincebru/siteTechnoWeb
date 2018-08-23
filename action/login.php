@@ -21,5 +21,10 @@ if($loginMessage==""){
 		$page="main";
 	} else {
 		$loginMessage = "Bad Login or Password";
+		$pagePath="error";
+		$page=$pagePath;
 	}
+}else{
+	$pagePath="error";
+	$page=$pagePath;
 }

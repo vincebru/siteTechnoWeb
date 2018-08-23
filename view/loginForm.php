@@ -5,7 +5,7 @@ if(isset($loginMessage) && $loginMessage!=""){
 ?>
 
 <form class="form-inline my-2 my-lg-0" id="loginForm" action="index.php?page=login" method="POST">
-	<input class="form-control form-control-sm mr-sm-2" type="text" name="login" placeholder="login" aria-label="login" value="<?php echo(isset($login)?$login:"")?>"/>
-	<input class="form-control form-control-sm mr-sm-2" type="password" name="password" placeholder="password" />
+	<input class="form-control form-control-sm mr-sm-2" type="text" name="login" autocomplete="username" placeholder="login" aria-label="login" value="<?php echo(isset($login)?$login:"")?>"/>
+	<input class="form-control form-control-sm mr-sm-2" type="password" name="password" autocomplete="current-password" placeholder="password" />
 	<button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit" value="Login">Login</button>
 </form>

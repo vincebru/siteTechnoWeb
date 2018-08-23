@@ -7,11 +7,8 @@ class TableCell extends Element{
 	private $span;
 
 	function __construct($data){
-		self::constructFromValue($data['element_id'],$data['code'],$data['title'],$data['rank']);
-	}
-
-	public function constructFromValue($id,$code, $title, $position){
-		parent::__construct($id,Element::TYPE_FORM,$code, $title, $position);
+		self::constructFromValue($data['element_id'],$data['content'],$data['position']);
+		$this->span = $data['span'];
 	}
 
 	public function getSpan()

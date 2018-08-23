@@ -35,8 +35,6 @@ class User extends DTO{
 		$this->role=$role;
 		$this->sessionGroupId=$sessionGroupId;
 		$this->workGroupId=$workGroupId;
-		$this->tableName="user";
-		$this->colId="user_id";
 	}
 
 	public function getId()

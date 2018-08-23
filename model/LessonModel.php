@@ -29,6 +29,9 @@ class LessonModel{
 			$request.=" and lesson.code=:lesson";
 			$param['lesson']=$lesson;
 		}
+
+		logDebug("Request: '".$request."'.");
+
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute($param);
 		

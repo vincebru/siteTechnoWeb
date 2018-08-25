@@ -4,34 +4,20 @@ class Image extends Element{
 
 	static protected $colType=Element::TYPE_IMAGE;
 
-	private $width;
-	private $height;
+	static protected $width='width';
+	static protected $height='height';
+
+	protected static $complementTableName='image';
+
+	static protected function complementPropertyNameList (){
+		return array(static::$width, static::$height);
+	}
+
+	static protected function propertyNameList (){
+		return array_merge(parent::propertyNameList(), static::complementPropertyNameList());
+	}
 
 	function __construct($data){
-		self::constructFromValue($data['element_id'],$data['content'],$data['position']);
-		$this->width = $data['width'];
-		$this->height = $data['height'];
-	}
-
-	public function getWidth()
-	{
-	    return $this->width;
-	}
-	 
-	public function setWidth($width)
-	{
-	    $this->width = $width;
-	    return $this;
-	}
-
-	public function getHeight()
-	{
-	    return $this->height;
-	}
-	 
-	public function setHeight($height)
-	{
-	    $this->height = $height;
-	    return $this;
+		parent::__construct($data);
 	}
 }

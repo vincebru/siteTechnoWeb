@@ -26,6 +26,8 @@ CREATE TABLE `element` (
   `element_id` int(3) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `content` text,
+  `parent_id` int(3)  NULL,
+  `rank` int(9)  NULL,
   PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,33 +38,25 @@ CREATE TABLE `element` (
 
 LOCK TABLES `element` WRITE;
 /*!40000 ALTER TABLE `element` DISABLE KEYS */;
-INSERT INTO `element` VALUES (1,'Page','Part 1'),(2,'Page','Part 2'),(3,'Menu','Lessons'),(4,'Menu','Exercices'),(5,'Lesson','HTML'),(6,'Lesson','CSS'),(7,'Lesson','PHP'),(8,'Lesson','Database'),(9,'Title','Client / Server'),(10,'Paragaph','Amet tempor mollit aliquip pariatur excepteur commodo do ea cillum commodo Lorem et occaecat elit qui et. Aliquip labore ex ex esse voluptate occaecat Lorem ullamco deserunt. Aliqua cillum excepteur irure consequat id quis ea. Sit proident ullamco aute magna pariatur nostrud labore. Reprehenderit aliqua commodo eiusmod aliquip est do duis amet proident magna consectetur consequat eu commodo fugiat non quis. Enim aliquip exercitation ullamco adipisicing voluptate excepteur minim exercitation minim minim commodo adipisicing exercitation officia nisi adipisicing. Anim id duis qui consequat labore adipisicing sint dolor elit cillum anim et fugiat.'),(11,'Title','File structure'),(12,'Paragraph','Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum nisi sit est tempor laborum mollit labore officia laborum excepteur commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur ipsum commodo tempor sunt in proident.'),(13,'Link','All TAGS'),(14,'Title','Welcome page'),(15,'Image','Welcome image'),(16,'Title','Your production'),(17,'Form','index.php?action=saveForm&lesson=html&page=html1'),(18,'Input','Github Link');
+INSERT INTO `element` VALUES (1,'Page','Part 1',5,1),
+(2,'Page','Part 2',5,2),
+(3,'Menu','Lessons',null,null),
+(4,'Menu','Exercices',null,null),
+(5,'Lesson','HTML',3,1),
+(6,'Lesson','CSS',3,2),
+(7,'Lesson','PHP',3,3),
+(8,'Lesson','Database',3,4),
+(9,'Title','Client / Server',1,1),
+(10,'Paragaph','Amet tempor mollit aliquip pariatur excepteur commodo do ea cillum commodo Lorem et occaecat elit qui et. Aliquip labore ex ex esse voluptate occaecat Lorem ullamco deserunt. Aliqua cillum excepteur irure consequat id quis ea. Sit proident ullamco aute magna pariatur nostrud labore. Reprehenderit aliqua commodo eiusmod aliquip est do duis amet proident magna consectetur consequat eu commodo fugiat non quis. Enim aliquip exercitation ullamco adipisicing voluptate excepteur minim exercitation minim minim commodo adipisicing exercitation officia nisi adipisicing. Anim id duis qui consequat labore adipisicing sint dolor elit cillum anim et fugiat.',1,2),
+(11,'Title','File structure',1,3),
+(12,'Paragraph','Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum nisi sit est tempor laborum mollit labore officia laborum excepteur commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur ipsum commodo tempor sunt in proident.',1,4),
+(13,'Link','All TAGS',1,5),
+(14,'Title','Welcome page',1,6),
+(15,'Image','Welcome image',1,7),
+(16,'Title','Your production',1,8),
+(17,'Form','index.php?action=saveForm&lesson=html&page=html1',1,9),
+(18,'Input','Github Link',1,10);
 /*!40000 ALTER TABLE `element` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `element_element`
---
-
-DROP TABLE IF EXISTS `element_element`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `element_element` (
-  `parent_id` int(3) NOT NULL,
-  `child_id` int(3) NOT NULL,
-  `rank` int(9) NOT NULL,
-  PRIMARY KEY (`parent_id`,`child_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `element_element`
---
-
-LOCK TABLES `element_element` WRITE;
-/*!40000 ALTER TABLE `element_element` DISABLE KEYS */;
-INSERT INTO `element_element` VALUES (1,1,9),(1,2,10),(1,3,11),(1,4,12),(1,5,13),(1,6,14),(1,7,15),(1,8,16),(1,9,17),(1,10,18),(3,5,1),(3,6,2),(3,7,3),(3,8,4),(5,1,1),(5,2,2);
-/*!40000 ALTER TABLE `element_element` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -90,27 +84,28 @@ INSERT INTO `lesson_session_group` VALUES (5,1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `menu`
+-- Table structure for table `image`
 --
 
-DROP TABLE IF EXISTS `menu`;
+DROP TABLE IF EXISTS `image`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `menu` (
+CREATE TABLE `image` (
   `element_id` int(3) NOT NULL,
-  `code` varchar(100) NOT NULL,
+  `width` varchar(100) NOT NULL,
+  `height` varchar(100) NOT NULL,
   PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `menu`
+-- Dumping data for table `image`
 --
 
-LOCK TABLES `menu` WRITE;
-/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (3,'Lessons'),(4,'Exercices');
-/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+LOCK TABLES `image` WRITE;
+/*!40000 ALTER TABLE `image` DISABLE KEYS */;
+INSERT INTO `image` VALUES (15,'12','25');
+/*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

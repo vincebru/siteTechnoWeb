@@ -1,4 +1,6 @@
 <?php
 
 $result = GlobalModel::getInstance($object,$id);
-$result->getHtml();
+echo('<pre>');
+var_dump($result);
+//$result->getHtml();

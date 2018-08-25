@@ -17,72 +17,48 @@ abstract class Element extends DTO{
 	const TYPE_TABLE_CELL='TableCell';
 
 	static protected $tableName="element";
-	static protected $colId="element_id";
 	static protected $colType;
 	static protected $isAdminUptable=true;
 
-	private $id;
-	private $type;
-	private $content;
-	private $subElements;
-	private $position;
+	static protected $id='element_id';
+	static protected $type='type';
+	static protected $content='content';
+	static protected $position='rank';
+
+	static protected function propertyNameList (){
+		return array(static::$id,
+			static::$type, 
+			static::$content, 
+			static::$position);
+	}
+
+	private static $subElements;
 	
 
 	function __construct($data){
-		self::constructFromValue($data['element_id'], $data['content'], $data['rank']);
+		$data[static::$type]=static::$colType;
+		parent::__construct($data);
 	}
 
-	public function constructFromValue($id, $content, $position){
-		$this->id=$id;
-		$this->type=static::$colType;
-		$this->content=$content;
-		$this->position=$position;
-	}
 	public static function getRequestById(){
-		return "select e.*, link.rank from ".static::$tableName.
-			" e join element_element link on e.element_id=link.child_id".
-			" where e.".
-			static::$colId."=:id and e.type='".static::$colType."'";
+		return "select * from ".static::$tableName.
+			" where ".
+			static::$id."=:id and type='".static::$colType."'";
 	}
 
 	public static function getRequestSubElementById(){
-		return "select * from ".static::$tableName." e join element_element on e.".static::$colId.
-			"=element_element.child_id where parent_id=:id";
+		return "select * from ".static::$tableName." where parent_id=:id";
 	}
 
 	public static function getInsertRequests(){
-		return array("insert into element (type, content) values (:object,:content)",
-			"insert into element_element (parent_id,child_id,rank) values (:parent_id,:id,:rank)");
-	}
-	
-	public function getHtml(){
-		echo $this->id;
-	echo $this->type;
-	echo $this->content;
-	echo $this->subElements;
-	echo $this->position;
-		//include "view/model/".$this->type."View.php";
+		return array("insert into ".static::$tableName." (type, content, parent_id,rank) ".
+			"values (:object,:content,:parent_id,:rank)");
 	}
 
-	public function getId()
-	{
-		return $this->id;
-	}
-	public function setId($id)
-	{
-		$this->id = $id;
-		return $this;
+	public static function getPatchrequest(){
+		return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 	}
 
-	public function getType()
-	{
-		return $this->type;
-	}
-	public function setType($type)
-	{
-		$this->type = $type;
-		return $this;
-	}
 
 	public function addSubElement($subElement){
 		if (!isset($this->subElements)){
@@ -98,27 +74,5 @@ abstract class Element extends DTO{
 		}
 	    return $this->subElements;
 	}
-	 
-	 public function getPosition()
-	 {
-	     return $this->position;
-	 }
-	  
-	 public function setPosition($position)
-	 {
-	     $this->position = $position;
-	     return $this;
-	 }
-
-	 public function getContent()
-	 {
-	     return $this->content;
-	 }
-	  
-	 public function setContent($content)
-	 {
-	     $this->content = $content;
-	     return $this;
-	 }
 
 }

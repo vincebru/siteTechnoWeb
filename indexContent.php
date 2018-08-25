@@ -32,6 +32,7 @@
 	$viewFile="view/".$pagePath.".php";
 	if (!file_exists($viewFile)){
 		$pagePath="Main";
+		$viewFile="view/".$pagePath.".php";
 		logDebug($viewFile." doesn't exist, so the main view will be loaded");
 	}
 	logDebug("load ".$pagePath." view.");

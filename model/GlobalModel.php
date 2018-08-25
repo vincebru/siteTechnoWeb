@@ -39,12 +39,38 @@ class GlobalModel{
 			$split3=split(")",$split2[0]);
 			//$split3[0]: var1  or var2 
 			$varName=trim($split3[0]);
+			if (!isset($array[$varName])){
+				throw new Exception("Error: Missing property ".$varName);
+				
+			}
 			$paramList[$varName]=$array[$varName];
 		}
 		return $paramList;
 	}
 
 	public static function createInstance($class,$data){
+		$bdd = Database::getDb();
+		$requests = $class::getInsertRequests();
+		$id;
+		foreach ($requests as $request) {	
+			$req = $bdd->prepare($request);
+
+			$usefulData = self::extractUsefullValueForInsert($request,$data);
+
+		 	$req->execute($usefulData);
+
+			if (!isset($id)){
+				$id=$bdd->lastInsertId();
+				$data['id']=$id;
+			}
+		}
+		return $id;
+	}
+
+	public static function patchInstance($class,$data){
+		$elementToPatch = static::getInstance($class,$data['id']);
+		$elementToPatch->patch($data);
+
 		$bdd = Database::getDb();
 		$requests = $class::getInsertRequests();
 		$id;

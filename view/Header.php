@@ -12,7 +12,7 @@ class Header{
 	}
 
 	public function getHtml(){
-		if ($this->page == "newAccount"){
+		if ($this->page == "NewAccount"){
 			?>
 			<header>
 				<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -51,13 +51,19 @@ class Header{
 					<?php 
 					if (!UserModel::isConnected()){
 						logDebug("user not connected");
-						include("view/createAccount.php");
-						include("view/loginForm.php");
+
+						$createAccount = new CreateAccount(array());
+						$createAccount->getHtml();
+
+						$loginForm = new LoginForm(array());
+						$loginForm->getHtml();
 					} else {
 						logDebug("user connected");
 						echo "welcome ";
 						echo UserModel::getCurrentUserName();
-						include("view/logoutForm.php");
+
+						$logoutForm = new LogoutForm(array());
+						$logoutForm->getHtml();
 					} ?>
 				</div>
 			</nav>

@@ -25,6 +25,17 @@ include_once("dto/elements/Table.php");
 include_once("dto/elements/TableRow.php");
 include_once("dto/elements/TableCell.php");
 
+include_once("view/AbstractView.php");
+include_once("view/Contact.php");
+include_once("view/CreateAccount.php");
+include_once("view/Error.php");
+include_once("view/LogoutForm.php");
+include_once("view/LoginForm.php");
+include_once("view/Main.php");
+include_once("view/NotAllowed.php");
+include_once("view/NewAccount.php");
+include_once("view/Results.php");
+
 include_once("view/model/ElementView.php");
 include_once("view/model/ParagraphView.php");
 include_once("view/model/LessonView.php");

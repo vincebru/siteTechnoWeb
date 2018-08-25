@@ -3,39 +3,46 @@
 	$menu=null;
 	if (isset($_GET['menu'])) {
 		$menu = $_GET['menu'];
+	} else if (isset($_POST['menu'])) {
+		$menu = $_POST['menu'];
 	}
-	$page = "main";
+
+	$page = "Main";
 	if (isset($_GET['page'])) {
 		$page = $_GET['page'];
+	} else if (isset($_POST['page'])) {
+		$page = $_POST['page'];
 	}
 
 	include('init.php');
+	$args = array();
 
 	//control page access
 	if (!RoleModel::isAllowed($menu, $page)) {
-		$pagePath='notAllowed';
+		$pagePath='NotAllowed';
 	}
 
 	try{
 		include('manageAction.php');
 	} catch (Exception $e) {
 		logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
-		$pagePath = "main";
+		$pagePath = "Main";
 	}	
-
 
 	$viewFile="view/".$pagePath.".php";
 	if (!file_exists($viewFile)){
-		$pagePath="main";
+		$pagePath="Main";
 		logDebug($viewFile." doesn't exist, so the main view will be loaded");
 	}
 	logDebug("load ".$pagePath." view.");
 
 	$header = new Header($page);
+	$view = new $pagePath($args);
+	logDebug('$view status: '.$view->getStatus() . '.');
 
-	$cssToInclude = array("common");
+	$cssToInclude = array('common');
 	$cssToInclude = array_merge($cssToInclude,$header->getCssFile());
-	if (isset($menu) && file_exists("css/".$menu.".css")){
+	if (isset($menu) && file_exists('css/' . $menu . '.css')){
 		$cssToInclude = array_merge($cssToInclude,array($menu));
 	}
 
@@ -67,7 +74,8 @@
 			<section class="container-fluid">
 			<?php
 				// load content view file
-				include("view/".$pagePath.".php");
+				$view->getHtml();
+				//include("view/".$pagePath.".php");
 			?>
 			</section>
 			<!-- Optional JavaScript -->

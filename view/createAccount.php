@@ -1,4 +1,11 @@
-<form class="form-inline my-2 mr-2 my-lg-0" id="creteAccountForm" action="index.php" method="GET">
-	<input type="hidden" name="page" value="newAccount" />
-	<button class="btn btn-sm btn-success my-2 my-sm-0" type="submit">Create account</button>
-</form>
+<?php
+class CreateAccount extends AbstractView {
+    public function getHtml(){
+    ?>
+	<form class="form-inline my-2 mr-2 my-lg-0" id="createAccountForm" action="index.php" method="GET">
+		<input type="hidden" name="page" value="NewAccount" />
+		<button class="btn btn-sm btn-success my-2 my-sm-0" type="submit">Create account</button>
+	</form>
+<?php
+    }
+}

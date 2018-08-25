@@ -17,30 +17,30 @@ class PageModel{
 
 		// lesson menu
 		if (RoleModel::isAllowed('lessons',null)) {
-			$result [] = new MenuLink('Lessons','lessons',LessonModel::getAllLessonsForMenu('lessons',
+			$result [] = new MenuLink('Lessons','Lessons',LessonModel::getAllLessonsForMenu('Lessons',
 					UserModel::isAdminConnectedUser()?null:UserModel::getCurrentSessionGroupId(),null));
 
 		}
 
 		// exercices menu
 		if (RoleModel::isAllowed('exercices',null)) {
-			$result [] = new MenuLink('Exercices','exercices',LessonModel::getAllLessonsForMenu('exercices',
+			$result [] = new MenuLink('Exercices','Exercices',LessonModel::getAllLessonsForMenu('Exercices',
 					UserModel::isAdminConnectedUser()?null:UserModel::getCurrentSessionGroupId(),null));
 		}
 
 		// result menu
 		if (RoleModel::isAllowed('results','results')) {
-			$result [] = new MenuLink('Result','results',null);
+			$result [] = new MenuLink('Result','Results',null);
 		}
 
 		//contact menu
 		if (RoleModel::isAllowed('contact',null)) {
-				$result [] = new MenuLink('Contact','contact',null);;
+				$result [] = new MenuLink('Contact','Contact',null);;
 		}
 
 		// admin menu
 		if (RoleModel::isAllowed('admin',null)) {
-			$result [] = new MenuLink('Admin','admin',
+			$result [] = new MenuLink('Admin','Admin',
 				array('adminPage' => 'Page Administration'));
 		}
 

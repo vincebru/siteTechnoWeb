@@ -5,13 +5,13 @@ class LessonView extends ElementView {
         ?>
         <div class="container">
             <div class="row">
-                <div class="col-3 bg-light"> 
-                    <nav id='summary' class="navbar navbar-light flex-column">
+                <div class="col-3"> 
+                    <nav id='summary' class="navbar navbar-light bg-light flex-column">
                         <span class="navbar-brand">
                             <a class="navbar-brand" href="#">Outline</a>
                         </span>
                         <nav class="nav nav-pills flex-column">
-                        <?php echo $this->renderChildrenOutline(); ?>
+                        <?php echo $this->getOutlineHtml(); ?>
                         </nav>
                     </ul>
                 </div>
@@ -27,6 +27,11 @@ class LessonView extends ElementView {
     }
 
     protected function renderOutline(){
-        return $this->renderChildrenOutline();
+        ?>
+        <a class="nav-link active" href="#lesson-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
+        <nav class="nav nav-pills flex-column">
+        <?php echo $this->renderChildrenOutline(); ?>
+        </nav>
+        <?php
     }
 }

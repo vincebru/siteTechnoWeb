@@ -21,17 +21,23 @@ abstract class ElementView extends AbstractView {
     }
 
     protected function renderChildren(){
+        logDebug('Element '.$this->element->getColType().' -  HTML: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
+        $html = '';
         foreach($this->element->getSubElements() as $subElement){
             $subView = $this->getSubView($subElement);
-            return  $subView->getHtml();
+            $html = $html . $subView->getHtml();
         }
+        return $html;
     }
 
     protected function renderChildrenOutline(){
+        logDebug('Element '.$this->element->getColType().' - Outline: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
+        $html = '';
         foreach($this->element->getSubElements() as $subElement){
             $subView = $this->getSubView($subElement);
-            return  $subView->getOutlineHtml();
+            $html = $html . $subView->getOutlineHtml();
         }
+        return $html;
     }
 
     private function getSubView($subElement){

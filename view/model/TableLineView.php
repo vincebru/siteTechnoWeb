@@ -1,5 +1,5 @@
 <?php
-class TableLineView extends Element {
+class TableLineView extends ElementView {
 
     protected function render(){
         ?>

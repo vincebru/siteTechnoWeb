@@ -2,5 +2,5 @@
 
 class Table extends Element{
 
-	static protected $colType=Element::TYPE_TABLE;
+	static protected $elementType=Element::TYPE_TABLE;
 }

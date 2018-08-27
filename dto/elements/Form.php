@@ -2,7 +2,7 @@
 
 class Form extends Element{
 
-	static protected $colType=Element::TYPE_FORM;
+	static protected $elementType=Element::TYPE_FORM;
 
 
 }

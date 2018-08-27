@@ -28,6 +28,7 @@ $(document).ready(function () {
             url: "ajax.php",
             method: "POST",
             data: { object: "Page", content : pageTitle },
+            //data to set for element :object,:content,:parent_id,:rank
             dataType: "json"
         }).done(function( msg ) {
             $('#addPageModal').modal('toggle');

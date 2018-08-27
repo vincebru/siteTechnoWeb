@@ -4,7 +4,7 @@ class Role extends DTO{
 
 	static protected $tableName="role";
 	static protected $colId="role_id";
-	static protected $isAdminRequestable=true;
+	static protected $isAdminUptable=true;
 
 	private $id;
 	private $code;

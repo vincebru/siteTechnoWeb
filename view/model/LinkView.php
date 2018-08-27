@@ -1,9 +1,9 @@
 <?php
-class LinkView extends Element {
+class LinkView extends ElementView {
 
     protected function render(){
         ?>
-        <a href="<? echo $this->element.getContent(); ?>"><? echo $this->element.getLabel(); ?></a>
+        <a href="<?php echo $this->element.getContent(); ?>"><?php echo $this->element.getLabel(); ?></a>
         <?php
     }
 

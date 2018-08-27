@@ -4,7 +4,7 @@ class User extends DTO{
 
 	static protected $tableName="user";
 	static protected $colId="user_id";
-	static protected $isAdminRequestable=true;
+	static protected $isAdminUptable=true;
 
 	private $id;
 	private $login;
@@ -35,8 +35,6 @@ class User extends DTO{
 		$this->role=$role;
 		$this->sessionGroupId=$sessionGroupId;
 		$this->workGroupId=$workGroupId;
-		$this->tableName="user";
-		$this->colId="user_id";
 	}
 
 	public function getId()

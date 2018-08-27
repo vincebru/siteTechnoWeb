@@ -2,7 +2,6 @@
 
 //include utils
 include_once("log.php");
-include_once("utils/Database.php");
 
 //include dto
 
@@ -26,17 +25,28 @@ include_once("dto/elements/Table.php");
 include_once("dto/elements/TableRow.php");
 include_once("dto/elements/TableCell.php");
 
-include_once("view/model/Element.php");
+include_once("view/AbstractView.php");
+include_once("view/Contact.php");
+include_once("view/CreateAccount.php");
+include_once("view/Error.php");
+include_once("view/LogoutForm.php");
+include_once("view/LoginForm.php");
+include_once("view/Main.php");
+include_once("view/NotAllowed.php");
+include_once("view/NewAccount.php");
+include_once("view/Results.php");
+
+include_once("view/model/ElementView.php");
 include_once("view/model/ParagraphView.php");
 include_once("view/model/LessonView.php");
 include_once("view/model/PageView.php");
 include_once("view/model/FormView.php");
 include_once("view/model/ImageView.php");
-include_once("view/model/InputInput.php");
+include_once("view/model/InputView.php");
 include_once("view/model/LinkView.php");
 include_once("view/model/TitleView.php");
 include_once("view/model/TableView.php");
-include_once("view/model/TableRowView.php");
+include_once("view/model/TableLineView.php");
 include_once("view/model/TableCellView.php");
 
 //include model

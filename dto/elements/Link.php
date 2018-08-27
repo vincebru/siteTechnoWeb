@@ -2,16 +2,13 @@
 
 class Link extends Element{
 
-	static protected $colType=Element::TYPE_LINK;
+	static protected $elementType=Element::TYPE_LINK;
 
 	private $label;
 
 	function __construct($data){
-		self::constructFromValue($data['element_id'],$data['code'],$data['title'],$data['rank']);
-	}
-
-	public function constructFromValue($id,$code, $title, $position){
-		parent::__construct($id,Element::TYPE_FORM,$code, $title, $position);
+		self::constructFromValue($data['element_id'],$data['content'],$data['position']);
+		$this->label = $data['label'];
 	}
 
 	public function getLabel()

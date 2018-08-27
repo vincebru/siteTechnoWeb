@@ -2,6 +2,6 @@
 
 class Paragraph extends Element{
 
-	static protected $colType=Element::TYPE_PARAGRAPH;
+	static protected $elementType=Element::TYPE_PARAGRAPH;
 
 }

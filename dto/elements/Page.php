@@ -2,6 +2,6 @@
 
 class Page extends Element{
   
-	static protected $colType=Element::TYPE_PAGE;
+	static protected $elementType=Element::TYPE_PAGE;
 	
 }

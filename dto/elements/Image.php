@@ -2,7 +2,7 @@
 
 class Image extends Element{
 
-	static protected $colType=Element::TYPE_IMAGE;
+	static protected $elementType=Element::TYPE_IMAGE;
 
 	static protected $width='width';
 	static protected $height='height';

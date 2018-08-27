@@ -2,7 +2,7 @@
 
 class Menu extends Element{
 
-	static protected $colType=Element::TYPE_MENU;
+	static protected $elementType=Element::TYPE_MENU;
 
 	private $code;
 

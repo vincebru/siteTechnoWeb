@@ -18,7 +18,7 @@ abstract class Element extends DTO{
 	const TYPE_TABLE_CELL='TableCell';
 
 	static protected $tableName="element";
-	static protected $colType;
+	static protected $elementType;
 	static protected $isAdminUptable=true;
 
 	static protected $id='element_id';
@@ -36,18 +36,18 @@ abstract class Element extends DTO{
 	private static $subElements;
 
 	function __construct($data){
-		$data[static::$type]=static::$colType;
+		$data[static::$type]=static::$elementType;
 		parent::__construct($data);
 	}
 	
 	public static function isRootElements($elementName){
-		return ($elementName == Element::TYPE_LESSON || $elementName == Element::TYPE_EXERCICE);
+		return ($elementName == self::TYPE_LESSON || $elementName == self::TYPE_EXERCICE);
 	}
 
 	public static function getRequestById(){
 		return "select * from ".static::$tableName.
 			" where ".
-			static::$id."=:id and type='".static::$colType."'";
+			static::$id."=:id and type='".static::$elementType."'";
 	}
 
 	public static function getRequestSubElementById(){
@@ -63,8 +63,8 @@ abstract class Element extends DTO{
 		return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 	}
 
-	public function getColType(){
-		return static::$colType;
+	public function getType(){
+	    return $this->get(static::$type);
 	}
 
 	public function getId(){

@@ -2,7 +2,7 @@
 
 class Link extends Element{
 
-	static protected $colType=Element::TYPE_LINK;
+	static protected $elementType=Element::TYPE_LINK;
 
 	private $label;
 

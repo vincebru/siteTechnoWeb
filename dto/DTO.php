@@ -6,7 +6,7 @@ abstract class DTO{
 	protected static $isAdminUptable=false;
 	protected static $tableName;
 	protected static $complementTableName;
-	protected static $colId;
+	protected static $id;
 
 	public static $UPDATE_FIELD_KEY="#UPDATE_FIELD_KEY#";
 
@@ -44,7 +44,7 @@ abstract class DTO{
 	}
 	
 	public static function getRequestById(){
-		return "select * from ".static::$tableName." where ".static::$colId."=:id";
+		return "select * from ".static::$tableName." where ".static::$id."=:id";
 	}
 	
 	public static function getInsertRequest(){
@@ -67,8 +67,8 @@ abstract class DTO{
 	}
 
 	public function patch($data){
-		if (isset($data['id']) && !isset($data[$id])) {
-			$data[$id]=$data['id'];
+	    if (isset($data['id']) && !isset($data[static::$id])) {
+		    $data[static::$id]=$data['id'];
 		}
 		foreach (static::propertyNameList() as $propertyName) {
 			if(isset($data[$propertyName])){
@@ -90,5 +90,9 @@ abstract class DTO{
 			return $this->values[$propertyName];
 		}
 		return null;
+	}
+	
+	public function getId(){
+		return $this->get(static::$id);
 	}
 }

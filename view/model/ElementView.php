@@ -35,7 +35,7 @@ abstract class ElementView extends AbstractView {
     }
 
     private function getSubView($subElement){
-        $subViewType = $subElement->getColType() . 'View';
+        $subViewType = $subElement->getType() . 'View';
         $viewArg = array();
         $viewArg['element'] = $subElement;
         $subView = new $subViewType($viewArg);

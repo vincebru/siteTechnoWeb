@@ -2,6 +2,6 @@
 
 class Lesson extends Element{
 
-	static protected $colType=Element::TYPE_LESSON;
+	static protected $elementType=Element::TYPE_LESSON;
 	 
 }

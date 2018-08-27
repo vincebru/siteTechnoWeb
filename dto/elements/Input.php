@@ -2,7 +2,7 @@
 
 class Input extends Element{
 
-	static protected $colType=Element::TYPE_INPUT;
+	static protected $elementType=Element::TYPE_INPUT;
 
 	private $label;
 

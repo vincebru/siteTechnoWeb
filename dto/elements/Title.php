@@ -2,7 +2,7 @@
 
 class Title extends Element{
 
-	static protected $colType=Element::TYPE_TITLE;
+	static protected $elementType=Element::TYPE_TITLE;
 
 	private $level;
 

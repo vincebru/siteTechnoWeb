@@ -2,7 +2,7 @@
 
 class TableCell extends Element{
 
-	static protected $colType=Element::TYPE_TABLE_CELL;
+	static protected $elementType=Element::TYPE_TABLE_CELL;
 
 	private $span;
 

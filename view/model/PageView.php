@@ -11,8 +11,8 @@ class PageView extends ElementView {
 
     protected function renderOutline(){
         ?>
-        <a class="nav-link" href="#page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getTitle(); ?></a>
+        <a class="nav-link" href="#page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
         <?php
-        renderChildrenOutline();
+        $this->renderChildrenOutline();
     }
 }

@@ -3,6 +3,7 @@
 abstract class Element extends DTO{
 
 
+	const TYPE_EXERCICE='Exercice';
 	const TYPE_MENU='Menu';
 	const TYPE_LESSON='Lesson';
 	const TYPE_PAGE='Page';
@@ -33,11 +34,14 @@ abstract class Element extends DTO{
 	}
 
 	private static $subElements;
-	
 
 	function __construct($data){
 		$data[static::$type]=static::$colType;
 		parent::__construct($data);
+	}
+	
+	public static function isRootElements($elementName){
+		return ($elementName == Element::TYPE_LESSON || $elementName == Element::TYPE_EXERCICE);
 	}
 
 	public static function getRequestById(){
@@ -59,6 +63,17 @@ abstract class Element extends DTO{
 		return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 	}
 
+	public function getColType(){
+		return static::$colType;
+	}
+
+	public function getId(){
+		return $this->get(static::$id);
+	}
+
+	public function getContent(){
+		return $this->get(static::$content);
+	}
 
 	public function addSubElement($subElement){
 		if (!isset($this->subElements)){

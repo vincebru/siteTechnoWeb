@@ -31,11 +31,16 @@
 
 	$viewFile="view/".$pagePath.".php";
 	if (!file_exists($viewFile)){
-		$pagePath="Main";
-		$viewFile="view/".$pagePath.".php";
-		logDebug($viewFile." doesn't exist, so the main view will be loaded");
+		if (Element::isRootElements($menu)){
+			logDebug("Query for a root element: " . $menu);
+			$args['element'] = GlobalModel::getInstance($menu, $page);
+			$pagePath = $menu . 'View';
+		} else {
+			$pagePath="Main";
+			logDebug($viewFile." doesn't exist, so the main view will be loaded");
+		}
 	}
-	logDebug("load ".$pagePath." view.");
+	logDebug("load ".$pagePath." view for page ".$page.".");
 
 	$header = new Header($page);
 	$view = new $pagePath($args);

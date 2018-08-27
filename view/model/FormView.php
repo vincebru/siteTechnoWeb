@@ -1,7 +1,7 @@
 <?php
 class FormView extends ElementView {
 
-    protected function render(){
+    public  function render(){
         ?>
         <form action="<?php echo $this->getContent(); ?>" method="post">
         <?php echo $this->renderChildren(); ?>

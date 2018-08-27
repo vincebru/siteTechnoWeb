@@ -17,7 +17,7 @@ class PageModel{
 
 		// lesson menu
 		if (RoleModel::isAllowed('lessons',null)) {
-			$result [] = new MenuLink('Lessons','Lessons',LessonModel::getAllLessonsForMenu('Lessons',
+			$result [] = new MenuLink('Lessons','Lesson',LessonModel::getAllLessonsForMenu('Lessons',
 					UserModel::isAdminConnectedUser()?null:UserModel::getCurrentSessionGroupId(),null));
 
 		}

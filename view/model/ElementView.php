@@ -21,7 +21,7 @@ abstract class ElementView extends AbstractView {
     }
 
     protected function renderChildren(){
-        logDebug('Element '.$this->element->getColType().' -  HTML: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
+        logDebug('Element '.$this->element->getType().' -  HTML: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
         $html = '';
         foreach($this->element->getSubElements() as $subElement){
             $subView = $this->getSubView($subElement);
@@ -31,7 +31,7 @@ abstract class ElementView extends AbstractView {
     }
 
     protected function renderChildrenOutline(){
-        logDebug('Element '.$this->element->getColType().' - Outline: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
+        logDebug('Element '.$this->element->getType().' - Outline: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
         $html = '';
         foreach($this->element->getSubElements() as $subElement){
             $subView = $this->getSubView($subElement);

@@ -1,24 +1,19 @@
 <?php
 
 class Link extends Element{
-
-	static protected $elementType=Element::TYPE_LINK;
-
-	private $label;
-
-	function __construct($data){
-		self::constructFromValue($data['element_id'],$data['content'],$data['position']);
-		$this->label = $data['label'];
-	}
-
-	public function getLabel()
-	{
-	    return $this->label;
-	}
-	 
-	public function setLabel($label)
-	{
-	    $this->label = $label;
-	    return $this;
-	}
+    
+    static protected $elementType=Element::TYPE_LINK;
+    
+    protected static $complementTableName='link';
+    
+    static protected function complementPropertyNameList (){
+        return array(static::$label);
+    }
+    
+    static protected $label='label';
+    
+    public function getLabel()
+    {
+        return $this->get(static::$label);
+    }
 }

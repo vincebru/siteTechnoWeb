@@ -50,6 +50,7 @@ include_once("view/model/TableLineView.php");
 include_once("view/model/TableCellView.php");
 
 //include model
+include_once("model/CacheElementsManager.php");
 include_once("model/GlobalModel.php");
 include_once("model/RoleModel.php");
 include_once("model/UserModel.php");

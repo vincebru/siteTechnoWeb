@@ -11,17 +11,23 @@ class GlobalModel{
 		if($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
 			$result = new $class($data);
 			if ($result instanceof Element){
-				//getSubElement
-				$request = $class::getRequestSubElementById();
-				$preparedRequest = $bdd->prepare($request);
-				$preparedRequest->execute(array('id'=>$id));
-				while($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
-					$subElement = new $data['type']($data);
-					$result->addSubElement($subElement);
-				}
+			    $result = CacheElementsManager::cacheElement($result);
 			}
 		}
 		return $result;
+	}
+	
+	public static function getElement($id){
+	    $bdd = Database::getDb();
+	    $request = "select * from Element where element_id=:id";
+	    $preparedRequest = $bdd->prepare($request);
+	    $preparedRequest->execute(array('id'=>$id));
+	    
+	    if($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
+	        return self::getInstance($data[Element::$type], $id);
+	    } else {
+	        return null;
+	    }
 	}
 
 	private static function extractUsefullValueForInsert($request,$array){

@@ -22,7 +22,7 @@ abstract class Element extends DTO{
 	static protected $isAdminUptable=true;
 
 	static protected $id='element_id';
-	static protected $type='type';
+	static public $type='type';
 	static protected $content='content';
 	static protected $position='rank';
 
@@ -33,7 +33,7 @@ abstract class Element extends DTO{
 			static::$position);
 	}
 
-	private static $subElements;
+	private $subElements;
 
 	function __construct($data){
 		$data[static::$type]=static::$elementType;
@@ -74,11 +74,16 @@ abstract class Element extends DTO{
 	public function getContent(){
 		return $this->get(static::$content);
 	}
+	
+	public function getPosition(){
+	    return $this->get(static::$position);
+	}
+	
 	public function addSubElement($subElement){
 		if (!isset($this->subElements)){
 			$this->subElements=array();
 		}
-		$this->subElements[]=$subElement;
+		$this->subElements[$subElement->getPosition()]=$subElement->getId();
 	}
 
 	public function getSubElements()

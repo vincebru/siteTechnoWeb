@@ -2,23 +2,18 @@
 
 class Title extends Element{
 
-	static protected $elementType=Element::TYPE_TITLE;
-
-	private $level;
-
-	function __construct($data){
-		self::constructFromValue($data['element_id'],$data['content'],$data['position']);
-		$this->level = $data['level'];
-	}
+    static protected $elementType=Element::TYPE_TITLE;
+    
+    protected static $complementTableName='title';
+    
+    static protected function complementPropertyNameList (){
+        return array(static::$level);
+    }
+    
+    static protected $level='level';
 
 	public function getLevel()
 	{
-	    return $this->level;
-	}
-	 
-	public function setLevel($level)
-	{
-	    $this->level = $level;
-	    return $this;
+	    return $this->get(static::$level);
 	}
 }

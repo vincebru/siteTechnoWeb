@@ -132,6 +132,105 @@ INSERT INTO `menu` VALUES (3,'Lessons'),(4,'Exercices');
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `title`
+--
+
+DROP TABLE IF EXISTS `title`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `title` (
+  `element_id` int(3) NOT NULL,
+  `level` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `title`
+--
+
+LOCK TABLES `title` WRITE;
+/*!40000 ALTER TABLE `title` DISABLE KEYS */;
+INSERT INTO `title` VALUES (9,'1'),(11,'1'),(14,'1'),(16,'1');
+/*!40000 ALTER TABLE `title` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `table_cell`
+--
+
+DROP TABLE IF EXISTS `table_cell`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `table_cell` (
+  `element_id` int(3) NOT NULL,
+  `span` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_cell`
+--
+
+LOCK TABLES `table_cell` WRITE;
+/*!40000 ALTER TABLE `table_cell` DISABLE KEYS */;
+INSERT INTO `table_cell` VALUES (15,'1');
+/*!40000 ALTER TABLE `table_cell` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `link`
+--
+
+DROP TABLE IF EXISTS `link`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `link` (
+  `element_id` int(3) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `link`
+--
+
+LOCK TABLES `link` WRITE;
+/*!40000 ALTER TABLE `link` DISABLE KEYS */;
+INSERT INTO `link` VALUES (13,'coucou');
+/*!40000 ALTER TABLE `link` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `	`
+--
+
+DROP TABLE IF EXISTS `input`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `input` (
+  `element_id` int(3) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `input`
+--
+
+LOCK TABLES `input` WRITE;
+/*!40000 ALTER TABLE `input` DISABLE KEYS */;
+INSERT INTO `input` VALUES (18,'12');
+/*!40000 ALTER TABLE `input` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
 --
 -- Table structure for table `role`
 --

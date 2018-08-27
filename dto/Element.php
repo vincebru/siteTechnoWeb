@@ -74,7 +74,6 @@ abstract class Element extends DTO{
 	public function getContent(){
 		return $this->get(static::$content);
 	}
-
 	public function addSubElement($subElement){
 		if (!isset($this->subElements)){
 			$this->subElements=array();

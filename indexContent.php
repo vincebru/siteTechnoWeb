@@ -26,6 +26,8 @@
 		include('manageAction.php');
 	} catch (Exception $e) {
 		logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
+		logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
+		var_dump($e->getTrace());
 		$pagePath = "Main";
 	}	
 

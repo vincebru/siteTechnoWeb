@@ -14,7 +14,7 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 		<tbody>
 		<?php foreach ( $lessonList as $code=>$label){ ?>
 			<tr>
-				<td><?php echo $code?></td>
+				<td><?php echo $label?></td>
 				<td><a href="index.php?menu=admin&page=adminPage&editLesson=<?php echo $code?>">Edit</a></td>
 			</tr>
 		<?php } ?>
@@ -22,7 +22,7 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 	</table>
 
 <?php if(isset($_GET['editLesson'])){
-	$lesson = LessonModel::getLessonWithPages($_GET['editLesson']);
+	$lesson = GlobalModel::getInstance(Element::TYPE_LESSON,$_GET['editLesson']);
 	?>
 	<div class="shadow-sm p-3 mb-5 bg-white rounded">
 		<div class="row pl-3">
@@ -37,8 +37,8 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 					<nav class="nav nav-pills flex-column">
 					<?php 
 					$first = true;
-					foreach ($lesson->getPageList() as $rank => $page) { ?>
-						<a class="nav-link <?php if ($first) { echo "active"; $first = false; } ?>" href="#<?php echo $rank; ?>"><?php echo $rank . " - " . $page->getTitle(); ?></a>
+					foreach ($lesson->getSubElements() as $rank => $page) { ?>
+						<a class="nav-link <?php if ($first) { echo "active"; $first = false; } ?>" href="#<?php echo $rank; ?>"><?php echo $rank . " - " . $page->getContent(); ?></a>
 					<?php }?>
 					</nav>
 				</nav>
@@ -47,8 +47,8 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 				<div data-spy="scroll" data-target="#summary" data-offset="0" class="lessonEdition">
 					<h3 id='<?php echo $lesson->getTitle(); ?>'><?php echo $lesson->getTitle(); ?></h3>
 					<?php 
-					foreach ($lesson->getPageList() as $rank => $page) { ?>
-					<h4 class="float-left" id='<?php echo $rank; ?>'><?php echo $rank . " - " . $page->getTitle(); ?></h4>
+					foreach ($lesson->getSubElements() as $rank => $page) { ?>
+					<h4 class="float-left" id='<?php echo $rank; ?>'><?php echo $rank . " - " . $page->getContent(); ?></h4>
 					<button type="button" class="btn btn-outline-primary mr-1 btn-sm float-right removePage" data-id="<?php echo $page->getId(); ?>" data-toggle="modal" data-target="#removePageModal">
 						<i class="fa fa-minus"></i>
 					</button>
@@ -164,7 +164,7 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 		</tr>
 	<?php foreach ( $exerciceList as $code=>$label){ ?>
 		<tr>
-			<td><?php echo $code?></td>
+			<td><?php echo $label?></td>
 			<td><a href="index.php?menu=admin&page=adminPage&editLesson=<?php echo $code?>">Edit</a></td>
 		</tr>
 	<?php } ?>

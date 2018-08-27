@@ -87,8 +87,8 @@ class Header{
 			$html .="<a  class='nav-link dropdown-toggle' id='".$link."' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' href='#' >".$label."</a>";
 			$html.="<div class='dropdown-menu' aria-labelledby='".$link."'>";
 
-			foreach ( $subMenu as $subMenuElement=>$subMenuLink){
-				$html.="<a class='dropdown-item' href='index.php?menu=".$link."&page=".$subMenuLink."' >".$subMenuElement."</a>";
+			foreach ( $subMenu as $subMenuId=>$subMenuLabel){
+				$html.="<a class='dropdown-item' href='index.php?menu=".$link."&page=".$subMenuId."' >".$subMenuLabel."</a>";
 			}
 
 			$html.="</div>";

@@ -25,11 +25,9 @@ DROP TABLE IF EXISTS `element`;
 CREATE TABLE `element` (
   `element_id` int(3) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
-  `code` varchar(100) NOT NULL,
-  `title` varchar(100) NOT NULL,
   `content` text,
   PRIMARY KEY (`element_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,27 +36,7 @@ CREATE TABLE `element` (
 
 LOCK TABLES `element` WRITE;
 /*!40000 ALTER TABLE `element` DISABLE KEYS */;
-INSERT INTO `element` 
-VALUES 
-    (1,'PAGE','html1','html part 1', 'Part 1'),
-    (2,'PAGE','html2','html part 2', 'Part 2'),
-    (3,'MENU','lessons','Lessons', 'Lessons'),
-    (4,'MENU','exercice','Exercices', 'Exercices'),
-    (5,'LESSON','html','html', 'HTML'),
-    (6,'LESSON','css','css', 'CSS'),
-    (7,'LESSON','php','php', 'PHP'),
-    (8,'LESSON','database','database', 'Database'),
-    (9,'TITLE','client_server','client / server', 'Client / Server'),
-    (10,'PARAGRAPH','blabla','blabla', 'Amet tempor mollit aliquip pariatur excepteur commodo do ea cillum commodo Lorem et occaecat elit qui et. Aliquip labore ex ex esse voluptate occaecat Lorem ullamco deserunt. Aliqua cillum excepteur irure consequat id quis ea. Sit proident ullamco aute magna pariatur nostrud labore. Reprehenderit aliqua commodo eiusmod aliquip est do duis amet proident magna consectetur consequat eu commodo fugiat non quis. Enim aliquip exercitation ullamco adipisicing voluptate excepteur minim exercitation minim minim commodo adipisicing exercitation officia nisi adipisicing. Anim id duis qui consequat labore adipisicing sint dolor elit cillum anim et fugiat.'),
-    (11,'TITLE','file_structure','file structure', 'File structure'),
-    (12,'PARAGRAPH','bleble','bleble', 'Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum nisi sit est tempor laborum mollit labore officia laborum excepteur commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur ipsum commodo tempor sunt in proident.'),
-    (13,'LINK','all_tags','all tags', 'All TAGS'),
-    (14,'TITLE','welcome','welcome page', 'Welcome page'),
-    (15,'IMAGE','welcome_image','welcome image', 'Welcome image'),
-    (16,'TITLE','yours','yours', 'Your production'),
-    (17,'FORM','yours_form','yours form', 'index.php?action=saveForm&lesson=html&page=html1'),
-    (18,'INPUT','github_link','github link', 'Github Link')
-    ;
+INSERT INTO `element` VALUES (1,'Page','Part 1'),(2,'Page','Part 2'),(3,'Menu','Lessons'),(4,'Menu','Exercices'),(5,'Lesson','HTML'),(6,'Lesson','CSS'),(7,'Lesson','PHP'),(8,'Lesson','Database'),(9,'Title','Client / Server'),(10,'Paragaph','Amet tempor mollit aliquip pariatur excepteur commodo do ea cillum commodo Lorem et occaecat elit qui et. Aliquip labore ex ex esse voluptate occaecat Lorem ullamco deserunt. Aliqua cillum excepteur irure consequat id quis ea. Sit proident ullamco aute magna pariatur nostrud labore. Reprehenderit aliqua commodo eiusmod aliquip est do duis amet proident magna consectetur consequat eu commodo fugiat non quis. Enim aliquip exercitation ullamco adipisicing voluptate excepteur minim exercitation minim minim commodo adipisicing exercitation officia nisi adipisicing. Anim id duis qui consequat labore adipisicing sint dolor elit cillum anim et fugiat.'),(11,'Title','File structure'),(12,'Paragraph','Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum nisi sit est tempor laborum mollit labore officia laborum excepteur commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur ipsum commodo tempor sunt in proident.'),(13,'Link','All TAGS'),(14,'Title','Welcome page'),(15,'Image','Welcome image'),(16,'Title','Your production'),(17,'Form','index.php?action=saveForm&lesson=html&page=html1'),(18,'Input','Github Link');
 /*!40000 ALTER TABLE `element` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +61,7 @@ CREATE TABLE `element_element` (
 
 LOCK TABLES `element_element` WRITE;
 /*!40000 ALTER TABLE `element_element` DISABLE KEYS */;
-INSERT INTO `element_element` VALUES (3,5,1),(3,6,2),(3,7,3),(3,8,4),(5,1,1),(5,2,2),(1,1,9),(1,2,10),(1,3,11),(1,4,12),(1,5,13),(1,6,14),(1,7,15),(1,8,16),(1,9,17),(1,10,18);
+INSERT INTO `element_element` VALUES (1,1,9),(1,2,10),(1,3,11),(1,4,12),(1,5,13),(1,6,14),(1,7,15),(1,8,16),(1,9,17),(1,10,18),(3,5,1),(3,6,2),(3,7,3),(3,8,4),(5,1,1),(5,2,2);
 /*!40000 ALTER TABLE `element_element` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,6 +87,30 @@ LOCK TABLES `lesson_session_group` WRITE;
 /*!40000 ALTER TABLE `lesson_session_group` DISABLE KEYS */;
 INSERT INTO `lesson_session_group` VALUES (5,1);
 /*!40000 ALTER TABLE `lesson_session_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu`
+--
+
+DROP TABLE IF EXISTS `menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu` (
+  `element_id` int(3) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu`
+--
+
+LOCK TABLES `menu` WRITE;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` VALUES (3,'Lessons'),(4,'Exercices');
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -225,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-19 20:14:17
+-- Dump completed on 2018-08-20 21:40:38

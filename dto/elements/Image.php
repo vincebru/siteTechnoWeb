@@ -7,7 +7,7 @@ class Image extends Element{
     protected static $complementTableName='image';
     
     static protected function complementPropertyNameList (){
-        return array(static::$width,static::$width);
+        return array(static::$width,static::$height);
     }
     
     static protected $width='width';

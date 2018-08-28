@@ -1,7 +1,7 @@
 <?php
 abstract class ElementView extends AbstractView {
 
-    private $element;
+    protected $element;
 
     function __construct($element){
         parent::__construct($element);

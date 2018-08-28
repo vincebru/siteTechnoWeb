@@ -16,16 +16,16 @@ class PageModel{
 		$result = array();
 
 		// lesson menu
-		if (RoleModel::isAllowed('lessons',null)) {
-			$result [] = new MenuLink('Lessons','Lesson',LessonModel::getAllLessonsForMenu('Lessons',
-					UserModel::isAdminConnectedUser()?null:UserModel::getCurrentSessionGroupId(),null));
+		if (RoleModel::isAllowed('lessons', null)) {
+			$result [] = new MenuLink('Lessons','Lesson',
+				LessonModel::getAllLessonsForMenu('Lesson', UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
 
 		}
 
 		// exercices menu
-		if (RoleModel::isAllowed('exercices',null)) {
-			$result [] = new MenuLink('Exercices','Exercices',LessonModel::getAllLessonsForMenu('Exercices',
-					UserModel::isAdminConnectedUser()?null:UserModel::getCurrentSessionGroupId(),null));
+		if (RoleModel::isAllowed('exercices', null)) {
+			$result [] = new MenuLink('Exercices','Exercice',
+				LessonModel::getAllLessonsForMenu('Exercice', UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
 		}
 
 		// result menu

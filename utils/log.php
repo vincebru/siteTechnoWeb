@@ -48,7 +48,7 @@ function debugToConsole( $data ) {
         $output = implode( ',', $output);
 	}
 	
-	$output = str_replace("\\", "\\\\", str_replace("'", "\'", $output));
+	$output = str_replace("'", "\'", str_replace("\\", "\\\\", $output));
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }

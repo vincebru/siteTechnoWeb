@@ -34,9 +34,17 @@
 	$viewFile="view/".$pagePath.".php";
 	if (!file_exists($viewFile)){
 		if (Element::isRootElements($menu)){
-			logDebug("Query for a root element: " . $menu);
-			$args['element'] = GlobalModel::getInstance($menu, $page);
-			$pagePath = $menu . 'View';
+			try{
+				logDebug("Query for a root element: " . $menu);
+				$args['element'] = GlobalModel::getInstance($menu, $page);
+				$pagePath = $menu . 'View';
+			} catch (Exception $e) {
+				logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
+				logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
+				$args["errorMessage"] = $e->getMessage();
+				$args["stack"] = $e->getTrace();
+				$pagePath = "Error";
+			}
 		} else {
 			$pagePath="Main";
 			logDebug($viewFile." doesn't exist, so the main view will be loaded");
@@ -82,8 +90,17 @@
 			<section class="container-fluid">
 			<?php
 				// load content view file
-				$view->getHtml();
-				//include("view/".$pagePath.".php");
+				try{
+					$view->getHtml();
+				} catch (Exception $e) {
+					logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
+					logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
+					$args["errorMessage"] = $e->getMessage();
+					$args["stack"] = $e->getTrace();
+					$pagePath = "Error";
+					$view = new $pagePath($args);
+					$view->getHtml();
+				}
 			?>
 			</section>
 			<!-- Optional JavaScript -->

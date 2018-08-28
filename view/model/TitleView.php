@@ -3,7 +3,7 @@ class TitleView extends ElementView {
 
     protected function render(){
         ?>
-        <h<?php echo $this->element->getLevel(); ?>><?php echo $this->element->getContent(); ?></h<?php echo $this->element->getLevel(); ?>>
+        <h<?php echo $this->getElement()->getLevel(); ?>><?php echo $this->getElement()->getContent(); ?></h<?php echo $this->getElement()->getLevel(); ?>>
         <?php
     }
     

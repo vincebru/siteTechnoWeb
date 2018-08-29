@@ -45,9 +45,7 @@ abstract class Element extends DTO{
 	}
 
 	public static function getRequestById(){
-		return "select * from ".static::$tableName.
-			" where ".
-			static::$id."=:id and type='".static::$elementType."'";
+		return parent::getRequestById() . " and main.type='" . static::$elementType . "'";
 	}
 
 	public static function getRequestSubElementById(){

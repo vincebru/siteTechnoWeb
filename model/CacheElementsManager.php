@@ -17,6 +17,14 @@ class CacheElementsManager{
             $preparedRequest->execute(array('id'=>$id));
             while($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
                 $subElement = new $data['type']($data);
+                if ($subElement->hasComplementTableName()){
+                    $query = $subElement->getRequestById();
+                    $preparedQuery = $bdd->prepare($query);
+                    $preparedQuery->execute(array('id'=>$data['element_id']));
+                    while($fullData = $preparedQuery->fetch(PDO::FETCH_ASSOC)){
+                        $subElement = new $fullData['type']($fullData);
+                    }
+                }
                 $element->addSubElement($subElement);
                 self::cacheElement($subElement);
             }

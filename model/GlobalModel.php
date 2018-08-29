@@ -3,7 +3,7 @@ class GlobalModel{
 
 	public static function getInstance($class,$id){
 		$result='';
-		$bdd = Database::getDb();	
+		$bdd = Database::getDb();
 		$request = $class::getRequestById();
 		$preparedRequest = $bdd->prepare($request);
 		$preparedRequest->execute(array('id'=>$id));

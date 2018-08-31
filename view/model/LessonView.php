@@ -1,7 +1,8 @@
 <?php
-class LessonView extends ElementView {
-
-    protected function render(){
+class LessonView extends ElementView
+{
+    protected function render()
+    {
         ?>
         <div class="row flex-xl-nowrap">
             <div class="col-xl-2 bd-sidebar">
@@ -24,7 +25,8 @@ class LessonView extends ElementView {
         <?php
     }
 
-    protected function renderOutline(){
+    protected function renderOutline()
+    {
         ?>
         <a class="nav-link active" href="#lesson-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
         <nav class="nav nav-pills flex-column">

@@ -1,7 +1,8 @@
 <?php
-class TableView extends ElementView {
-
-    protected function render(){
+class TableView extends ElementView
+{
+    protected function render()
+    {
         ?>
         <div class="container-fluid">
         <?php echo $this->renderChildren(); ?>
@@ -9,7 +10,8 @@ class TableView extends ElementView {
         <?php
     }
 
-    protected function renderOutline(){
-       return "";
+    protected function renderOutline()
+    {
+        return '';
     }
 }

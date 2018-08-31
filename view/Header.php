@@ -48,8 +48,8 @@ class Header extends AbstractView{
 					if (!UserModel::isConnected()){
 						logDebug("user not connected");
 
-						$createAccount = new CreateAccount(array());
-						$createAccount->getHtml();
+						$createAccountForm = new CreateAccountForm(array());
+						$createAccountForm->getHtml();
 
 						$loginForm = new LoginForm(array());
 						$loginForm->getHtml();

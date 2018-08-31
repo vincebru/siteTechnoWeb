@@ -1,8 +1,8 @@
 <?php
-class Error extends AbstractView {
+class ErrorView extends AbstractView {
     public function getHtml(){
     ?>
-    <div class="container">
+    <div class="container mt-3">
         <p>
             An error happened : <b><?php echo $this->args["errorMessage"]; ?></b>
             <div class="container">

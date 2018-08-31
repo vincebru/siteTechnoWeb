@@ -1,5 +1,5 @@
 <?php
-class Main extends AbstractView{
+class MainView extends AbstractView{
 
     public function getHtml(){
         ?>

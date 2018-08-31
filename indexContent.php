@@ -19,7 +19,7 @@
 
 	//control page access
 	if (!RoleModel::isAllowed($menu, $page)) {
-		$pagePath='NotAllowed';
+		$pagePath='NotAllowedView';
 	}
 
 	try{
@@ -28,7 +28,7 @@
 		logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
 		logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
 		var_dump($e->getTrace());
-		$pagePath = "Main";
+		$pagePath = "MainView";
 	}	
 
 	$viewFile="view/".$pagePath.".php";
@@ -43,10 +43,10 @@
 				logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
 				$args["errorMessage"] = $e->getMessage();
 				$args["stack"] = $e->getTrace();
-				$pagePath = "Error";
+				$pagePath = "ErrorView";
 			}
 		} else {
-			$pagePath="Main";
+			$pagePath="MainView";
 			logDebug($viewFile." doesn't exist, so the main view will be loaded");
 		}
 	}
@@ -94,7 +94,7 @@
 					logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
 					$args["errorMessage"] = $e->getMessage();
 					$args["stack"] = $e->getTrace();
-					$pagePath = "Error";
+					$pagePath = "ErrorView";
 					$view = new $pagePath($args);
 					$view->getHtml();
 				}

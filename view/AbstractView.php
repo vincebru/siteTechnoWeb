@@ -23,6 +23,14 @@ abstract class AbstractView {
 		return $this->jsFiles;
 	}
 
+	public function getViewHtml(){
+		ob_start();
+		$this->getHtml();
+		$viewHtml = ob_get_contents();
+		ob_end_clean();
+		return $viewHtml;
+	}
+
     public abstract function getHtml();
 
     public function getStatus(){

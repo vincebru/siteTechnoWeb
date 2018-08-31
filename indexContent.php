@@ -60,56 +60,22 @@
 	$cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
 	$jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
 
-	?>
-	<!DOCTYPE HTML>
-	<html lang="en">
-		<head>
-			<!-- Required meta tags -->
-			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	$args['cssFiles'] = $cssToInclude;
+	$args['jsFiles'] = $jsToInclude;
+	$args['headerHtml'] = $header->getViewHtml();
 
-			<!-- Bootstrap CSS -->
-			<link rel="stylesheet" href="css/bootstrap.min.css">
+	try{
+		$args['contentHtml'] = $view->getViewHtml();
+	} catch (Exception $e) {
+		logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
+		logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
+		$args["errorMessage"] = $e->getMessage();
+		$args["stack"] = $e->getTrace();
+		$pagePath = "ErrorView";
+		$view = new $pagePath($args);
+		$args['contentHtml'] = $view->getViewHtml();
+	}
+	$indexView = new IndexView($args);
 
-			<title><?php echo $page ?></title>
-			<?php 
-				foreach($cssToInclude as $key => $cssFileName){
-					echo "<link href='css/".$cssFileName.".css' type='text/css' rel='stylesheet'>";
-				}
-			?>
-		</head>
-		<body>
-			<?php
-				// load content header file
-				$header->getHtml();
-			?>
-
-			<section class="main container-fluid">
-			<?php
-				// load content view file
-				try{
-					$view->getHtml();
-				} catch (Exception $e) {
-					logDebug("Error (".$e->getMessage().") occured on ".$actionFile.", so the main view will be loaded");
-					logDebug("File: ".$e->getFile().", line: ".$e->getLine().", code: ".$e->getCode().", occured on ".$actionFile);
-					$args["errorMessage"] = $e->getMessage();
-					$args["stack"] = $e->getTrace();
-					$pagePath = "ErrorView";
-					$view = new $pagePath($args);
-					$view->getHtml();
-				}
-			?>
-			</section>
-			<!-- Optional JavaScript -->
-			<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-			<!-- using JQuery instead of JQuery mini otherwise we can't make ajax call -->
-			<script src="js/jquery-3.3.1.min.js"></script>
-			<script src="js/popper.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<?php 
-				foreach($jsToInclude as $key => $jsFileName){
-					echo "<script src='js/".$jsFileName.".js'></script>";
-				}
-			?>
-		</body>
-	</html>
+	$indexView->getHtml();
+?>

@@ -1,7 +1,7 @@
 <?php
 abstract class ElementView extends AbstractView {
 
-    private $element;
+    protected $element;
 
     function __construct($element){
         parent::__construct($element);
@@ -40,7 +40,9 @@ abstract class ElementView extends AbstractView {
         return $html;
     }
 
-    private function getSubView($subElement){
+    private function getSubView($subElementId){
+        $subElement = CacheElementsManager::getElement($subElementId);
+
         $subViewType = $subElement->getType() . 'View';
         $viewArg = array();
         $viewArg['element'] = $subElement;

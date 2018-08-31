@@ -42,9 +42,22 @@ abstract class DTO{
 	{
 	    return static::$isAdminUptable;
 	}
+	public static function hasComplementTableName()
+	{
+	    return isset(static::$complementTableName) && static::$complementTableName != '';
+	}
 	
 	public static function getRequestById(){
-		return "select * from ".static::$tableName." where ".static::$id."=:id";
+		$complementJoin = '';
+		$complementFields = '';
+		if (static::hasComplementTableName()){
+			foreach (static::complementPropertyNameList() as $propertyKey) {
+				$complementFields .= ', comp.' . $propertyKey;
+			}
+			$complementJoin = ' JOIN ' . static::$complementTableName . ' comp ON comp.element_id = main.element_id ';
+		}
+
+		return 'SELECT main.* ' . $complementFields . ' FROM ' . static::$tableName . ' main ' . $complementJoin . ' WHERE main.'.static::$id . ' = :id ';
 	}
 	
 	public static function getInsertRequest(){
@@ -61,7 +74,8 @@ abstract class DTO{
 	}
 
 	private function verifyPropertyName($propertyName){
-		if (!in_array($propertyName, static::propertyNameList())) {
+		if (!in_array($propertyName, static::propertyNameList())
+		    && !in_array($propertyName, static::complementPropertyNameList())) {
 			throw new Exception("Invalid property name ".$propertyName." for class ".get_class($this));
 		}
 	}

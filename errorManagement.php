@@ -10,5 +10,6 @@ try {
 	ob_end_clean();
 	$bdd->rollBack();
     echo($e->getMessage());
+    var_dump($e->getStack());
     http_response_code(500);
 }

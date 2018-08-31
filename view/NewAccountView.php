@@ -1,12 +1,12 @@
 <?php
-class NewAccount extends AbstractView {
+class NewAccountView extends AbstractView {
     public function getHtml(){
 	logDebug("load new account view");
 	if (isset($message)){
 		echo('<div class="errorMessage">'.$message.'</div>');
 	}
 ?>
-	<div class="container">
+	<div class="container mt-3">
 	<form id="createAccountForm" action="index.php" method="POST">
 		<input type="hidden" name="page" value="AddAccount" />
 		<div class="form-group row">

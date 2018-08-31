@@ -26,15 +26,15 @@ include_once("dto/elements/TableRow.php");
 include_once("dto/elements/TableCell.php");
 
 include_once("view/AbstractView.php");
-include_once("view/Contact.php");
-include_once("view/CreateAccount.php");
-include_once("view/Error.php");
+include_once("view/ContactView.php");
+include_once("view/CreateAccountForm.php");
+include_once("view/ErrorView.php");
 include_once("view/LogoutForm.php");
 include_once("view/LoginForm.php");
-include_once("view/Main.php");
-include_once("view/NotAllowed.php");
-include_once("view/NewAccount.php");
-include_once("view/Results.php");
+include_once("view/MainView.php");
+include_once("view/NotAllowedView.php");
+include_once("view/NewAccountView.php");
+include_once("view/ResultsView.php");
 
 include_once("view/model/ElementView.php");
 include_once("view/model/ParagraphView.php");

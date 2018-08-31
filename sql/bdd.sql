@@ -128,7 +128,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (3,'Lessons'),(4,'Exercices');
+INSERT INTO `menu` VALUES (3,'Lesson'),(4,'Exercice');
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 

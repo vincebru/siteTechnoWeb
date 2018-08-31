@@ -99,7 +99,7 @@ class Header extends AbstractView
             } else {
                 $html = "<li class='nav-item'>";
             }
-            $html .= "<a class='nav-link' href='index.php?page=".$link."' >".$label.'</a>';
+            $html .= "<a class='nav-link' href='index.php?menu=".$link."' >".$label.'</a>';
             $html .= '</li>';
         }
         echo $html;

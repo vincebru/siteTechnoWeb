@@ -1,10 +1,10 @@
 <?php
 
 // load action file
-$actionFile="action/".$pagePath.".php";
-if (file_exists($actionFile)){
-	logDebug("load ".$pagePath." action page.");
-	include ($actionFile);
+$actionFile = 'action/'.$page.'.php';
+if (file_exists($actionFile)) {
+    logDebug('load '.$page.' action page.');
+    include $actionFile;
 } else {
-	logDebug("no action for ".$pagePath);
+    logDebug('no action for '.$page);
 }

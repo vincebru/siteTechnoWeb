@@ -52,15 +52,13 @@
 	}
 	logDebug("load ".$pagePath." view for page ".$page.".");
 
-	$header = new Header($page);
+	$args['page'] = $page;
+	$header = new Header($args);
 	$view = new $pagePath($args);
 	logDebug('$view status: '.$view->getStatus() . '.');
 
-	$cssToInclude = array('common');
-	$cssToInclude = array_merge($cssToInclude,$header->getCssFile());
-	if (isset($menu) && file_exists('css/' . $menu . '.css')){
-		$cssToInclude = array_merge($cssToInclude,array($menu));
-	}
+	$cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
+	$jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
 
 	?>
 	<!DOCTYPE HTML>
@@ -75,8 +73,7 @@
 
 			<title><?php echo $page ?></title>
 			<?php 
-				
-				foreach($cssToInclude as $cssFileName){
+				foreach($cssToInclude as $key => $cssFileName){
 					echo "<link href='css/".$cssFileName.".css' type='text/css' rel='stylesheet'>";
 				}
 			?>
@@ -87,7 +84,7 @@
 				$header->getHtml();
 			?>
 
-			<section class="container-fluid">
+			<section class="main container-fluid">
 			<?php
 				// load content view file
 				try{
@@ -109,6 +106,10 @@
 			<script src="js/jquery-3.3.1.min.js"></script>
 			<script src="js/popper.min.js"></script>
 			<script src="js/bootstrap.min.js"></script>
-			<script src="js/script.js"></script>
+			<?php 
+				foreach($jsToInclude as $key => $jsFileName){
+					echo "<script src='js/".$jsFileName.".js'></script>";
+				}
+			?>
 		</body>
 	</html>

@@ -1,38 +1,34 @@
 <?php
-class Header{
+class Header extends AbstractView{
 
 	private $page;
 
-	function __construct($page){
-		$this->page=$page;
-	}
+	function __construct($args){
+		parent::__construct($args);
+		$this->page=$args['page'];
 
-	public function getCssFile(){
-		return array("header");
+		$this->cssFiles['header'] = "header";
 	}
 
 	public function getHtml(){
 		if ($this->page == "NewAccount"){
 			?>
-			<header>
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
-					<a class="navbar-brand" href="index.php">Techno Web Module</a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
+			<header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
+				<a class="navbar-brand" href="index.php">Techno Web Module</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav mr-auto">
-						</ul>
-					</div>
-				</nav>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+					</ul>
+				</div>
 			</header>
 			<?php
 
 		} else if ($this->page!="newAccount" && $this->page!="login"){
 			?>
-			<header>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
 				<a class="navbar-brand" href="index.php">Techno Web Module</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -66,7 +62,6 @@ class Header{
 						$logoutForm->getHtml();
 					} ?>
 				</div>
-			</nav>
 			</header>
 			<?php
 		}

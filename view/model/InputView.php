@@ -1,7 +1,8 @@
 <?php
-class InputView extends ElementView {
-
-    protected function render(){
+class InputView extends ElementView
+{
+    protected function render()
+    {
         ?>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="input-<?php echo $this->element->getId(); ?>"><?php echo $this->element->getLabel(); ?></label>
@@ -12,7 +13,8 @@ class InputView extends ElementView {
         <?php
     }
 
-    protected function renderOutline(){
-        return "";
+    protected function renderOutline()
+    {
+        return '';
     }
 }

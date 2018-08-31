@@ -1,7 +1,8 @@
 <?php
-class TableCellView extends ElementView {
-
-    protected function render(){
+class TableCellView extends ElementView
+{
+    protected function render()
+    {
         ?>
         <div class="col-<?php echo $this->getSpan(); ?>">
         <?php echo $this->renderChildren(); ?>
@@ -9,7 +10,8 @@ class TableCellView extends ElementView {
         <?php
     }
 
-    protected function renderOutline(){
-        return "";
+    protected function renderOutline()
+    {
+        return '';
     }
 }

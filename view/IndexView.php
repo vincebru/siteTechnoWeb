@@ -1,20 +1,22 @@
 <?php
 
-class IndexView {
-
+class IndexView
+{
     protected $jsFiles;
     protected $cssFiles;
     protected $headerHtml;
     protected $contentHtml;
 
-	function __construct($args){
+    public function __construct($args)
+    {
         $this->jsFiles = $args['jsFiles'];
         $this->cssFiles = $args['cssFiles'];
         $this->headerHtml = $args['headerHtml'];
         $this->contentHtml = $args['contentHtml'];
     }
 
-    public function getHtml(){
+    public function getHtml()
+    {
         ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -27,23 +29,20 @@ class IndexView {
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
         <title>Techno web module</title>
-        <?php 
-            foreach($this->cssFiles as $cssFileName){
+        <?php
+            foreach ($this->cssFiles as $cssFileName) {
                 echo "<link href='css/".$cssFileName.".css' type='text/css' rel='stylesheet'>";
-            }
-        ?>
+            } ?>
     </head>
     <body>
         <?php
             // load content header file
-            echo $this->headerHtml;
-        ?>
+            echo $this->headerHtml; ?>
 
         <section class="main container-fluid">
         <?php
             // load content view file
-            echo $this->contentHtml;
-        ?>
+            echo $this->contentHtml; ?>
         </section>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -51,11 +50,10 @@ class IndexView {
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <?php 
-            foreach($this->jsFiles as $jsFileName){
+        <?php
+            foreach ($this->jsFiles as $jsFileName) {
                 echo "<script src='js/".$jsFileName.".js'></script>";
-            }
-        ?>
+            } ?>
     </body>
 </html>
 <?php

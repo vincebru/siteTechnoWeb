@@ -1,7 +1,8 @@
 <?php
-class ParagraphView extends ElementView {
-
-    protected function render(){
+class ParagraphView extends ElementView
+{
+    protected function render()
+    {
         ?>
         <p>
         <?php echo $this->element->getContent(); ?>
@@ -10,7 +11,8 @@ class ParagraphView extends ElementView {
         <?php
     }
 
-    protected function renderOutline(){
-        return "";
+    protected function renderOutline()
+    {
+        return '';
     }
 }

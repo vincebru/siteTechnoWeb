@@ -82,6 +82,6 @@ $(document).ready(function () {
     $('.doRemovePage').click(doRemovePage);
     $('.doEditPage').click(doEditPage);
 
-    $('#lesson').ScrollSpy({ target: '#summary' })
+    $('#lesson').scrollspy({ target: '#summary' })
     /*** ADMIN PAGE:  END ***/
 });

@@ -83,23 +83,25 @@ class Header extends AbstractView
     public function displayMenuElement($label, $link, $subMenu)
     {
         if (isset($subMenu) && is_array($subMenu)) {
-            $html = "<li class='nav-item dropdown'>";
+            $active = $link == $this->args['menu'] ? ' active' : '';
+            $html = "<li class='nav-item dropdown".$active."'>";
             $html .= "<a  class='nav-link dropdown-toggle' id='".$link."' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' href='#' >".$label.'</a>';
             $html .= "<div class='dropdown-menu' aria-labelledby='".$link."'>";
 
             foreach ($subMenu as $subMenuId => $subMenuLabel) {
-                $html .= "<a class='dropdown-item' href='index.php?menu=".$link.'&page='.$subMenuId."' >".$subMenuLabel.'</a>';
+                $subActive = $subMenuId == $this->args['page'] ? ' active' : '';
+                $html .= "<a class='dropdown-item".$subActive."' href='index.php?menu=".$link.'&page='.$subMenuId."' >".$subMenuLabel.'</a>';
             }
 
             $html .= '</div>';
             $html .= '</li>';
         } else {
-            if ($link == $this->page) {
+            if ($link == $this->args['menu']) {
                 $html = "<li class='nav-item active'>";
             } else {
                 $html = "<li class='nav-item'>";
             }
-            $html .= "<a class='nav-link' href='index.php?page=".$link."' >".$label.'</a>';
+            $html .= "<a class='nav-link' href='index.php?menu=".$link."' >".$label.'</a>';
             $html .= '</li>';
         }
         echo $html;

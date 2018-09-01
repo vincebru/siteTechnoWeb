@@ -1,57 +1,60 @@
 <?php
 
-function isHtmlDebug(){
-	return false;
+function isHtmlDebug()
+{
+    return false;
 }
 
-function isConsoleDebug(){
-	return false;
+function isConsoleDebug()
+{
+    return true;
 }
 
 if (isHtmlDebug()) {
-	echo ('<pre>');
+    echo '<pre>';
 }
 
-function logDebug($message){
-	if (isHtmlDebug()) {
-		echo($message."<br>");
-	}
+function logDebug($message)
+{
+    if (isHtmlDebug()) {
+        echo $message.'<br>';
+    }
 
-	if (isConsoleDebug()) {
-		debugToConsole($message);
-	}
-
+    if (isConsoleDebug()) {
+        debugToConsole($message);
+    }
 }
 
-function logDebugAndDie($message) {
-	logDebug($message);
-	die;
+function logDebugAndDie($message)
+{
+    logDebug($message);
+    die;
 }
 
-function vardumpDebug($data) {
-	if (isHtmlDebug()) {
-		var_dump($data);
-	}
+function vardumpDebug($data)
+{
+    if (isHtmlDebug()) {
+        var_dump($data);
+    }
 
-	if (isConsoleDebug()) {
-		debugToConsole($message);
-	}
+    if (isConsoleDebug()) {
+        debugToConsole($message);
+    }
 }
 
-function boolValue($bool){
-	return  ($bool) ? 'true' : 'false';
+function boolValue($bool)
+{
+    return  ($bool) ? 'true' : 'false';
 }
 
-function debugToConsole( $data ) {
+function debugToConsole($data)
+{
     $output = $data;
-    if ( is_array( $output ) ){
-        $output = implode( ',', $output);
-	}
-	
-	$output = str_replace("'", "\'", str_replace("\\", "\\\\", $output));
+    if (is_array($output)) {
+        $output = implode(',', $output);
+    }
 
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+    $output = str_replace("'", "\'", str_replace('\\', '\\\\', $output));
+
+    echo "<script>console.log( 'Debug Objects: ".$output."' );</script>";
 }
-
-
-

@@ -44,16 +44,18 @@
             $pagePath = 'ErrorView';
         }
     } else {
-        if (class_exists($menu)) {
-            $pagePath = $menu;
+        if (class_exists($menu.'View')) {
+            $pagePath = $menu.'View';
+            logDebug('The '.$menu.' view will be loaded.');
         } else {
             $pagePath = 'MainView';
+            logDebug('The main view will be loaded. Class '.$menu.' does not exist :/ ');
         }
-        logDebug('The main view will be loaded');
     }
     logDebug('load '.$pagePath.' view for page '.$page.'.');
 
     $args['page'] = $page;
+    $args['menu'] = $menu;
     $header = new Header($args);
     $view = new $pagePath($args);
     logDebug('$view status: '.$view->getStatus().'.');

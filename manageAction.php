@@ -1,10 +1,12 @@
 <?php
 
 // load action file
-$actionFile = 'action/ajax/'.$page.'.php';
-if (file_exists($actionFile)) {
+if (file_exists('action/'.$page.'.php')) {
     logDebug('load '.$page.' action page.');
-    include $actionFile;
+    include 'action/'.$page.'.php';
+} elseif (file_exists('action/ajax/'.$page.'.php')) {
+    logDebug('load '.$page.' action page.');
+    include 'action/ajax/'.$page.'.php';
 } else {
     logDebug('no action for '.$page);
 }

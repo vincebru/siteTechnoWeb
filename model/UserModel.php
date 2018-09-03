@@ -70,8 +70,7 @@ class UserModel{
 	*/
 	public static function getUserFromId($id) {
 
-		
-		$bdd = Database::getDb();	
+		$bdd = Database::getDb();
 		$request = "select u.*,r.code as role"
 			." from user u"
 			." join role r on r.role_id=u.role_id"

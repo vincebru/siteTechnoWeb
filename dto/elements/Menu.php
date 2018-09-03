@@ -11,6 +11,13 @@ class Menu extends Element{
     }
     
     static protected $code='code';
+
+    
+    public static function getInsertRequests(){
+        return array_merge(parent::getInsertRequests(),array("insert into ".static::$complementTableName.
+            " (element_id,code) ".
+            " values (:id,:code)"));
+    }
     
     public function getCode()
     {

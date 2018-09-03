@@ -19,15 +19,10 @@ if($loginMessage==""){
 		UserModel::logUser($user->getId());
 		$page="Main";
 	} else {
-		$loginMessage = "Bad Login or Password";
-		$pagePath="ErrorView";
-		$page=$pagePath;
+	    $loginMessage = "Bad Login or Password";
+	    throw new Exception($loginMessage);
 	}
 }else{
-	$pagePath="ErrorView";
-	$page=$pagePath;
+    throw new Exception($loginMessage);
 }
 
-if ($loginMessage!=""){
-	$args["errorMessage"] = $loginMessage;
-}

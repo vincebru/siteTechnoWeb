@@ -1,5 +1,6 @@
 <?php
 
+include_once("utils/Database.php");
 //include utils
 include_once 'log.php';
 

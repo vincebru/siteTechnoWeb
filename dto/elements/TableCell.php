@@ -12,6 +12,13 @@ class TableCell extends Element{
     
     static protected $span='span';
     
+    
+    public static function getInsertRequests(){
+        return array_merge(parent::getInsertRequests(),array("insert into ".static::$complementTableName.
+            " (element_id,span) ".
+            " values (:id,:span)"));
+    }
+    
     public function getSpan()
     {
         return $this->get(static::$span);

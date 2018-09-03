@@ -57,7 +57,7 @@ html, body {
 .bd-sidebar {
 	-ms-flex-order: 0;
 	order: 0;
-	top: 4rem;
-	height: calc(100vh - 4rem);
+	top: 0rem;
+	height: calc(100vh - 0rem);
 	border-right: 1px solid rgba(0,0,0,.1);
 }

@@ -15,20 +15,15 @@ class LessonView extends ElementView
                     </nav>
                 </nav>
             </div>
+            <!-- data-spy="scroll" data-target="#summary" data-offset="0"  -->
             <div class="col-xl-10">
-                <div data-spy="scroll" data-target="#summary" data-offset="0" id="lesson" class="lessonEdition bd-content">
+                <div id="lesson" class="lessonEdition bd-content">
                     <?php
                     if ($this->isEdition()) {
                         ?>
-                    <div class="lesson-toolbar">
+                    <div class="toolbar">
                         <button type="button" class="btn btn-outline-primary mr-1 btn-sm addPage" data-id="<?php echo $this->getElement()->getId(); ?>" data-toggle="modal" data-target="#addPageModal">
                             <i class="fa fa-plus"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary mr-1 btn-sm removePage" data-id="<?php echo $this->getElement()->getId(); ?>" data-toggle="modal" data-target="#removePageModal">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary mr-1 btn-sm editPage" data-id="<?php echo $this->getElement()->getId(); ?>" data-toggle="modal" data-target="#editPageModal">
-                            <i class="fa fa-edit"></i>
                         </button>
                     </div>
                     <?php
@@ -44,7 +39,7 @@ class LessonView extends ElementView
     protected function renderOutline()
     {
         ?>
-        <a class="nav-link active" href="#lesson-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
+        <a class="nav-link" href="#lesson-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
         <nav class="nav nav-pills flex-column">
         <?php echo $this->renderChildrenOutline(); ?>
         </nav>

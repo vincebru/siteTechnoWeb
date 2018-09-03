@@ -1,5 +1,8 @@
 <?php 
 
+//http://www.mysqltutorial.org/php-mysql-blob/
+//https://www.w3schools.com/php/php_file_upload.asp
+
 var_dump($_FILES);
 include 'utils/Database.php';
 if (isset($_POST['submit'])){

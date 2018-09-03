@@ -7,6 +7,13 @@
         $menu = $_POST['menu'];
     }
 
+    $edit = null;
+    if (isset($_GET['edit'])) {
+        $edit = $_GET['edit'];
+    } elseif (isset($_POST['edit'])) {
+        $edit = $_POST['edit'];
+    }
+
     $page = 'Main';
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
@@ -56,6 +63,12 @@
 
     $args['page'] = $page;
     $args['menu'] = $menu;
+    if (isset($edit)) {
+        $args['edit'] = $edit;
+        $args['mode'] = ElementView::MODE_EDIT;
+    } else {
+        $args['mode'] = ElementView::MODE_VIEW;
+    }
     $header = new Header($args);
     $view = new $pagePath($args);
     logDebug('$view status: '.$view->getStatus().'.');

@@ -7,7 +7,7 @@ function isHtmlDebug()
 
 function isConsoleDebug()
 {
-    return true;
+    return false;
 }
 
 if (isHtmlDebug()) {

@@ -12,7 +12,7 @@ class ExercicesView extends AbstractView
     public function getHtml()
     {
         ?>
-<div class="container-fluid mt-3">
+<div class="container mt-3">
 	<h2>Excercices List</h2>
 	<table class="table table-hover">
 		<thead>
@@ -26,12 +26,22 @@ class ExercicesView extends AbstractView
             ?>
 			<tr>
 				<td><?php echo $label; ?></td>
-				<td><a href="index.php?menu=Admin&page=Lessons&editLesson=<?php echo $code; ?>">Edit</a></td>
+				<td><a href="index.php?menu=Admin&page=Exercices&edit=<?php echo $code; ?>">Edit</a></td>
 			</tr>
 		<?php
         } ?>
 		</tbody>
 	</table>
+</div>
+<div class="container-fuild mt-3">
+	<?php if (array_key_exists('edit', $this->args)) {
+            $this->args['element'] = GlobalModel::getInstance(Element::TYPE_EXERCICE, $this->args['edit']);
+            $view = new LessonView($this->args); ?>
+	<div class="shadow-sm p-3 mb-5 bg-white rounded">
+	<?php echo $view->getViewHtml(); ?>
+	</div>
+	<?php
+        } ?>
 </div>
 <?php
     }

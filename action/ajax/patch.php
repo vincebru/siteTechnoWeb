@@ -1,2 +1,2 @@
 <?php
-$id = GlobalModel::patchInstance($object,$_PATCH);
+$id = GlobalModel::patchInstance($object,$refArray);

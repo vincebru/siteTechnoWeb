@@ -60,7 +60,7 @@ abstract class DTO{
 		return 'SELECT main.* ' . $complementFields . ' FROM ' . static::$tableName . ' main ' . $complementJoin . ' WHERE main.'.static::$id . ' = :id ';
 	}
 	
-	public static function getInsertRequest(){
+	public static function getInsertRequests(){
 		return array();
 	}
 

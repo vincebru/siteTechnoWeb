@@ -24,12 +24,14 @@ abstract class Element extends DTO{
 	static protected $id='element_id';
 	static public $type='type';
 	static protected $content='content';
+	static protected $parentId='parent_id';
 	static protected $position='rank';
 
 	static protected function propertyNameList (){
 		return array(static::$id,
 			static::$type, 
-			static::$content, 
+			static::$content,
+		    static::$parentId,
 			static::$position);
 	}
 
@@ -51,12 +53,10 @@ abstract class Element extends DTO{
 	public static function getRequestSubElementById(){
 		return "select * from ".static::$tableName." where parent_id=:id";
 	}
-
 	public static function getInsertRequests(){
-		return array("insert into ".static::$tableName." (type, content, parent_id,rank) ".
-			"values (:object,:content,:parent_id,:rank)");
+	    return array("insert into ".static::$tableName." (type, content, parent_id,rank) ".
+	        "values (:object,:content,:parent_id,:rank)");
 	}
-
 	public static function getPatchrequest(){
 		return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 	}

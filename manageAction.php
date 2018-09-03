@@ -1,7 +1,7 @@
 <?php
 
 // load action file
-if (file_exists('action/'.$page.'.php')) {
+if (file_exists($actionFile)) {
     logDebug('load '.$page.' action page.');
     include 'action/'.$page.'.php';
 } elseif (file_exists('action/ajax/'.$page.'.php')) {

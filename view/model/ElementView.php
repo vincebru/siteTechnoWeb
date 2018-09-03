@@ -2,17 +2,27 @@
 
 abstract class ElementView extends AbstractView
 {
+    const MODE_EDIT = 'Edit';
+    const MODE_VIEW = 'View';
+
+    protected $mode;
     protected $element;
 
-    public function __construct($element)
+    public function __construct($args)
     {
-        parent::__construct($element);
-        $this->element = $element['element'];
+        parent::__construct($args);
+        $this->element = $args['element'];
+        $this->mode = $args['mode'];
     }
 
     protected function getElement()
     {
         return $this->element;
+    }
+
+    protected function isEdition()
+    {
+        return $this->mode == ElementView::MODE_EDIT;
     }
 
     public function getHtml()
@@ -56,6 +66,7 @@ abstract class ElementView extends AbstractView
         $subViewType = $subElement->getType().'View';
         $viewArg = array();
         $viewArg['element'] = $subElement;
+        $viewArg['mode'] = $this->args['mode'];
         $subView = new $subViewType($viewArg);
 
         return $subView;

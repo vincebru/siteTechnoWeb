@@ -10,6 +10,13 @@ class Title extends Element{
         return array(static::$level);
     }
     
+    
+    public static function getInsertRequests(){
+        return array_merge(parent::getInsertRequests(),array("insert into ".static::$complementTableName.
+            " (element_id,level) ".
+            " values (:id,:level)"));
+    }
+    
     static protected $level='level';
 
 	public function getLevel()

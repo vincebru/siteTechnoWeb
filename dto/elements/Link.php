@@ -11,6 +11,13 @@ class Link extends Element{
     }
     
     static protected $label='label';
+
+    
+    public static function getInsertRequests(){
+        return array_merge(parent::getInsertRequests(),array("insert into ".static::$complementTableName.
+            " (element_id,label) ".
+            " values (:id,:label)"));
+    }
     
     public function getLabel()
     {

@@ -1,12 +1,63 @@
-.lessonEdition {
-	position: relative;
-    height: 350px;
-    overflow: auto;
-}
-.lessonEdition p {
-	clear: both;
+H1	 {
+	text-align: center;
 }
 
-H2, H3 {
-	text-align: center;
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+}
+
+@media (min-width: 1200px) {
+	.bd-sidebar {
+		-ms-flex: 0 1 320px;
+		flex: 0 1 320px;
+	}
+	.flex-xl-nowrap {
+		-ms-flex-wrap: nowrap!important;
+		flex-wrap: nowrap!important;
+	}
+}
+
+@media (min-width: 768px) {
+	.bd-sidebar {
+		position: -webkit-sticky;
+		position: sticky;
+		z-index: 1000;
+		height: 100vh;
+	}
+}
+
+.bd-content {
+	-ms-flex-order: 1;
+	overflow-y: auto;
+	order: 1;
+}
+
+.bd-content .row {
+	margin-right: 0px;
+}
+
+.bd-content>h1[id]::before, .bd-content>h2[id]::before, .bd-content>h3[id]::before, .bd-content>h4[id]::before {
+	display: block;
+	height: 6rem;
+	margin-top: -6rem;
+	visibility: hidden;
+	content: "";
+}
+
+.bd-navbar {
+	min-height: 4rem;
+	background-color: #563d7c;
+	box-shadow: 0 0.3rem 0.7rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+}
+
+.bd-sidebar {
+	-ms-flex-order: 0;
+	order: 0;
+	top: 4rem;
+	height: calc(100vh - 4rem);
+	border-right: 1px solid rgba(0,0,0,.1);
 }

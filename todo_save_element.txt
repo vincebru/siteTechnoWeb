@@ -20,7 +20,7 @@ img + width+height
 title + level
 input(texte) + label
 table
-line
-column span
+tableLine
+tableCell + span
 
 

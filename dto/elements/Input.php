@@ -1,0 +1,19 @@
+<?php
+
+class Input extends Element{
+    
+    static protected $elementType=Element::TYPE_INPUT;
+    
+    protected static $complementTableName='input';
+    
+    static protected function complementPropertyNameList (){
+        return array(static::$label);
+    }
+    
+    static protected $label='label';
+    
+    public function getLabel()
+    {
+        return $this->get(static::$label);
+    }
+}

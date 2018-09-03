@@ -1,0 +1,29 @@
+.lessonEdition {
+	position: relative;
+    overflow: auto;
+}
+.lessonEdition p {
+	clear: both;
+}
+
+.lesson-toolbar{
+    float:right;
+    line-height: 48px;
+    vertical-align: text-top;
+}
+
+.lesson-title {
+    margin: auto;
+}
+
+.float-clear{
+    clear: both;
+}
+
+.bd-sidebar {
+	-ms-flex-order: 0;
+	order: 0;
+	top: 1rem;
+	height: calc(100vh - 1rem);
+	border-right: 1px solid rgba(0,0,0,.1);
+}

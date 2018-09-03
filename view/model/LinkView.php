@@ -1,5 +1,15 @@
-<?php echo $this->type;
+<?php
+class LinkView extends ElementView
+{
+    protected function render()
+    {
+        ?>
+        <a href="<?php echo $this->element->getContent(); ?>"><?php echo $this->element->getLabel(); ?></a>
+        <?php
+    }
 
-foreach($this->getSubElements() as $subElement){
-	$subElement->getHtml();
+    protected function renderOutline()
+    {
+        return '';
+    }
 }

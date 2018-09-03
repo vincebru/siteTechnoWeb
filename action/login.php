@@ -1,6 +1,5 @@
 <?php
 
-
 $loginMessage="";
 if (isset($_POST["login"]) && $_POST["login"]!=""){
 	$login=$_POST["login"];
@@ -18,8 +17,17 @@ if($loginMessage==""){
 	$user=UserModel::getUserFromLoginClearPwd($login,$password);
 	if ($user!=null){
 		UserModel::logUser($user->getId());
-		$page="main";
+		$page="Main";
 	} else {
 		$loginMessage = "Bad Login or Password";
+		$pagePath="ErrorView";
+		$page=$pagePath;
 	}
+}else{
+	$pagePath="ErrorView";
+	$page=$pagePath;
+}
+
+if ($loginMessage!=""){
+	$args["errorMessage"] = $loginMessage;
 }

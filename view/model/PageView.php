@@ -1,5 +1,21 @@
-<?php echo $this->type;
+<?php
+class PageView extends ElementView
+{
+    protected function render()
+    {
+        ?>
+        <h2 id="page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></h2>
+        <?php echo $this->renderChildren(); ?>
+        <?php
+    }
 
-foreach($this->getSubElements() as $subElement){
-	$subElement->getHtml();
+    protected function renderOutline()
+    {
+        ?>
+        <a class="nav-link ml-2" href="#page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
+        <nav class="nav nav-pills flex-column">
+        <?php echo $this->renderChildrenOutline(); ?>
+        </nav>
+        <?php
+    }
 }

@@ -2,58 +2,46 @@
 
 class Role extends DTO{
 
-	static protected $tableName="role";
-	static protected $colId="role_id";
-	static protected $isAdminRequestable=true;
+	static protected $tableName = 'role';
+	static protected $id = 'role_id';
+	static protected $isAdminUptable = true;
 
-	private $id;
-	private $code;
-	private $name;
+	static protected $code='code';
+	static protected $name='name';
 
-
-	function __construct($data){
-		self::constructFromValue($data['role_id'],$data['code'],$data['name']);
+	static protected function propertyNameList (){
+		return array(static::$id,
+			static::$code,
+			static::$name
+		);
 	}
 
-	public function constructFromValue($id,$code, $name){
-		$this->id=$id;
-		$this->code=$code;
-		$this->name=$name;
-		$this->tableName="role";
-		$this->colId="role_id";
-	}
-
-	public function getId()
-	{
-	    return $this->id;
-	}
-	 
 	public function setId($id)
 	{
-	    $this->id = $id;
+	    $this->set(static::$id, $id);
 
 	    return $this;
 	}
 
 	public function getCode()
 	{
-	    return $this->code;
+	    return $this->get(static::$code);
 	}
 	 
 	public function setCode($code)
 	{
-	    $this->code = $code;
+	    $this->set(static::$code, $code);
 	    return $this;
 	}
 
 	public function getName()
 	{
-	    return $this->name;
+	    return $this->get(static::$name);
 	}
 	 
 	public function setName($name)
 	{
-	    $this->name = $name;
+	    $this->set(static::$name, $name);
 	    return $this;
 	}
 }

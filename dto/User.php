@@ -3,99 +3,83 @@
 class User extends DTO{
 
 	static protected $tableName="user";
-	static protected $colId="user_id";
-	static protected $isAdminRequestable=true;
+	static protected $isAdminUptable=true;
 
-	private $id;
-	private $login;
-	private $firstname;
-	private $lastname;
-	private $email;
-	private $password;
-	private $role;
-	private $sessionGroupId;
-	private $workGroupId;
+	static protected $id='user_id';
+	static protected $login='login';
+	static protected $firstname='firstname';
+	static protected $lastname='lastname';
+	static protected $email='email';
+	static protected $password='password';
+	static protected $role='role';
+	static protected $sessionGroupId='session_group_id';
+	static protected $workGroupId='work_group_id';
 
-
-	function __construct($data){
-		self::constructFromValue($data['user_id'],$data['login'],$data['firstname'],
-			$data['lastname'],$data['email'],$data['password'],$data['role'],
-			$data['session_group_id'],
-			$data['work_group_id']);
-	}
-
-	public function constructFromValue($id,$login, $firstname, $lastname,$email,$password,
-		$role,$sessionGroupId,$workGroupId){
-		$this->id=$id;
-		$this->login=$login;
-		$this->firstname=$firstname;
-		$this->lastname=$lastname;
-		$this->email=$email;
-		$this->password=$password;
-		$this->role=$role;
-		$this->sessionGroupId=$sessionGroupId;
-		$this->workGroupId=$workGroupId;
-		$this->tableName="user";
-		$this->colId="user_id";
-	}
-
-	public function getId()
-	{
-	    return $this->id;
+	static protected function propertyNameList (){
+		return array(static::$id,
+			static::$login,
+			static::$firstname,
+			static::$lastname,
+			static::$email,
+			static::$password,
+			static::$role,
+			static::$sessionGroupId,
+			static::$workGroupId
+		);
 	}
 
 	public function getLogin()
 	{
-	    return $this->login;
+	    return $this->get(static::$login);
 	}
 	 
 	public function setLogin($login)
 	{
-	    $this->login = $login;
+	    $this->set(static::$login, $login);
 	    return $this;
 	}
 
 	public function getFirstname()
 	{
-	    return $this->firstname;
+	    return $this->get(static::$firstname);
 	}
 	 
 	public function setFirstname($firstname)
 	{
-	    $this->firstname = $firstname;
+	    $this->set(static::$firstname, $firstname);
 	    return $this;
 	}
 
 	public function getLastname()
 	{
-	    return $this->lastname;
+	    return $this->get(static::$lastname);
 	}
 	 
 	public function setLastname($lastname)
 	{
-	    $this->lastname = $lastname;
+	    $this->set(static::$lastname, $lastname);
 	    return $this;
 	}
 
 	public function getEmail()
 	{
-	    return $this->email;
+	    return $this->get(static::$email);
 	}
 	 
 	public function setEmail($email)
 	{
-	    $this->email = $email;
+	    $this->set(static::$email, $email);
 	    return $this;
 	}
 
 	public function getPassword()
 	{
-	    return $this->password;
+	    return $this->get(static::$password);
 	}
 	 
 	public function setPassword($password)
 	{
-	    $this->password = self::cryptPassword($password);
+	    $this->set(static::$password, self::cryptPassword($password));
 	    return $this;
 	}
 
@@ -105,35 +89,35 @@ class User extends DTO{
 
 	public function getRole()
 	{
-	    return $this->role;
+	    return $this->get(static::$role);
 	}
 	 
 	public function setRole($role)
 	{
-	    $this->role = $role;
+	    $this->set(static::$role, $role);
 	    return $this;
 	}
 
 	public function getSessionGroupId()
 	{
-	    return $this->sessionGroupId;
+	    return $this->get(static::$sessionGroupId);
 	}
 	 
 	public function setSessionGroupId($sessionGroupId)
 	{
-	    $this->sessionGroupId = $sessionGroupId;
+	    $this->set(static::$sessionGroupId, $sessionGroupId);
 
 	    return $this;
 	}
 
 	public function getWorkGroupId()
 	{
-	    return $this->workGroupId;
+	    return $this->get(static::$workGroupId);
 	}
 	 
 	public function setWorkGroupId($workGroupId)
 	{
-	    $this->workGroupId = $workGroupId;
+	    $this->set(static::$workGroupId, $workGroupId);
 	    return $this;
 	}
 

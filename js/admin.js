@@ -38,7 +38,6 @@ $(document).ready(function () {
             console.log( "Request AddPage failed: " + textStatus + ", " + errorThrown );
         });
     }
-
     function doRemovePage(){
         console.log("RemovePage with pageId: " + pageId);
 
@@ -81,6 +80,26 @@ $(document).ready(function () {
     $('.doAddPage').click(doAddPage);
     $('.doRemovePage').click(doRemovePage);
     $('.doEditPage').click(doEditPage);
+
+    function doRemoveLesson(){
+        console.log("RemoveLesson with lessonId: " + lessonId);
+
+        $.ajax({
+            url: "ajax.php",
+            method: "DELETE",
+            data: { object: 'Lesson', id: lessonId },
+            dataType: "json"
+        }).done(function( msg ) {
+            $('#removeLessonModal').modal('toggle');
+            //TODO: reload page content
+        }).fail(function( jqXHR, textStatus, errorThrown ) {
+            $("#removeLessonModal").find(".alert").removeClass("d-none");
+            console.log( "Request RemoveLesson failed: " + textStatus + ", " + errorThrown );
+        });
+    }
+
+    $('.removeLesson').click(setLessonId);
+    $('.doRemoveLesson').click(doRemoveLesson);
 
     /*** ADMIN PAGE:  END ***/
 });

@@ -21,15 +21,14 @@
         $page = $_POST['page'];
     }
 
-    include 'init.php';
     $args = array();
 
     //control page access
     if (!RoleModel::isAllowed($menu, $page)) {
         $pagePath = 'NotAllowedView';
     }
-
     try {
+        $actionFile = 'action/'.$page.'.php';
         include 'manageAction.php';
     } catch (Exception $e) {
         logDebug('Error ('.$e->getMessage().') occured on '.$actionFile.', so the main view will be loaded');

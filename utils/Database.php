@@ -6,7 +6,8 @@ class Database{
 	{
 		if(!isset(self::$db)){
 			try {
-				self::$db=new PDO('mysql:host=localhost;dbname=siteTechnoWeb;charset=utf8', 'root', 'tomate');
+			    self::$db=new PDO('mysql:host=localhost;dbname=siteTechnoWeb;charset=utf8', 'root', 'tomate',
+			        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 			} catch (Exception $e){
 				logDebugAndDie ($e->getMessage());
 			}

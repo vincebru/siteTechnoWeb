@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include_once("utils/Database.php");
+include 'init.php';
 $bdd = Database::getDb();	
 $bdd->beginTransaction();
 try {
@@ -8,6 +8,7 @@ try {
 	$bdd->commit();
 } catch (Exception $e) {
 	ob_end_clean();
+	echo '<pre>';
 	$bdd->rollBack();
     echo($e->getMessage());
     var_dump($e->getTrace());

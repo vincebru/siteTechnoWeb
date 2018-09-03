@@ -94,6 +94,8 @@ CREATE TABLE `image` (
   `element_id` int(3) NOT NULL,
   `width` varchar(100) NOT NULL,
   `height` varchar(100) NOT NULL,
+  `mime` varchar(100) NOT NULL,
+  `file` blob not NULL,
   PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -104,7 +106,7 @@ CREATE TABLE `image` (
 
 LOCK TABLES `image` WRITE;
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
-INSERT INTO `image` VALUES (15,'12','25');
+INSERT INTO `image` VALUES (15,'12','25','','');
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 

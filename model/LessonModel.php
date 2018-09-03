@@ -11,14 +11,15 @@ class LessonModel
     {
         $bdd = Database::getDb();
 
-        $request = 'SELECT lessons.element_id, lessons.content, lessons.rank FROM menu ';
+        $request = 'SELECT lesson.element_id, lesson.content, lesson.rank FROM menu ';
 
+
+        $request .= ' JOIN element lesson ON lesson.parent_id = menu.element_id ';
+        
         if (isset($sessionGroupId)) {
             $request .= ' JOIN lesson_session_group ON lesson.element_id = lesson_session_group.lesson_id ';
         }
-
-        $request .= ' JOIN element lesson ON lesson.element_id = menu.element_id ';
-        $request .= ' JOIN element lessons ON lessons.parent_id = menu.element_id ';
+        
         $request .= ' WHERE menu.code = :menu ';
 
         $param = array('menu' => $menu);
@@ -29,11 +30,11 @@ class LessonModel
         }
 
         if (isset($lesson)) {
-            $request .= ' AND lesson.code = :lesson ';
+            $request .= ' AND lesson.element_id = :lesson ';
             $param['lesson'] = $lesson;
         }
 
-        $request .= ' ORDER BY lessons.rank ';
+        $request .= ' ORDER BY lesson.rank ';
 
         $preparedRequest = $bdd->prepare($request);
         $preparedRequest->execute($param);

@@ -7,6 +7,17 @@
 
         return '';
     }
+    
+    function getFileData(){
+        
+        if (isset($_FILES["file"]) && isset($_FILES["file"]["tmp_name"])){
+            $tmpFileName=$_FILES["file"]["tmp_name"];
+            $mime=mime_content_type($tmpFileName);//'application/pdf';
+            $file=fopen($tmpFileName, 'rb');
+            return array('mime'=> $mime,'file'=> $file);
+        }
+        return array();
+    }
 
     // get action/page requested
     $menu = 'ajax';
@@ -16,11 +27,11 @@
     $isWriteAction = false;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $page = 'post';
-        $refArray = $_POST;
+        $refArray = array_merge($_POST,getFileData());
         $isWriteAction = true;
     } elseif ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
         $page = 'patch';
-        $refArray = $_PATCH;
+        $refArray = array_merge($_PATCH,getFileData());
         $isWriteAction = true;
     } elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         $page = 'delete';
@@ -30,10 +41,10 @@
     $object = getValue($refArray, 'object');
     $id = getValue($refArray, 'id');
 
-    include 'init.php';
 
     if ($isWriteAction) {
         if (GlobalModel::isUpdateAllowed($object)) {
+            $actionFile = 'action/ajax/'.$page.'.php';
             include 'manageAction.php';
             $pagePath = 'ajax/get';
         } else {

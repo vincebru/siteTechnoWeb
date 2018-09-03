@@ -25,13 +25,13 @@ class PageModel
         $result = array();
 
         // lesson menu
-        if (RoleModel::isAllowed('lessons', null)) {
+        if (RoleModel::isAllowed('lesson', null)) {
             $result[] = new MenuLink('Lesson','Lesson',
                 LessonModel::getAllLessonsForMenu('Lesson', UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
         }
 
         // exercices menu
-        if (RoleModel::isAllowed('exercices', null)) {
+        if (RoleModel::isAllowed('exercice', null)) {
             $result[] = new MenuLink('Exercice','Exercice',
                 LessonModel::getAllLessonsForMenu('Exercice', UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
         }

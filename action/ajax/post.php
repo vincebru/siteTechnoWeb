@@ -1,2 +1,2 @@
 <?php
-$id = GlobalModel::createInstance($object,$_POST);
+$id = GlobalModel::createInstance($object,$refArray);

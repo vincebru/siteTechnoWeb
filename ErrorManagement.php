@@ -17,6 +17,9 @@ class ErrorManagement {
         $bdd->beginTransaction();
         try {
             include($this->method."Content.php");
+            $class=$this->method.'Content';
+            $renderer = new $class();
+            $renderer->render();
             $bdd->commit();
         } catch (Exception $e) {
             ob_end_clean();

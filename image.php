@@ -2,6 +2,6 @@
 
 include('ErrorManagement.php');
 
-$renderer= new ErrorManagement('image');
+$renderer= new ErrorManagement('Image');
 
 $renderer->render();

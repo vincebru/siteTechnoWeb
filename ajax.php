@@ -1,7 +1,7 @@
 <?php
 include('ErrorManagement.php');
 
-$renderer= new ErrorManagement('ajax');
+$renderer= new ErrorManagement('Ajax');
 
 $renderer->render();
 

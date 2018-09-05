@@ -1,5 +1,6 @@
 <?php
+include('ErrorManagement.php');
 
-$includeFile='indexContent.php';
+$renderer= new ErrorManagement('index');
 
-include('errorManagement.php');
+$renderer->render();

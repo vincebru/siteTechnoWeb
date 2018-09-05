@@ -1,7 +1,7 @@
 <?php 
 
+include('ErrorManagement.php');
 
-$includeFile='imageContent.php';
+$renderer= new ErrorManagement('image');
 
-include('errorManagement.php');
-?>
+$renderer->render();

@@ -1,5 +1,7 @@
 <?php
+include('ErrorManagement.php');
 
-$includeFile='ajaxContent.php';
+$renderer= new ErrorManagement('ajax');
 
-include('errorManagement.php');
+$renderer->render();
+

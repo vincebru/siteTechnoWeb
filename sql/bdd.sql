@@ -94,6 +94,20 @@ INSERT INTO `input` VALUES (18,'12');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `code`
+--
+
+DROP TABLE IF EXISTS `code`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `code` (
+  `element_id` int(3) NOT NULL,
+  `language` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `lesson_session_group`
 --
 

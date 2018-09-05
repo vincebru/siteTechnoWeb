@@ -16,6 +16,7 @@ abstract class Element extends DTO{
 	const TYPE_TABLE='Table';
 	const TYPE_TABLE_ROW='TableRow';
 	const TYPE_TABLE_CELL='TableCell';
+	const TYPE_CODE='Code';
 
 	static protected $tableName="element";
 	static protected $elementType;

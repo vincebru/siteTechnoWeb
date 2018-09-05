@@ -24,9 +24,9 @@ class ErrorManagement {
         } catch (Exception $e) {
             ob_end_clean();
             echo '<pre>';
-            $bdd->rollBack();
             echo($e->getMessage());
             var_dump($e->getTrace());
+            $bdd->rollBack();
             http_response_code(500);
         }
     }

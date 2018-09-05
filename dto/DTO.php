@@ -31,6 +31,10 @@ abstract class DTO{
 		return array();
 	}
 
+    static public function getSpecificDatabaseType(){
+        return array();
+    }
+
 	private $updatedProperties;
 	protected $values;
 

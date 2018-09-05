@@ -63,13 +63,21 @@ class GlobalModel
     {
         $bdd = Database::getDb();
         $requests = $class::getInsertRequests();
+        $specificDatabaseType=$class::getSpecificDatabaseType();
         $id;
         foreach ($requests as $request) {
             $req = $bdd->prepare($request);
 
             $usefulData = self::extractUsefullValueForInsert($request, $data);
 
-            $req->execute($usefulData);
+            foreach($usefulData as $key => $value) {
+                if (isset($specificDatabaseType[$key])) {
+                    $req->bindValue(':'.$key, $value, $specificDatabaseType[$key]);
+                } else {
+                    $req->bindValue(':'.$key, $value);
+                }
+            }
+            $req->execute();
 
             if (!isset($id)) {
                 $id = $bdd->lastInsertId();

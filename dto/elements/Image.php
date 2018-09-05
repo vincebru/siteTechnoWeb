@@ -21,6 +21,11 @@ class Image extends Element{
             " (element_id,width, height, mime,file) ".
             " values (:id,:width, :height, :mime,:file)"));
     }
+
+
+    static public function getSpecificDatabaseType(){
+        return array(static::$file=>PDO::PARAM_LOB);
+    }
     
     public function getWidth()
     {

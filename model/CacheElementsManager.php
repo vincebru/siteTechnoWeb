@@ -3,7 +3,7 @@
 class CacheElementsManager{
     
     
-    public static $instanceList=array();
+    private static $instanceList=array();
     
     public static function cacheElement($element){
         $bdd = Database::getDb();

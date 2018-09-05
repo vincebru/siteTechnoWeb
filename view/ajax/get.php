@@ -5,8 +5,9 @@ echo('<pre>');
 var_dump($result);
 echo('coucou');
 
-foreach (CacheElementsManager::$instanceList as $id => $element){
-    echo ($id." => ".$element->getType()."<br>");
+foreach ($result->getSubElements() as $elementId){
+    $element=CacheElementsManager::getElement($elementId);
+    echo ($elementId." => ".$element->getType()."<br>");
 }
 
 //$result->getHtml();

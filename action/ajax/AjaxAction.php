@@ -2,7 +2,7 @@
 
 class AjaxAction
 {
-    $data;
+    protected $data;
     
     function __construct($data){
         $this->data=$data;

@@ -2,6 +2,7 @@
 
 class Post extends AjaxAction{
     public function execute() {
-        $id = GlobalModel::createInstance($object,$refArray);
+        $id = GlobalModel::createInstance($this->data['object'],$this->data);
+        return $id;
     }
 }

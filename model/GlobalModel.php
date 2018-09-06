@@ -4,7 +4,7 @@ class GlobalModel
 {
     public static function getInstance($class, $id)
     {
-        $result = '';
+        $result = null;
         $bdd = Database::getDb();
         $request = $class::getRequestById();
         $preparedRequest = $bdd->prepare($request);

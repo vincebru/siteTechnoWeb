@@ -10,6 +10,10 @@ class UlView extends ElementView
         <?php
     }
 
+    protected function buildModalHtmlContent($action)
+    {
+    }
+
     protected function renderOutline()
     {
         return '';

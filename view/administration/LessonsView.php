@@ -41,49 +41,32 @@ class LessonsView extends AbstractView
         } ?>
 		</tbody>
 	</table>
-	<?php
-        echo $this->getModalHtml(); ?>
 </div>
-	<?php if (array_key_exists('edit', $this->args)) {
+<?php
+    }
+
+    public function getEditHtml()
+    {
+        if (!array_key_exists('element', $this->args)) {
             $this->args['element'] = GlobalModel::getInstance(Element::TYPE_LESSON, $this->args['edit']);
-            $view = new LessonView($this->args); ?>
+        }
+        $view = new LessonView($this->args); ?>
 <div class="container-fuild mt-3">
 	<div class="shadow-sm p-3 mb-1 bg-white rounded">
 	<?php echo $view->getViewHtml(); ?>
 	</div>
 </div>
 	<?php
-        }
     }
 
-    private function getModalHtml()
+    public function getModals()
     {
-        ?>
-	<div class="modal fade" id="removeLessonModal" tabindex="-1" role="dialog" aria-labelledby="removeLessonModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="removeLessonModalLabel">Remove Lesson</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="alert alert-warning alert-dismissible fade show d-none" role="alert">
-						<strong>Something went wrong!</strong> Fail to remove the Lesson.
-						<button type="button" class="close" data-hide="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<p>Remove the lesson?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary doRemoveLesson">Remove</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<?php
+        if (!array_key_exists('element', $this->args)) {
+            $this->args['element'] = GlobalModel::getInstance(Element::TYPE_LESSON, $this->args['edit']);
+        }
+
+        $view = new LessonView($this->args);
+
+        return $view->getModals();
     }
 }

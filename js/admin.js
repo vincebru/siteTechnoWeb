@@ -8,98 +8,143 @@ $(document).ready(function () {
             $(this).closest("." + $(this).attr("data-hide")).addClass("d-none");
         });
     });
-    var lessonId;
-    var pageId;
+    var parentId;
+    var elementId;
+    var elementType;
 
-    function setLessonId(event){
-        lessonId = $( event.currentTarget ).data('id');
+    function setParentId(event){
+        parentId = $( event.currentTarget ).data('id');
     }
 
-    function setPageId(event){
-        pageId = $(event.currentTarget).data('id');
+    function setElementId(event){
+        elementId = $(event.currentTarget).data('id');
+        elementType = $(event.currentTarget).data('type');
     }
 
-    function doAddPage(){
-        console.log("AddPage to lessonId: " + lessonId);
-        var pageTitle = $('#newPageTitle').val();
-        console.log("AddPage with title: " + pageTitle);
+        /*** ADD ELEMENT:  START ***/
 
-        $.ajax({
-            url: "ajax.php",
-            method: "POST",
-            data: { object: "Page", content : pageTitle, parent_id: lessonId, rank: -1 },
-            //data to set for element :object,:content,:parent_id,:rank
-            dataType: "json"
-        }).done(function( msg ) {
-            $('#addPageModal').modal('toggle');
-            //TODO: reload page content
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#addPageModal").find(".alert").removeClass("d-none");
-            console.log( "Request AddPage failed: " + textStatus + ", " + errorThrown );
+        $('.addElement').click(setParentId);
+
+        $('#newElementType').on('change', function(e) {
+            var elementType = $('#newElementType').val();
+            console.log("elementType   :" + elementType);
+    
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action: "Add" },
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#AddElementModal #actionForm').empty();
+                $('#AddElementModal #actionForm').append(msg.popup);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#AddElementModal").find(".alert").removeClass("d-none");
+                console.log( "AddModalForm Request failed: " + textStatus + ", " + errorThrown );
+            });
         });
-    }
-    function doRemovePage(){
-        console.log("RemovePage with pageId: " + pageId);
+    
+        function doAddElement(){
+            console.log("AddElement to parentId: " + parentId);
+            var elementType = $('#AddElementModal #newElementType').val();
 
-        $.ajax({
-            url: "ajax.php",
-            method: "DELETE",
-            data: { object: "Page", id: pageId },
-            dataType: "json"
-        }).done(function( msg ) {
-            $('#removePageModal').modal('toggle');
-            //TODO: reload page content
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#removePageModal").find(".alert").removeClass("d-none");
-            console.log( "Request RemovePage failed: " + textStatus + ", " + errorThrown );
-        });
-    }
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action : "Describe" },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                fillJsonObject(elementType, msg);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#AddElementModal").find(".alert").removeClass("d-none");
+                console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
+                return;
+            });
+        }
+
+        function fillJsonObject(elementType, jsonObject){
+            var jsonObj = {};
+            jsonObj["object"] = elementType;
+            jsonObj["parent_id"] = parentId;
+            jsonObj["rank"] = -1;
+            console.log(Array.isArray(jsonObject.properties));
+
+            const iterator = jsonObject.properties.values();
+
+            for (const value of iterator) {
+                jsonObj[value] = $("#AddElementModal #" + value).val();
+                console.log(value); // expected output: "a" "b" "c"
+            }
+
+            $.ajax({
+                url: "ajax.php",
+                method: "POST",
+                data: jsonObj,
+                // { object: elementType, content : elementTitle, parent_id: parentId, rank: -1 },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#AddElementModal').modal('toggle');
+                //TODO: reload page content
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#AddElementModal").find(".alert").removeClass("d-none");
+                console.log( "Request AddElement failed: " + textStatus + ", " + errorThrown );
+            });
+        }
+
+        $('.doAddElement').click(doAddElement);
+
+        /*** ADD ELEMENT:  END ***/
+
+        /*** EDIT ELEMENT:  START ***/
+
     function doEditPage(){
-        console.log("pageId      :" + pageId);
+        console.log("pageId      :" + elementId);
         var pageTitle = $('#editPageTitle').val();
         console.log("pageTitle   :" + pageTitle);
 
         $.ajax({
             url: "ajax.php",
-            method: "PATCH",
-            data: { object: "Page", id: pageId, content: pageTitle },
+            method: "POST",
+            data: { object: "Page", action: "PATCH", id: elementId, content: pageTitle },
             dataType: "json"
         }).done(function( msg ) {
             $('#editPageModal').modal('toggle');
             //TODO: reload page content
         }).fail(function( jqXHR, textStatus, errorThrown ) {
             $("#editPageModal").find(".alert").removeClass("d-none");
-            console.log( "Request RemovePage failed: " + textStatus + ", " + errorThrown );
+            console.log( "Request EditPage failed: " + textStatus + ", " + errorThrown );
         });
     }
 
-    $('.addPage').click(setLessonId);
-    $('.removePage').click(setPageId);
-    $('.editPage').click(setPageId);
-
-    $('.doAddPage').click(doAddPage);
-    $('.doRemovePage').click(doRemovePage);
+    $('.editPage').click(setElementId);
     $('.doEditPage').click(doEditPage);
 
-    function doRemoveLesson(){
-        console.log("RemoveLesson with lessonId: " + lessonId);
+        /*** EDIT ELEMENT:  END ***/
+
+        /*** REMOVE ELEMENT:  START ***/
+
+    $('.removeElement').click(setElementId);
+    $('.doRemoveElement').click(doRemoveElement);
+
+    function doRemoveElement(){
+        console.log("RemoveElement with elementId: " + elementId);
 
         $.ajax({
             url: "ajax.php",
-            method: "DELETE",
-            data: { object: 'Lesson', id: lessonId },
+            method: "POST",
+            data: { object: elementType, action: "DELETE", id: elementId },
             dataType: "json"
         }).done(function( msg ) {
-            $('#removeLessonModal').modal('toggle');
+            $('#RemoveElementModal').modal('toggle');
             //TODO: reload page content
         }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#removeLessonModal").find(".alert").removeClass("d-none");
-            console.log( "Request RemoveLesson failed: " + textStatus + ", " + errorThrown );
+            $("#RemoveElementModal").find(".alert").removeClass("d-none");
+            console.log( "Request RemoveElement failed: " + textStatus + ", " + errorThrown );
         });
     }
 
-    $('.removeLesson').click(setLessonId);
-    $('.doRemoveLesson').click(doRemoveLesson);
+        /*** REMOVE ELEMENT:  END ***/
 
     /*** ADMIN PAGE:  END ***/
 });

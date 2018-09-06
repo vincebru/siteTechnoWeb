@@ -103,6 +103,14 @@ abstract class DTO{
 		}
 	}
 
+	public function getAllProperties(){
+		return array_merge(static::propertyNameList(), static::complementPropertyNameList());
+	}
+
+	public function getComplementProperties(){
+		return static::complementPropertyNameList();
+	}
+
 	public function set($propertyName, $value){
 		$this->verifyPropertyName($propertyName);
 		$this->values[$propertyName]=$value;

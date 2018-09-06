@@ -148,7 +148,7 @@ $exerciceList=LessonModel::getAllLessonsForMenu("exercices",null,null);
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary doRemovePage">Remove</button>
+						<button type="button" class="btn btn-primary doRemoveElement">Remove</button>
 					</div>
 				</div>
 			</div>

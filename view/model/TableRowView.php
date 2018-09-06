@@ -14,4 +14,8 @@ class TableRowView extends ElementView
     {
         return '';
     }
+
+    protected function buildModalHtmlContent($action)
+    {
+    }
 }

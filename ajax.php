@@ -46,6 +46,7 @@ class Ajax extends AccesPoint{
         }
         
         $id=$this->executionResult;
+        $object = $refArray['object'];
 
         $viewFile = 'view/'.$pagePath.'.php';
         if (!file_exists($viewFile)) {

@@ -26,6 +26,11 @@ include_once 'dto/elements/Table.php';
 include_once 'dto/elements/TableRow.php';
 include_once 'dto/elements/TableCell.php';
 
+include_once 'action/ajax/Delete.php';
+include_once 'action/ajax/Move.php';
+include_once 'action/ajax/Patch.php';
+include_once 'action/ajax/Post.php';
+
 include_once 'view/IndexView.php';
 include_once 'view/AbstractView.php';
 include_once 'view/ContactView.php';

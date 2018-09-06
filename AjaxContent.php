@@ -24,20 +24,23 @@ class AjaxContent{
     public function render(){
         // get action/page requested
         $menu = 'ajax';
-        $page = 'get';
+        $action = 'get';
         $pagePath = 'ajax/get';
         $refArray = $_GET;
         $isWriteAction = false;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $page = 'post';
+            $action = 'post';
+            if (isset($_POST['action'])){
+                $action = $_POST['action'];
+            }
             $refArray = array_merge($_POST,static::getFileData());
             $isWriteAction = true;
         } elseif ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
-            $page = 'patch';
+            $action = 'patch';
             $refArray = array_merge($_PATCH,static::getFileData());
             $isWriteAction = true;
         } elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-            $page = 'delete';
+            $action = 'delete';
             $refArray = $_DELETE;
             $isWriteAction = true;
         }
@@ -47,7 +50,8 @@ class AjaxContent{
     
         if ($isWriteAction) {
             if (GlobalModel::isUpdateAllowed($object)) {
-                $actionFile = 'action/ajax/'.$page.'.php';
+                $context='ajax';
+                $actionFile = 'action/ajax/'.$action.'.php';
                 include 'manageAction.php';
                 $pagePath = 'ajax/get';
             } else {

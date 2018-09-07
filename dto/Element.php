@@ -78,6 +78,10 @@ abstract class Element extends DTO{
 	    return $this->get(static::$position);
 	}
 	
+	public function getParentId(){
+	   return $this->get(static::$parentId);    
+	}
+	
 	public function addSubElement($subElement){
 		if (!isset($this->subElements)){
 			$this->subElements=array();

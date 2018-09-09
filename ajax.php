@@ -24,6 +24,8 @@ class Ajax extends AccesPoint{
     }
 
     public function display(){
+        
+        
         // get action/page requested
         $this->page = 'get';
         $pagePath = 'ajax/get';
@@ -32,19 +34,13 @@ class Ajax extends AccesPoint{
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->page = 'post';
             if (isset($_POST['action'])){
+                // action could be Move/Patch/Delete
                 $this->page = $_POST['action'];
             }
             $refArray = array_merge($_POST,static::getFileData());
             $isWriteAction = true;
-        } elseif ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
-            $this->page = 'patch';
-            $refArray = array_merge($_PATCH,static::getFileData());
-            $isWriteAction = true;
-        } elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-            $this->page = 'delete';
-            $refArray = $_DELETE;
-            $isWriteAction = true;
         }
+        
         $object = static::getValue($refArray, 'object');
         $this->executionResult = static::getValue($refArray, 'id');
 

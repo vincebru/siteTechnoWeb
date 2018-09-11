@@ -30,6 +30,10 @@ abstract class DTO{
 	static protected function complementPropertyNameList (){
 		return array();
 	}
+	
+	static public function getFullPropertyNameList (){
+	    return array_merge(static::propertyNameList(),static::complementPropertyNameList());
+	}
 
     static public function getSpecificDatabaseType(){
         return array();

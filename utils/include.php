@@ -14,6 +14,9 @@ include_once 'dto/Role.php';
 include_once 'dto/SessionGroup.php';
 include_once 'dto/User.php';
 include_once 'dto/WorkGroup.php';
+
+include_once 'dto/elements/Code.php';
+include_once 'dto/elements/Menu.php';
 include_once 'dto/elements/Paragraph.php';
 include_once 'dto/elements/Lesson.php';
 include_once 'dto/elements/Page.php';
@@ -27,7 +30,8 @@ include_once 'dto/elements/TableRow.php';
 include_once 'dto/elements/TableCell.php';
 
 include_once 'action/Action.php';
-include_once 'action/ajax/AjaxAction.php';
+include_once 'action/WriteAction.php';
+include_once 'action/FacilitateurAddElement.php';
 include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
@@ -47,6 +51,7 @@ include_once 'view/MainView.php';
 include_once 'view/NotAllowedView.php';
 include_once 'view/NewAccountView.php';
 include_once 'view/ResultView.php';
+include_once 'view/FacilitateurAddElementView.php';
 
 include_once 'view/administration/AdminView.php';
 include_once 'view/administration/LessonsView.php';

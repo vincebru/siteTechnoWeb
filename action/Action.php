@@ -2,6 +2,11 @@
 
 abstract class  Action
 {
+    protected $data;
+    
+    function __construct($data){
+        $this->data=$data;
+    }
     
     public static function getValue($array, $key) {
         if (isset($array[$key])) {

@@ -28,6 +28,8 @@ class Index extends AccesPoint {
         } 
 
         $args = array();
+        
+        $args['inputParam']=$refArray;
 
         //control page access
         if (!RoleModel::isAllowed($menu, $this->page)) {
@@ -40,6 +42,9 @@ class Index extends AccesPoint {
             logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
             var_dump($e->getTrace());
             $pagePath = 'MainView';
+        }
+        if(!isset($args['inputParam']['id'])){
+            $args['inputParam']['id']=$this->executionResult;
         }
 
         if (Element::isRootElements($menu)) {

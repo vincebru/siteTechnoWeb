@@ -1,12 +1,7 @@
 <?php
 
-class AjaxAction extends Action
+class WriteAction extends Action
 {
-    protected $data;
-    
-    function __construct($data){
-        $this->data=$data;
-    }
     
     public function execute() {
         
@@ -14,7 +9,7 @@ class AjaxAction extends Action
     
     public static function checkAllowed($refArray){
         $object = static::getValue($refArray, 'object');
-        if(!GlobalModel::isUpdateAllowed($object)){
+        if($object!='' && !GlobalModel::isUpdateAllowed($object)){
             throw new Exception('NotAllowed');
         }
     }

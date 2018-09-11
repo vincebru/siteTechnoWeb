@@ -42,6 +42,24 @@ INSERT INTO `element` VALUES (1,'Page','Part 1',5,1),(2,'Page','Part 2',5,2),(3,
 /*!40000 ALTER TABLE `element` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+
+DROP TABLE IF EXISTS `answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `answer` (
+  `answer_id` int(3) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  `user_id` int(3) NOT NULL,
+  `group_id` int(3),
+  `creation_date` date,
+  `complementary_data` varchar(1023) NOT NULL,
+  `rank` int(9) DEFAULT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 --
 -- Table structure for table `image`
 --

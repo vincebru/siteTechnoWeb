@@ -6,26 +6,26 @@ class Index extends AccesPoint {
 
     public function display(){
         // get action/page requested
-        $menu = null;
-        if (isset($_GET['menu'])) {
-            $menu = $_GET['menu'];
-        } elseif (isset($_POST['menu'])) {
-            $menu = $_POST['menu'];
+        
+        $refArray = $_GET;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $refArray = array_merge($_POST,static::getFileData());
         }
+        
+        $menu = null;
+        if (isset($refArray['menu'])) {
+            $menu = $refArray['menu'];
+        } 
 
         $edit = null;
-        if (isset($_GET['edit'])) {
-            $edit = $_GET['edit'];
-        } elseif (isset($_POST['edit'])) {
-            $edit = $_POST['edit'];
-        }
+        if (isset($refArray['edit'])) {
+            $edit = $refArray['edit'];
+        } 
 
         $this->page = 'Main';
-        if (isset($_GET['page'])) {
-            $this->page = $_GET['page'];
-        } elseif (isset($_POST['page'])) {
-            $this->page = $_POST['page'];
-        }
+        if (isset($refArray['page'])) {
+            $this->page = $refArray['page'];
+        } 
 
         $args = array();
 
@@ -34,7 +34,7 @@ class Index extends AccesPoint {
             $pagePath = 'NotAllowedView';
         }
         try {
-            $this->manageAction($this->page,null);
+            $this->manageAction($refArray);
         } catch (Exception $e) {
             logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
             logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);

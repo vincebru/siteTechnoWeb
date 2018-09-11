@@ -12,17 +12,6 @@ class Ajax extends AccesPoint{
         return '';
     }
 
-    private static function getFileData(){
-
-        if (isset($_FILES["file"]) && isset($_FILES["file"]["tmp_name"])){
-            $tmpFileName=$_FILES["file"]["tmp_name"];
-            $mime=mime_content_type($tmpFileName);//'application/pdf';
-            $file=fopen($tmpFileName, 'rb');
-            return array('mime'=> $mime,'file'=> $file);
-        }
-        return array();
-    }
-
     public function display(){
         
         
@@ -41,19 +30,20 @@ class Ajax extends AccesPoint{
             $isWriteAction = true;
         }
         
-        $object = static::getValue($refArray, 'object');
         $this->executionResult = static::getValue($refArray, 'id');
 
-
         if ($isWriteAction) {
-            if (GlobalModel::isUpdateAllowed($object)) {
+            try{
                 $this->manageAction($refArray);
                 $pagePath = 'ajax/get';
-            } else {
+            }catch (Exception $e){
+                logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
+                logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
+                var_dump($e->getTrace());
                 $pagePath = 'ajax/notAllowed';
             }
         }
-
+        
         $id=$this->executionResult;
 
         $viewFile = 'view/'.$pagePath.'.php';

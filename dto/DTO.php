@@ -67,6 +67,9 @@ abstract class DTO{
 	public static function getInsertRequests(){
 		return array();
 	}
+	public static function getPatchrequest(){
+	    return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
+	}
 
 	protected function addUpdatedProperty($propertyName){
 		if (!isset($this->updatedProperties)){

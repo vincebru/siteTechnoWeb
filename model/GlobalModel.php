@@ -50,9 +50,30 @@ class GlobalModel
             $split3 = explode(')', $split2[0]);
             //$split3[0]: var1  or var2
             $varName = trim($split3[0]);
-            if (!isset($array[$varName])) {
-                throw new Exception('Error: Missing property '.$varName);
-            }
+            
+            switch ($varName) {
+                case 'creation_data':
+                    $array[$varName]=getdate();
+                    break;
+                case 'user_id':
+                    $array[$varName]=UserModel::getConnectedUser()->getId();
+                    break;
+                case 'complementary_data':
+                    $array[$varName]=serialize($array);
+                    break;
+                case 'group_id':
+                    if (isset($array[$varName]) && !UserModel::isGroupOfConnectedUser($array[$varName])){
+                        throw new Exception('Error: Invalid group id '.$array[$varName]);
+                    } else if (!isset($array[$varName])){
+                        $array[$varName] = null;
+                    }
+                    break;
+                default:
+                    if (!isset($array[$varName])) {
+                        throw new Exception('Error: Missing property '.$varName);
+                    }
+            }            
+            
             $paramList[$varName] = $array[$varName];
         }
 
@@ -88,6 +109,16 @@ class GlobalModel
         return $id;
     }
 
+    private static function removeNullProperties($array){
+        foreach($array as $key => $value){
+            if ($value==null){
+                unset($array[$key]);
+            }
+        }
+        
+        return $array;
+    }
+    
     public static function patchInstance($class, $data)
     {
         $elementToPatch = static::getInstance($class, $data['id']);
@@ -100,6 +131,8 @@ class GlobalModel
             $req = $bdd->prepare($request);
 
             $usefulData = self::extractUsefullValueForInsert($request, $data);
+            
+            $usefulData = static::removeNullProperties($usefulData);
 
             $req->execute($usefulData);
 

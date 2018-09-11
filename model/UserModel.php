@@ -8,7 +8,19 @@ class UserModel{
 			self::$connectedUser=self::getUserFromId($_SESSION['userId']);
 		}
 	}
+	
+	public static function getConnectedUser(){
+	    return self::$connectedUser;
+	}
 
+	public static function isGroupOfConnectedUser($groupId){
+	    if (!isset(self::$connectedUser)) {
+	        return false;
+	    }
+	    $connectedGroupId=self::$connectedUser->getWorkGroupId();
+	    return $connectedGroupId==$groupId;
+	}
+	
 	/*
 	define the user in session. To use from login page
 	*/

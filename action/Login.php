@@ -1,6 +1,8 @@
 <?php
 
-class Login{
+class Login extends Action{
+    
+    
     public function execute() {
         $loginMessage="";
         if (isset($_POST["login"]) && $_POST["login"]!=""){

@@ -1,6 +1,6 @@
 <?php
 
-class AddAccount{
+class AddAccount extends Action{
     public function execute() {
         // get formular information
         $message="";

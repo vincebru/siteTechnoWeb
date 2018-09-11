@@ -28,6 +28,10 @@ class User extends DTO{
 		);
 	}
 
+	public function getId(){
+	    return $this->get(static::$id);
+	}
+	
 	public function getLogin()
 	{
 	    return $this->get(static::$login);

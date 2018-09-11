@@ -1,5 +1,6 @@
 <?php
-class Disconnect{
+class Disconnect extends Action{
+    
     public function execute() {
         UserModel::disconnect();
     }

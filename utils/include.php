@@ -26,6 +26,7 @@ include_once 'dto/elements/Table.php';
 include_once 'dto/elements/TableRow.php';
 include_once 'dto/elements/TableCell.php';
 
+include_once 'action/Action.php';
 include_once 'action/ajax/AjaxAction.php';
 include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';

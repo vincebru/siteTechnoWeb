@@ -58,9 +58,6 @@ abstract class Element extends DTO{
 	    return array("insert into ".static::$tableName." (type, content, parent_id,rank) ".
 	        "values (:object,:content,:parent_id,:rank)");
 	}
-	public static function getPatchrequest(){
-		return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
-	}
 
 	public function getType(){
 	    return $this->get(static::$type);

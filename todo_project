@@ -2,14 +2,14 @@ sur http://localhost:8000/index.php?menu=admin&page=adminPage
 
  - faire l'affichage d'une lesson http://localhost:8000/index.php?menu=admin&page=adminPage&editLesson=html
  ok - creer le modele de données elements
- - creer le point d'entrée ajax
+ ok - creer le point d'entrée ajax
  - creer le sauvegardeur de modif
   		- a chaque modification sur le front on peut
   			- sauvegarder la modif effectuer sans l'appliquer sur le code de l'element
   			- appliquer les modifs sauvegarder sur un element
  - permettre l'ajout d'une page dans la lesson
  - permettre la suppression d'une page dans la lesson
- - afficher le contenu d'une page
+ ok - afficher le contenu d'une page
  - permettre l'ajout d'un element (en passant par le modifieur d'elements)
  - permettre la modification d'un element (en passant par le modifieur d'elements)
  - permettre la suppresion d'un element (en passant par le modifieur d'elements)

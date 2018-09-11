@@ -1,6 +1,6 @@
 <?php
 
-$result = GlobalModel::getInstance($object,$id);
+$result = GlobalModel::getInstance($refArray['object'],$id);
 
 if ($result->getType()==Element::TYPE_IMAGE){
     echo "<img src='image.php?id=".$result->getId()."'/>";

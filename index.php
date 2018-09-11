@@ -1,6 +1,109 @@
 <?php
-include('ErrorManagement.php');
 
-$renderer= new ErrorManagement('Index');
+include_once 'AccesPoint.php';
+
+class Index extends AccesPoint {
+
+    public function display(){
+        // get action/page requested
+        $menu = null;
+        if (isset($_GET['menu'])) {
+            $menu = $_GET['menu'];
+        } elseif (isset($_POST['menu'])) {
+            $menu = $_POST['menu'];
+        }
+
+        $edit = null;
+        if (isset($_GET['edit'])) {
+            $edit = $_GET['edit'];
+        } elseif (isset($_POST['edit'])) {
+            $edit = $_POST['edit'];
+        }
+
+        $this->page = 'Main';
+        if (isset($_GET['page'])) {
+            $this->page = $_GET['page'];
+        } elseif (isset($_POST['page'])) {
+            $this->page = $_POST['page'];
+        }
+
+        $args = array();
+
+        //control page access
+        if (!RoleModel::isAllowed($menu, $this->page)) {
+            $pagePath = 'NotAllowedView';
+        }
+        try {
+            $this->manageAction($this->page,null);
+        } catch (Exception $e) {
+            logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
+            logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
+            var_dump($e->getTrace());
+            $pagePath = 'MainView';
+        }
+
+        if (Element::isRootElements($menu)) {
+            try {
+                logDebug('Query for a root element: '.$menu);
+                $args['element'] = GlobalModel::getInstance($menu, $this->page);
+                $pagePath = $menu.'View';
+            } catch (Exception $e) {
+                logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
+                logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
+                $args['errorMessage'] = $e->getMessage();
+                $args['stack'] = $e->getTrace();
+                $pagePath = 'ErrorView';
+            }
+        } else {
+            if (class_exists($menu.'View')) {
+                $pagePath = $menu.'View';
+                logDebug('The '.$menu.' view will be loaded.');
+            } else if (class_exists($this->page.'View')){
+                $pagePath = $this->page.'View';
+                logDebug('The '.$this->page.' view will be loaded.');
+            } else {
+                $pagePath = 'MainView';
+                logDebug('The main view will be loaded. Class '.$menu.' does not exist :/ ');
+            }
+        }
+        logDebug('load '.$pagePath.' view for page '.$this->page.'.');
+
+        $args['page'] = $this->page;
+        $args['menu'] = $menu;
+        if (isset($edit)) {
+            $args['edit'] = $edit;
+            $args['mode'] = ElementView::MODE_EDIT;
+        } else {
+            $args['mode'] = ElementView::MODE_VIEW;
+        }
+        $header = new Header($args);
+        $view = new $pagePath($args);
+        logDebug('$view status: '.$view->getStatus().'.');
+
+        $cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
+        $jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
+
+        $args['cssFiles'] = $cssToInclude;
+        $args['jsFiles'] = $jsToInclude;
+        $args['headerHtml'] = $header->getViewHtml();
+
+        try {
+            $args['contentHtml'] = $view->getViewHtml();
+        } catch (Exception $e) {
+            logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
+            logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
+            $args['errorMessage'] = $e->getMessage();
+            $args['stack'] = $e->getTrace();
+            $pagePath = 'ErrorView';
+            $view = new $pagePath($args);
+            $args['contentHtml'] = $view->getViewHtml();
+        }
+        $indexView = new IndexView($args);
+
+        $indexView->getHtml();
+    }
+}
+
+$renderer= new Index();
 
 $renderer->render();

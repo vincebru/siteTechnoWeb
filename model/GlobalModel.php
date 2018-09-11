@@ -4,7 +4,7 @@ class GlobalModel
 {
     public static function getInstance($class, $id)
     {
-        $result = '';
+        $result = null;
         $bdd = Database::getDb();
         $request = $class::getRequestById();
         $preparedRequest = $bdd->prepare($request);
@@ -111,13 +111,55 @@ class GlobalModel
 
         return $id;
     }
+    
+    private static function isInstanceOf($class, $id){
+        $element = static::getInstance($class, $id);
+        return $element != null;
+    }
+    
+    public static function moveInstance($class,$id,$beforeId) {
+        // check $id is instance of $class
+        if(static::isInstanceOf($class, $id)){
+            
+            $bdd = Database::getDb();
+            
+            // get parent id (from cacheElement, load is done on instanceOf test)
+            $beforeElement = static::getElement($beforeId);
+            $newRank=$beforeElement->getPosition();
+            
+            // create update request for all element after $beforeId
+            $req = "update element set rank=rank+1 where parent_id=:parentId and rank >= :beforeRank";
+            $prepStatement=$bdd->prepare($req);
+            
+            $param = array('parentId' => $beforeElement->getParentId(),
+                'beforeRank'=>$beforeElement->getPosition());
+                        
+            $prepStatement->execute($param);
+            
+            // create update request  for $id
+            $element = CacheElementsManager::getElement($id);
+            
+            $req = "update element set rank=:newPosition, parent_id=:newParentId where element_id=:id";
+            $prepStatement=$bdd->prepare($req);
+            
+            $param = array('newPosition' => $beforeElement->getPosition(),
+                'newParentId'=>$beforeElement->getParentId(),
+                'id'=>$element->getId()
+            );
+            
+            $prepStatement->execute($param);
+            
+        } else {
+            throw new Exception("Move not allowed ".$id." is not instance of ".$class);
+        }
+        
+    }
 
     public static function isUpdateAllowed($class)
     {
         if (Usermodel::isAdminConnectedUser()) {
             return $class::isAdminUptable();
         }
-
         return $class::isUptable();
     }
 }

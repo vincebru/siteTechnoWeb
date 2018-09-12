@@ -10,7 +10,7 @@ class FacilitateurAddElementView extends AbstractView
             "<input type='hidden' name='page' value='FacilitateurAddElement' />".
             "<select  onchange='this.form.submit()' name='object'>";
         
-        $objectList=array('Code','Input','Menu','Table','Title','Form','Lesson','Page','TableCell',
+        $objectList=array('Code','Input','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
             'Image','Link','Paragraph','TableRow');
         foreach ($objectList as $object){
             echo "<option value='".$object."' ";
@@ -23,7 +23,7 @@ class FacilitateurAddElementView extends AbstractView
         echo "</select>".
             "</form>";
         if (isset($param['object'])) {
-            echo "<form action='index.php' method='post'>".
+            echo "<form action='index.php' method='post'  enctype='multipart/form-data'>".
             "<input type='hidden' name='page' value='FacilitateurAddElement' />".
             "<input type='hidden' name='saveElement' value='true' />".
             "<input type='hidden' name='object' value='".$param['object']."' />";
@@ -37,10 +37,13 @@ class FacilitateurAddElementView extends AbstractView
                     case 'type':
                         break;
                     case 'parent_id':
-                        echo "<br>".$property.":<input type='text' name='".$property."' value='6'>";
+                        echo "<br>".$property.":<input type='text' name='".$property."' value='30'>";
                         break;
                     case 'file':
-                        echo "<br>".$property.":<input type='text' name='".$property."'/>";
+                        echo "<br>".$property.":<input type='file' name='".$property."'/>";
+                        break;
+                    case 'level':
+                        echo "<br>".$property.":<input type='number' name='".$property."' value='2'/>";
                         break;
                     default:
                         echo "<br>".$property.":<input type='text' name='".$property."'/>";

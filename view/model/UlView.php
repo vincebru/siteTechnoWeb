@@ -1,13 +1,12 @@
 <?php
-class ParagraphView extends ElementView
+class UlView extends ElementView
 {
-    protected function render()
+    public function render()
     {
         ?>
-        <p>
-        <?php echo htmlspecialchars($this->element->getContent()); ?>
+        <ul>
         <?php echo $this->renderChildren(); ?>
-        </p>
+        </ul>
         <?php
     }
 

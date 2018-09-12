@@ -23,11 +23,13 @@ include_once 'dto/elements/Page.php';
 include_once 'dto/elements/Form.php';
 include_once 'dto/elements/Image.php';
 include_once 'dto/elements/Input.php';
+include_once 'dto/elements/Li.php';
 include_once 'dto/elements/Link.php';
 include_once 'dto/elements/Title.php';
 include_once 'dto/elements/Table.php';
 include_once 'dto/elements/TableRow.php';
 include_once 'dto/elements/TableCell.php';
+include_once 'dto/elements/Ul.php';
 
 include_once 'action/Action.php';
 include_once 'action/WriteAction.php';
@@ -64,11 +66,13 @@ include_once 'view/model/PageView.php';
 include_once 'view/model/FormView.php';
 include_once 'view/model/ImageView.php';
 include_once 'view/model/InputView.php';
+include_once 'view/model/LiView.php';
 include_once 'view/model/LinkView.php';
 include_once 'view/model/TitleView.php';
 include_once 'view/model/TableView.php';
 include_once 'view/model/TableLineView.php';
 include_once 'view/model/TableCellView.php';
+include_once 'view/model/UlView.php';
 
 //include model
 include_once 'model/CacheElementsManager.php';

@@ -17,6 +17,8 @@ abstract class Element extends DTO{
 	const TYPE_TABLE_ROW='TableRow';
 	const TYPE_TABLE_CELL='TableCell';
 	const TYPE_CODE='Code';
+	const TYPE_UL='Ul';
+	const TYPE_LI='Li';
 
 	static protected $tableName="element";
 	static protected $elementType;
@@ -84,6 +86,7 @@ abstract class Element extends DTO{
 			$this->subElements=array();
 		}
 		$this->subElements[$subElement->getPosition()]=$subElement->getId();
+		ksort($this->subElements);
 	}
 
 	public function getSubElements()

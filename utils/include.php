@@ -70,7 +70,7 @@ include_once 'view/model/LiView.php';
 include_once 'view/model/LinkView.php';
 include_once 'view/model/TitleView.php';
 include_once 'view/model/TableView.php';
-include_once 'view/model/TableLineView.php';
+include_once 'view/model/TableRowView.php';
 include_once 'view/model/TableCellView.php';
 include_once 'view/model/UlView.php';
 

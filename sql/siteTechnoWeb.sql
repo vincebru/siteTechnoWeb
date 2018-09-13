@@ -228,7 +228,7 @@ CREATE TABLE `lesson_session_group` (
 --
 
 INSERT INTO `lesson_session_group` (`lesson_id`, `session_group_id`) VALUES
-(5, 1);
+(30, 1);
 
 -- --------------------------------------------------------
 

@@ -28,7 +28,7 @@ class LessonView extends ElementView
                     </div>
                     <?php
                     } ?>
-                    <h1 class="lesson-title" id='lesson-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
+                    <h1 class="lesson-title  mt-2" id='lesson-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
                     <?php echo $this->renderChildren(); ?>
                 </div>
             </div>

@@ -4,7 +4,9 @@ class TitleView extends ElementView
     protected function render()
     {
         ?>
-        <h<?php echo $this->element->getLevel(); ?> id="title-<?php echo $this->element->getId(); ?>"><?php echo htmlspecialchars($this->element->getContent()); ?></h<?php echo $this->element->getLevel(); ?>>
+        <div class="ul-container">
+            <h<?php echo $this->element->getLevel(); ?> id="title-<?php echo $this->element->getId(); ?>"><?php echo htmlspecialchars($this->element->getContent()); ?></h<?php echo $this->element->getLevel(); ?>>
+        </div>
         <?php
     }
 

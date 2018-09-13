@@ -18,7 +18,9 @@ class PageView extends ElementView
         </div>
         <?php
         } ?>
-        <h2 id="page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></h2>
+        <div class="ul-container">
+			<h2 id="page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></h2>
+		</div>
         <?php echo $this->renderChildren(); ?>
         <?php
     }

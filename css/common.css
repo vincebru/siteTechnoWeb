@@ -1,5 +1,10 @@
 H1	 {
+	font-size: 1.75rem;
 	text-align: center;
+}
+
+H2	 {
+	font-size: 1.5rem;
 }
 
 html, body {
@@ -8,6 +13,37 @@ html, body {
 
 .wrapper {
 	min-height: 100%;
+}
+
+H3, H4, H5, H6 {
+	font-size: 1.25rem;
+	display: list-item;          /* This has to be "list-item"                                               */
+    list-style-type: disc;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+    list-style-position: inside; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
+}
+
+H2 {
+	text-decoration: underline;
+}
+H3 {
+	margin-left: 60px;
+}
+H4 {
+	margin-left: 90px;
+}
+H5 {
+	margin-left: 120px;
+}
+H6 {
+	margin-left: 150px;
+}
+
+.ul-container {
+	margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	padding-inline-start: 40px;
 }
 
 @media (min-width: 1200px) {

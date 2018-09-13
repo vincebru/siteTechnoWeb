@@ -193,7 +193,7 @@ class GlobalModel
     
     public static function getMaxRankForParentId($parentId){
         $bdd = Database::getDb();
-        $request = 'select max(rank) max from Element where parent_id=:id';
+        $request = 'select max(rank) as max from element where parent_id=:id';
         $preparedRequest = $bdd->prepare($request);
         $preparedRequest->execute(array('id' => $parentId));
         

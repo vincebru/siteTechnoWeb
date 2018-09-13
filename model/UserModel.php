@@ -21,6 +21,7 @@ class UserModel{
 	    return $connectedGroupId==$groupId;
 	}
 	
+	
 	/*
 	define the user in session. To use from login page
 	*/
@@ -172,11 +173,25 @@ class UserModel{
 			'firstname' => $firstname,
 			'lastname' => $lastname,
 			'email' => $email,
-			'password' => md5($password),
+	 	    'password' => User::cryptPassword($password),
 			'role_id' => RoleModel::getRoleId(RoleModel::ROLE_STUDENT)
 			));
 		$userId=$bdd->lastInsertId();
 		self::logUser($userId);
+	}
+	
+	public static function updatePassword($user, $password){
+	    $bdd = Database::getDb();
+	    $req = $bdd->prepare(
+	        "update user set `password`=:pwd ".
+                "where user_id=:id");
+	    
+	    
+	    
+	    $req->execute(array(
+	        'pwd' => User::cryptPassword($password),
+	        'id' => $user->getId()
+	    ));
 	}
 
 }

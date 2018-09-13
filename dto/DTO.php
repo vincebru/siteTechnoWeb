@@ -87,7 +87,8 @@ abstract class DTO{
 	private function verifyPropertyName($propertyName){
 		if (!in_array($propertyName, static::propertyNameList())
 		    && !in_array($propertyName, static::complementPropertyNameList())) {
-			throw new Exception("Invalid property name ".$propertyName." for class ".get_class($this));
+		        $message= "Invalid property name ".$propertyName." for class ".get_class($this);
+		        throw new TechnowebException($message, $message);
 		}
 	}
 

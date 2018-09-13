@@ -24,10 +24,10 @@ class Login extends Action{
                 $page="Main";
             } else {
                 $loginMessage = "Bad Login or Password";
-                throw new Exception($loginMessage);
+                throw new TechnowebException($loginMessage, $loginMessage);
             }
         }else{
-            throw new Exception($loginMessage);
+            throw new TechnowebException($loginMessage, $loginMessage);
         }
     }
 }

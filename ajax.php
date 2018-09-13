@@ -39,7 +39,8 @@ class Ajax extends AccesPoint{
             }catch (Exception $e){
                 logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
                 logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
-                var_dump($e->getTrace());
+                echo($e->getMessage());
+                vardumpDebug($e->getTrace());
                 $pagePath = 'ajax/notAllowed';
             }
         }

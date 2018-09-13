@@ -63,14 +63,16 @@ class GlobalModel
                     break;
                 case 'group_id':
                     if (isset($array[$varName]) && !UserModel::isGroupOfConnectedUser($array[$varName])){
-                        throw new Exception('Error: Invalid group id '.$array[$varName]);
+                        $message = 'Error: Invalid group id '.$array[$varName] ;
+                        throw new TechnowebException($message, $message);
                     } else if (!isset($array[$varName])){
                         $array[$varName] = null;
                     }
                     break;
                 default:
                     if (!isset($array[$varName])) {
-                        throw new Exception('Error: Missing property '.$varName);
+                        $message='Error: Missing property '.$varName;
+                        throw new TechnowebException($message, $message);
                     }
             }            
             
@@ -183,7 +185,8 @@ class GlobalModel
             $prepStatement->execute($param);
             
         } else {
-            throw new Exception("Move not allowed ".$id." is not instance of ".$class);
+            $message="Move not allowed ".$id." is not instance of ".$class;
+            throw new TechnowebException($message, $message);
         }
         
     }

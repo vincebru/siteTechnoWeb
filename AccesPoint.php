@@ -50,11 +50,15 @@ class AccesPoint {
         try {
             $this->display();
             $bdd->commit();
+        } catch (TechnowebException $e) {
+            ob_end_clean();
+            echo($e->getFunctionnalMessage());
+            vardumpDebug($e->getTrace());
+            $bdd->rollBack();
+            http_response_code(500);
         } catch (Exception $e) {
             ob_end_clean();
-            echo '<pre>';
-            echo($e->getMessage());
-            var_dump($e->getTrace());
+            vardumpDebug($e->getTrace());
             $bdd->rollBack();
             http_response_code(500);
         }

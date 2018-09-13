@@ -6,7 +6,8 @@ class ImageAcces extends AccesPoint {
 
     public function display(){
         if (!isset($_GET['id'])){
-            Throw new Exception("Undefined image id");
+            $message="Undefined image id";
+            Throw new TechnowebException($message, $message);
         }
         $imageId=$_GET['id'];
 

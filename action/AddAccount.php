@@ -2,6 +2,7 @@
 
 class AddAccount extends Action{
     public function execute() {
+        
         // get formular information
         $message="";
         if (isset($_POST["login"]) && $_POST["login"]!=""){
@@ -31,7 +32,7 @@ class AddAccount extends Action{
         }
 
         if($message!=""){
-            $page="newAccount";
+            Throw new TechnowebException($message,$message);
         } else {
 
             // check unicity on database
@@ -42,7 +43,7 @@ class AddAccount extends Action{
                 $message.=($message!=""?"<br>":"")."Email already used, choose another one.";
             }
             if($message!=""){
-                $page="newAccount";
+                Throw new TechnowebException($message,$message);
             } else{
                 // add user into database
                 UserModel::addUser($login,$password,$firstname,$lastname,$email);

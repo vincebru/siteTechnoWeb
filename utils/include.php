@@ -41,6 +41,8 @@ include_once 'action/ajax/Post.php';
 include_once 'action/AddAccount.php';
 include_once 'action/Disconnect.php';
 include_once 'action/Login.php';
+include_once 'action/UpdatePassword.php';
+
 
 include_once 'view/IndexView.php';
 include_once 'view/AbstractView.php';
@@ -54,6 +56,9 @@ include_once 'view/NotAllowedView.php';
 include_once 'view/NewAccountView.php';
 include_once 'view/ResultView.php';
 include_once 'view/FacilitateurAddElementView.php';
+include_once 'view/ChangePasswordForm.php';
+include_once 'view/ChangePasswordView.php';
+
 
 include_once 'view/administration/AdminView.php';
 include_once 'view/administration/LessonsView.php';
@@ -83,6 +88,7 @@ include_once 'model/PageModel.php';
 include_once 'model/LessonModel.php';
 
 include_once 'utils/Config.php';
+include_once 'utils/TechnowebException.php';
 
 //include view
 include 'view/Header.php';

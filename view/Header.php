@@ -57,6 +57,9 @@ class Header extends AbstractView
                 logDebug('user connected');
                 echo 'welcome ';
                 echo UserModel::getCurrentUserName();
+                
+                $changePasswordForm = new ChangePasswordForm(array());
+                $changePasswordForm->getHtml();
 
                 $logoutForm = new LogoutForm(array());
                 $logoutForm->getHtml();

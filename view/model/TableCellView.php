@@ -5,7 +5,7 @@ class TableCellView extends ElementView
     {
         ?>
         <div class="col-<?php echo $this->getSpan(); ?>">
-        <?php echo $this->renderChildren(); ?>
+        <?php echo $this->getContent(); ?>
         </div>
         <?php
     }

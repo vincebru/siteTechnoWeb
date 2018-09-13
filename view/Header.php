@@ -27,7 +27,7 @@ class Header extends AbstractView
 				</div>
 			</header>
 <?php
-        } elseif ($this->page != 'newAccount' && $this->page != 'login') {
+        } elseif ($this->page != 'newAccount') {
             ?>
 			<header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
 				<a class="navbar-brand" href="index.php">Techno Web Module</a>

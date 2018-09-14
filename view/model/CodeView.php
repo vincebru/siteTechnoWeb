@@ -5,9 +5,9 @@ class CodeView extends ElementView
     {
         parent::__construct($args);
         $this->elements = LessonModel::getAllElementsForAdmin('Lesson');
-        $this->cssFiles['code'] = 'styles/default.css';
-        $this->jsFiles['highlight'] = 'highlight.pack.js';
-        $this->jsFiles['code'] = 'code.js';
+        $this->cssFiles['code'] = 'styles/default';
+        $this->jsFiles['highlight'] = 'highlight.pack';
+        $this->jsFiles['code'] = 'code';
         $this->modals = array();
     }
 

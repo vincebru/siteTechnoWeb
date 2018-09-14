@@ -65,6 +65,7 @@ include_once 'view/administration/LessonsView.php';
 include_once 'view/administration/ExercicesView.php';
 
 include_once 'view/model/ElementView.php';
+include_once 'view/model/CodeView.php';
 include_once 'view/model/ParagraphView.php';
 include_once 'view/model/LessonView.php';
 include_once 'view/model/PageView.php';

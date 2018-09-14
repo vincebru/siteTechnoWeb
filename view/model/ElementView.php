@@ -69,6 +69,9 @@ abstract class ElementView extends AbstractView
         $viewArg['mode'] = $this->args['mode'];
         $subView = new $subViewType($viewArg);
 
+        $this->jsFiles = array_merge($this->jsFiles, $subView->getJsFiles());
+        $this->cssFiles = array_merge($this->cssFiles, $subView->getCssFiles());
+
         return $subView;
     }
 

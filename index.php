@@ -94,13 +94,6 @@ class Index extends AccesPoint {
         $view = new $pagePath($args);
         logDebug('$view status: '.$view->getStatus().'.');
 
-        $cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
-        $jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
-
-        $args['cssFiles'] = $cssToInclude;
-        $args['jsFiles'] = $jsToInclude;
-        $args['headerHtml'] = $header->getViewHtml();
-
         try {
             $args['contentHtml'] = $view->getViewHtml();
         } catch (Exception $e) {
@@ -112,6 +105,14 @@ class Index extends AccesPoint {
             $view = new $pagePath($args);
             $args['contentHtml'] = $view->getViewHtml();
         }
+
+        $cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
+        $jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
+
+        $args['cssFiles'] = $cssToInclude;
+        $args['jsFiles'] = $jsToInclude;
+        $args['headerHtml'] = $header->getViewHtml();
+
         $indexView = new IndexView($args);
 
         $indexView->getHtml();

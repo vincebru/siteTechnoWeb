@@ -14,7 +14,7 @@ class CodeView extends ElementView
     public function render()
     {
         ?>
-        <pre><code class="<?php echo $this->getElement()->getLanguage(); ?>"><?php echo $this->getElement()->getContent(); ?></code></pre>
+        <pre><code class="<?php echo $this->getElement()->getLanguage(); ?>"><?php echo htmlspecialchars($this->getElement()->getContent()); ?></code></pre>
     <?php
     }
 

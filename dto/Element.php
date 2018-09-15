@@ -63,6 +63,9 @@ abstract class Element extends DTO{
 	public static function getPatchrequest(){
 		return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 	}
+	public static function getRemoveRequests(){
+		return array("delete from ".static::$tableName." where element_id = :element_id");
+	}
 
 	public function getType(){
 	    return $this->get(static::$type);

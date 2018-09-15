@@ -1,6 +1,6 @@
 <?php
 
-class AccesPoint {
+abstract class AccessPoint {
 
     protected $executionResult;
 
@@ -19,6 +19,8 @@ class AccesPoint {
         // control on user
         UserModel::init();
     }
+
+    abstract protected function display();
     
     protected static function getFileData(){
         

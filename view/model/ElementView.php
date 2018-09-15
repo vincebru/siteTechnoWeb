@@ -18,7 +18,6 @@ abstract class ElementView extends AbstractView
         parent::__construct($args);
         $this->element = $args['element'];
         $this->mode = $args['mode'];
-        $this->actions = array(ElementView::ACTION_EDIT);
     }
 
     public function getHtml()
@@ -29,19 +28,6 @@ abstract class ElementView extends AbstractView
     public function getOutlineHtml()
     {
         $this->renderOutline();
-    }
-
-    public function getModals()
-    {
-        $array = array();
-        $array[$this->element->getElementType()] = $this->actions;
-
-        foreach ($this->element->getSubElements() as $subElement) {
-            $subView = $this->getSubView($subElement);
-            $array = array_merge($array, $subView->getModals());
-        }
-
-        return $array;
     }
 
     protected function getElement()

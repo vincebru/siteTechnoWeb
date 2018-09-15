@@ -19,6 +19,13 @@ class Code extends Element{
             " values (:id,:language)"));
     }
     
+    public static function getRemoveRequests(){
+		return array_merge(
+            array("delete from ".static::$complementTableName." where element_id = :element_id"),
+            parent::getRemovetRequests()
+        );
+	}
+
     public function getLanguage()
     {
         return $this->get(static::$language);

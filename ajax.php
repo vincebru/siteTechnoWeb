@@ -1,8 +1,8 @@
 <?php
 
-include_once 'AccesPoint.php';
+include_once 'AccessPoint.php';
 
-class Ajax extends AccesPoint{
+class Ajax extends AccessPoint{
 
     private static function getValue($array, $key) {
         if (isset($array[$key])) {
@@ -12,7 +12,7 @@ class Ajax extends AccesPoint{
         return '';
     }
 
-    public function display(){
+    protected function display(){
         
         
         // get action/page requested

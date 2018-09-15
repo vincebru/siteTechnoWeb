@@ -1,10 +1,10 @@
 <?php
 
-include_once 'AccesPoint.php';
+include_once 'AccessPoint.php';
 
-class Index extends AccesPoint {
+class Index extends AccessPoint {
 
-    public function display(){
+    protected function display(){
         // get action/page requested
         
         $refArray = $_GET;
@@ -108,6 +108,9 @@ class Index extends AccesPoint {
 
         $cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
         $jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
+
+        logDebug('$jsToInclude status: ' . $jsToInclude . '.');
+        logDebug($jsToInclude);
 
         $args['cssFiles'] = $cssToInclude;
         $args['jsFiles'] = $jsToInclude;

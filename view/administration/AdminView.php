@@ -2,15 +2,12 @@
 
 class AdminView extends AbstractView
 {
-    protected $modals;
-
     public function __construct($args)
     {
         parent::__construct($args);
         $this->elements = LessonModel::getAllElementsForAdmin('Lesson');
         $this->cssFiles['admin'] = 'admin';
         $this->jsFiles['admin'] = 'admin';
-        $this->modals = array();
     }
 
     private function isEditMode()
@@ -33,19 +30,15 @@ class AdminView extends AbstractView
 
         if ($this->isEditMode()) {
             $view->getEditHtml();
-            $this->modals = $view->getModals();
-            $this->getModalsHtml();
             $this->buildModalHtml('Add', 'Element');
+            $this->buildModalHtml('Edit', 'Element');
             $this->buildModalHtml('Remove', 'Element');
-        }
-    }
 
-    private function getModalsHtml()
-    {
-        foreach ($this->modals as $type => $actions) {
-            foreach ($actions as $action) {
-                $this->buildModalHtml($action, $type);
-            }
+            $this->jsFiles = array_merge($this->jsFiles, $view->getJsFiles());
+            $this->cssFiles = array_merge($this->cssFiles, $view->getCssFiles());
+    
+            logDebug('$this->jsFiles: ' . $this->jsFiles . '.');
+            logDebug($this->jsFiles);
         }
     }
 

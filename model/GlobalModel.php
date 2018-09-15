@@ -111,6 +111,18 @@ class GlobalModel
         return $id;
     }
 
+    public static function removeInstance($class, $data)
+    {
+        $bdd = Database::getDb();
+        $requests = $class::getRemoveRequests();
+
+        foreach ($requests as $request) {
+            $req = $bdd->prepare($request);
+            $req->bindValue(':element_id', $data['id']);
+            $req->execute();
+        }
+    }
+
     private static function removeNullProperties($array){
         foreach($array as $key => $value){
             if ($value==null){

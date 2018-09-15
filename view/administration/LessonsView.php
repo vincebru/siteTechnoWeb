@@ -57,16 +57,8 @@ class LessonsView extends AbstractView
 	</div>
 </div>
 	<?php
-    }
 
-    public function getModals()
-    {
-        if (!array_key_exists('element', $this->args)) {
-            $this->args['element'] = GlobalModel::getInstance(Element::TYPE_LESSON, $this->args['edit']);
-        }
-
-        $view = new LessonView($this->args);
-
-        return $view->getModals();
-    }
+		$this->jsFiles = array_merge($this->jsFiles, $view->getJsFiles());
+		$this->cssFiles = array_merge($this->cssFiles, $view->getCssFiles());
+	}
 }

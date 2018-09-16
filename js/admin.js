@@ -98,7 +98,7 @@ $(document).ready(function () {
 
         /*** EDIT ELEMENT:  START ***/
 
-        $('.editPage').click(setElementId).click(fillEditElement);
+        $('.editElement').click(setElementId).click(fillEditElement);
 
         function fillEditElement(){
             console.log("EditElement with elementId: " + elementId);
@@ -119,26 +119,55 @@ $(document).ready(function () {
             });
         }
 
-        function doEditPage(){
-            console.log("pageId      :" + elementId);
-            var pageTitle = $('#editPageTitle').val();
-            console.log("pageTitle   :" + pageTitle);
+        function doEditElement(){
+            console.log("EditElement to elementId: " + elementId);
+
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action: "Describe" },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                fillEditJsonObject(elementType, elementId, msg);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#EditElementModal").find(".alert").removeClass("d-none");
+                console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
+                return;
+            });
+        }
+
+        function fillEditJsonObject(elementType, elementId, jsonObject){
+            var jsonObj = {};
+            jsonObj["object"] = elementType;
+            jsonObj["action"] = "PATCH";
+            jsonObj["id"] = elementId;
+            console.log(Array.isArray(jsonObject.properties));
+
+            const iterator = jsonObject.properties.values();
+
+            for (const value of iterator) {
+                jsonObj[value] = $("#EditElementModal #" + value).val();
+                console.log(value); // expected output: "a" "b" "c"
+            }
 
             $.ajax({
                 url: "ajax.php",
                 method: "POST",
-                data: { object: "Page", action: "PATCH", id: elementId, content: pageTitle },
+                data: jsonObj,
+                // { object: elementType, content : elementTitle, parent_id: parentId, rank: -1 },
+                //data to set for element :object,:content,:parent_id,:rank
                 dataType: "json"
             }).done(function( msg ) {
-                $('#editPageModal').modal('toggle');
+                $('#EditElementModal').modal('toggle');
                 //TODO: reload page content
             }).fail(function( jqXHR, textStatus, errorThrown ) {
-                $("#editPageModal").find(".alert").removeClass("d-none");
-                console.log( "Request EditPage failed: " + textStatus + ", " + errorThrown );
+                $("#EditElementModal").find(".alert").removeClass("d-none");
+                console.log( "Request EditElement failed: " + textStatus + ", " + errorThrown );
             });
         }
 
-        $('.doEditPage').click(doEditPage);
+        $('.doEditElement').click(doEditElement);
 
         /*** EDIT ELEMENT:  END ***/
 

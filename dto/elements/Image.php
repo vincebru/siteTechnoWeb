@@ -4,6 +4,8 @@ class Image extends Element{
     
     static protected $elementType=Element::TYPE_IMAGE;
     
+    public static $UPDATE_FIELD_VALUES="content = :content, width = :width, height = :height";
+
     protected static $complementTableName='image';
     
     static protected function complementPropertyNameList (){

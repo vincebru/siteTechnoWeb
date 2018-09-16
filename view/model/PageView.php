@@ -12,7 +12,7 @@ class PageView extends ElementView
             <button type="button" class="btn btn-outline-primary mr-1 btn-sm removeElement" data-id="<?php echo $this->getElement()->getId(); ?>" data-type="<?php echo $this->getElement()->getElementType(); ?>" data-toggle="modal" data-target="#RemoveElementModal">
                 <i class="fa fa-minus"></i>
             </button>
-            <button type="button" class="btn btn-outline-primary mr-1 btn-sm editPage" data-id="<?php echo $this->getElement()->getId(); ?>" data-toggle="modal" data-target="#EditPageModal">
+            <button type="button" class="btn btn-outline-primary mr-1 btn-sm editElement" data-id="<?php echo $this->getElement()->getId(); ?>" data-type="<?php echo $this->getElement()->getElementType(); ?>" data-toggle="modal" data-target="#EditElementModal">
                 <i class="fa fa-edit"></i>
             </button>
         </div>

@@ -4,6 +4,8 @@ class Code extends Element{
     
     static protected $elementType=Element::TYPE_CODE;
     
+    public static $UPDATE_FIELD_VALUES="content = :content, language = :language";
+
     protected static $complementTableName='code';
     
     static protected function complementPropertyNameList (){
@@ -18,7 +20,7 @@ class Code extends Element{
             " (element_id,language) ".
             " values (:id,:language)"));
     }
-    
+
     public static function getRemoveRequests(){
 		return array_merge(
             array("delete from ".static::$complementTableName." where element_id = :element_id"),

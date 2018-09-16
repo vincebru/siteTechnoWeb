@@ -3,7 +3,8 @@
 class TableCell extends Element{
     
     static protected $elementType=Element::TYPE_TABLE_CELL;
-    
+    public static $UPDATE_FIELD_VALUES="content = :content, span = :span";
+
     protected static $complementTableName='table_cell';
     
     static protected function complementPropertyNameList (){

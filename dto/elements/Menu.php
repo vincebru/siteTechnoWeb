@@ -5,7 +5,8 @@ class Menu extends Element{
     static protected $elementType=Element::TYPE_MENU;
     
     protected static $complementTableName='menu';
-    
+    public static $UPDATE_FIELD_VALUES="content = :content, code = :code";
+
     static protected function complementPropertyNameList (){
         return array(static::$code);
     }

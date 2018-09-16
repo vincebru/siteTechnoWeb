@@ -3,7 +3,8 @@
 class Title extends Element{
 
     static protected $elementType=Element::TYPE_TITLE;
-    
+    public static $UPDATE_FIELD_VALUES="content = :content, level = :level";
+
     protected static $complementTableName='title';
     
     static protected function complementPropertyNameList (){

@@ -14,35 +14,48 @@ class ExercicesView extends AbstractView
         ?>
 <div class="container mt-3">
 	<h2>Excercices List</h2>
-	<table class="table table-hover">
+	<table class="table table-hover table-sm">
 		<thead>
 			<tr>
-				<th>Page name</th>
-				<th>Action</th>
+				<th scope="col">#</th>
+				<th scope="col">Page name</th>
+				<th scope="col">Action</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($this->elements as $code => $label) {
             ?>
 			<tr>
+				<th scope="row"><?php echo $code; ?></th>
 				<td><?php echo $label; ?></td>
-				<td><a href="index.php?menu=Admin&page=Exercices&edit=<?php echo $code; ?>">Edit</a></td>
+				<td>
+					<a href="index.php?menu=Admin&page=Exercices&edit=<?php echo $code; ?>" class="btn btn-outline-primary mr-1 btn-sm" data-id="<?php echo $code; ?>">
+						<i class="fa fa-edit"></i>
+					</a>
+					<button type="button" class="btn btn-outline-primary mr-1 btn-sm removeExercise" data-id="<?php echo $code; ?>" data-toggle="modal" data-target="#removeExerciseModal">
+						<i class="fa fa-minus"></i>
+					</button>
+				</td>
 			</tr>
 		<?php
         } ?>
 		</tbody>
 	</table>
 </div>
-<div class="container-fuild mt-3">
-	<?php if (array_key_exists('edit', $this->args)) {
+<?php
+    }
+
+    public function getEditHtml()
+    {
+        if (!array_key_exists('element', $this->args)) {
             $this->args['element'] = GlobalModel::getInstance(Element::TYPE_EXERCICE, $this->args['edit']);
-            $view = new LessonView($this->args); ?>
-	<div class="shadow-sm p-3 mb-5 bg-white rounded">
+        }
+        $view = new ExerciseView($this->args); ?>
+<div class="container-fuild mt-3">
+	<div class="shadow-sm p-3 mb-1 bg-white rounded">
 	<?php echo $view->getViewHtml(); ?>
 	</div>
-	<?php
-        } ?>
 </div>
-<?php
+	<?php
     }
 }

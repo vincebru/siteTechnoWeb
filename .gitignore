@@ -1,2 +1,8 @@
 .project
 .buildpath
+
+phpcs.xml
+composer.json
+composer.lock
+vendor
+

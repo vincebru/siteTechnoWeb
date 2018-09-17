@@ -2,6 +2,7 @@
 
 abstract class Element extends DTO{
 
+	public static $UPDATE_FIELD_VALUES="content = :content";
 
 	const TYPE_EXERCICE='Exercice';
 	const TYPE_MENU='Menu';
@@ -19,6 +20,8 @@ abstract class Element extends DTO{
 	const TYPE_CODE='Code';
 	const TYPE_UL='Ul';
 	const TYPE_LI='Li';
+
+	protected static $complementTableName=null;
 
 	static protected $tableName="element";
 	static protected $elementType;
@@ -60,6 +63,16 @@ abstract class Element extends DTO{
 	    return array("insert into ".static::$tableName." (type, content, parent_id,rank) ".
 	        "values (:object,:content,:parent_id,:rank)");
 	}
+	public static function getPatchRequest(){
+		if ($complementTableName == null){
+			return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
+		} else {
+			return "update ".static::$tableName." as elt, ".static::$complementTableName." as cmp set ".static::$UPDATE_FIELD_KEY." where elt.".static::$id." = :id and elt.".static::$id." = cmp.".static::$id;
+		}
+	}
+	public static function getRemoveRequests(){
+		return array("delete from ".static::$tableName." where ".static::$id." = :id");
+	}
 
 	public function getType(){
 	    return $this->get(static::$type);
@@ -69,7 +82,12 @@ abstract class Element extends DTO{
 		return $this->get(static::$id);
 	}
 
-	public function getContent(){
+    public function getElementType()
+    {
+        return static::$elementType;
+    }
+
+    public function getContent(){
 		return $this->get(static::$content);
 	}
 	

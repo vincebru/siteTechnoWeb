@@ -111,6 +111,18 @@ class GlobalModel
         return $id;
     }
 
+    public static function removeInstance($class, $data)
+    {
+        $bdd = Database::getDb();
+        $requests = $class::getRemoveRequests();
+
+        foreach ($requests as $request) {
+            $req = $bdd->prepare($request);
+            $req->bindValue(':id', $data['id']);
+            $req->execute();
+        }
+    }
+
     private static function removeNullProperties($array){
         foreach($array as $key => $value){
             if ($value==null){
@@ -121,30 +133,45 @@ class GlobalModel
         return $array;
     }
     
+    private static function extractUsefullValueForUpdate($request, $array)
+    {
+        // $update format:
+        $field = array($request);
+        if (strpos($request, ',') >= 0){
+        // content = :content, rank = :rank
+            $field = explode(',', $request);
+        }
+        // $field [0]: content = :content
+        // $field [1]: rank = :rank
+        $paramList = array();
+        for ($i = 0; $i < count($field); ++$i) {
+            $value = explode(':', $field[$i]);
+            //$value[0]: content = or rank =
+            //$value[1]: content or rank
+            $varName = trim($value[1]);
+            
+            $paramList[$varName] = $array[$varName];
+        }
+
+        $paramList['id'] = $array['id'];
+
+        return $paramList;
+    }
+
     public static function patchInstance($class, $data)
     {
         $elementToPatch = static::getInstance($class, $data['id']);
         $elementToPatch->patch($data);
 
         $bdd = Database::getDb();
-        $requests = $class::getInsertRequests();
-        $id;
-        foreach ($requests as $request) {
-            $req = $bdd->prepare($request);
+        $request = $class::getPatchRequest();
 
-            $usefulData = self::extractUsefullValueForInsert($request, $data);
-            
-            $usefulData = static::removeNullProperties($usefulData);
+        $request = str_replace($class::$UPDATE_FIELD_KEY, $class::$UPDATE_FIELD_VALUES, $request);
+        $req = $bdd->prepare($request);
 
-            $req->execute($usefulData);
+        $usefulData = self::extractUsefullValueForUpdate($class::$UPDATE_FIELD_VALUES, $data);
 
-            if (!isset($id)) {
-                $id = $bdd->lastInsertId();
-                $data['id'] = $id;
-            }
-        }
-
-        return $id;
+        $req->execute($usefulData);
     }
     
     private static function isInstanceOf($class, $id){

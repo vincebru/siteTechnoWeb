@@ -8,98 +8,212 @@ $(document).ready(function () {
             $(this).closest("." + $(this).attr("data-hide")).addClass("d-none");
         });
     });
-    var lessonId;
-    var pageId;
+    var parentId;
+    var elementId;
+    var elementType;
 
-    function setLessonId(event){
-        lessonId = $( event.currentTarget ).data('id');
+    function setParentId(event){
+        parentId = $( event.currentTarget ).data('id');
     }
 
-    function setPageId(event){
-        pageId = $(event.currentTarget).data('id');
+    function setElementId(event){
+        elementId = $(event.currentTarget).data('id');
+        elementType = $(event.currentTarget).data('type');
     }
 
-    function doAddPage(){
-        console.log("AddPage to lessonId: " + lessonId);
-        var pageTitle = $('#newPageTitle').val();
-        console.log("AddPage with title: " + pageTitle);
+        /*** ADD ELEMENT:  START ***/
 
-        $.ajax({
-            url: "ajax.php",
-            method: "POST",
-            data: { object: "Page", content : pageTitle, parent_id: lessonId, rank: -1 },
-            //data to set for element :object,:content,:parent_id,:rank
-            dataType: "json"
-        }).done(function( msg ) {
-            $('#addPageModal').modal('toggle');
-            //TODO: reload page content
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#addPageModal").find(".alert").removeClass("d-none");
-            console.log( "Request AddPage failed: " + textStatus + ", " + errorThrown );
+        $('.addElement').click(setParentId);
+
+        $('#newElementType').on('change', function(e) {
+            var elementType = $('#newElementType').val();
+            console.log("elementType   :" + elementType);
+    
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action: "Add" },
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#AddElementModal #actionForm').empty();
+                $('#AddElementModal #actionForm').append(msg.popup);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#AddElementModal").find(".alert").removeClass("d-none");
+                console.log( "AddModalForm Request failed: " + textStatus + ", " + errorThrown );
+            });
         });
-    }
-    function doRemovePage(){
-        console.log("RemovePage with pageId: " + pageId);
 
-        $.ajax({
-            url: "ajax.php",
-            method: "DELETE",
-            data: { object: "Page", id: pageId },
-            dataType: "json"
-        }).done(function( msg ) {
-            $('#removePageModal').modal('toggle');
-            //TODO: reload page content
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#removePageModal").find(".alert").removeClass("d-none");
-            console.log( "Request RemovePage failed: " + textStatus + ", " + errorThrown );
-        });
-    }
-    function doEditPage(){
-        console.log("pageId      :" + pageId);
-        var pageTitle = $('#editPageTitle').val();
-        console.log("pageTitle   :" + pageTitle);
+        function doAddElement(){
+            console.log("AddElement to parentId: " + parentId);
+            var elementType = $('#AddElementModal #newElementType').val();
 
-        $.ajax({
-            url: "ajax.php",
-            method: "PATCH",
-            data: { object: "Page", id: pageId, content: pageTitle },
-            dataType: "json"
-        }).done(function( msg ) {
-            $('#editPageModal').modal('toggle');
-            //TODO: reload page content
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#editPageModal").find(".alert").removeClass("d-none");
-            console.log( "Request RemovePage failed: " + textStatus + ", " + errorThrown );
-        });
-    }
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action : "Describe" },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                fillAddJsonObject(elementType, msg);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#AddElementModal").find(".alert").removeClass("d-none");
+                console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
+                return;
+            });
+        }
 
-    $('.addPage').click(setLessonId);
-    $('.removePage').click(setPageId);
-    $('.editPage').click(setPageId);
+        function fillAddJsonObject(elementType, jsonObject){
+            var jsonObj = {};
+            jsonObj["object"] = elementType;
+            jsonObj["parent_id"] = parentId;
+            jsonObj["rank"] = -1;
+            console.log(Array.isArray(jsonObject.properties));
 
-    $('.doAddPage').click(doAddPage);
-    $('.doRemovePage').click(doRemovePage);
-    $('.doEditPage').click(doEditPage);
+            const iterator = jsonObject.properties.values();
 
-    function doRemoveLesson(){
-        console.log("RemoveLesson with lessonId: " + lessonId);
+            for (const value of iterator) {
+                jsonObj[value] = $("#AddElementModal #" + value).val();
+                console.log(value); // expected output: "a" "b" "c"
+            }
 
-        $.ajax({
-            url: "ajax.php",
-            method: "DELETE",
-            data: { object: 'Lesson', id: lessonId },
-            dataType: "json"
-        }).done(function( msg ) {
-            $('#removeLessonModal').modal('toggle');
-            //TODO: reload page content
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#removeLessonModal").find(".alert").removeClass("d-none");
-            console.log( "Request RemoveLesson failed: " + textStatus + ", " + errorThrown );
-        });
-    }
+            $.ajax({
+                url: "ajax.php",
+                method: "POST",
+                data: jsonObj,
+                // { object: elementType, content : elementTitle, parent_id: parentId, rank: -1 },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#AddElementModal').modal('toggle');
+                //TODO: reload page content
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#AddElementModal").find(".alert").removeClass("d-none");
+                console.log( "Request AddElement failed: " + textStatus + ", " + errorThrown );
+            });
+        }
 
-    $('.removeLesson').click(setLessonId);
-    $('.doRemoveLesson').click(doRemoveLesson);
+        $('.doAddElement').click(doAddElement);
+
+        /*** ADD ELEMENT:  END ***/
+
+        /*** EDIT ELEMENT:  START ***/
+
+        $('.editElement').click(setElementId).click(fillEditElement);
+
+        function fillEditElement(){
+            console.log("EditElement with elementId: " + elementId);
+
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action : "Edit", id: elementId },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#EditElementModal #actionForm').empty();
+                $('#EditElementModal #actionForm').append(msg.popup);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#EditElementModal").find(".alert").removeClass("d-none");
+                console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
+                return;
+            });
+        }
+
+        function doEditElement(){
+            console.log("EditElement to elementId: " + elementId);
+
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action: "Describe" },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                fillEditJsonObject(elementType, elementId, msg);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#EditElementModal").find(".alert").removeClass("d-none");
+                console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
+                return;
+            });
+        }
+
+        function fillEditJsonObject(elementType, elementId, jsonObject){
+            var jsonObj = {};
+            jsonObj["object"] = elementType;
+            jsonObj["action"] = "PATCH";
+            jsonObj["id"] = elementId;
+            console.log(Array.isArray(jsonObject.properties));
+
+            const iterator = jsonObject.properties.values();
+
+            for (const value of iterator) {
+                jsonObj[value] = $("#EditElementModal #" + value).val();
+                console.log(value); // expected output: "a" "b" "c"
+            }
+
+            $.ajax({
+                url: "ajax.php",
+                method: "POST",
+                data: jsonObj,
+                // { object: elementType, content : elementTitle, parent_id: parentId, rank: -1 },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#EditElementModal').modal('toggle');
+                //TODO: reload page content
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#EditElementModal").find(".alert").removeClass("d-none");
+                console.log( "Request EditElement failed: " + textStatus + ", " + errorThrown );
+            });
+        }
+
+        $('.doEditElement').click(doEditElement);
+
+        /*** EDIT ELEMENT:  END ***/
+
+        /*** REMOVE ELEMENT:  START ***/
+
+        $('.removeElement').click(setElementId).click(fillRemoveElement);
+
+        function fillRemoveElement(){
+            console.log("RemoveElement with elementId: " + elementId);
+
+            $.ajax({
+                url: "ajax.php",
+                method: "GET",
+                data: { object: elementType, action : "Remove", id: elementId },
+                //data to set for element :object,:content,:parent_id,:rank
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#RemoveElementModal #actionForm').empty();
+                $('#RemoveElementModal #actionForm').append(msg.popup);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#RemoveElementModal").find(".alert").removeClass("d-none");
+                console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
+                return;
+            });
+        }
+
+        $('.doRemoveElement').click(doRemoveElement);
+
+        function doRemoveElement(){
+            console.log("RemoveElement with elementId: " + elementId);
+
+            $.ajax({
+                url: "ajax.php",
+                method: "POST",
+                data: { object: elementType, action: "DELETE", id: elementId },
+                dataType: "json"
+            }).done(function( msg ) {
+                $('#RemoveElementModal').modal('toggle');
+                //TODO: reload page content
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                $("#RemoveElementModal").find(".alert").removeClass("d-none");
+                console.log( "Request RemoveElement failed: " + textStatus + ", " + errorThrown );
+            });
+        }
+
+        /*** REMOVE ELEMENT:  END ***/
 
     /*** ADMIN PAGE:  END ***/
 });

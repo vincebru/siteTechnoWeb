@@ -5,14 +5,29 @@ abstract class ElementView extends AbstractView
     const MODE_EDIT = 'Edit';
     const MODE_VIEW = 'View';
 
+    const ACTION_ADD = 'Add';
+    const ACTION_EDIT = 'Edit';
+    const ACTION_REMOVE = 'Remove';
+
     protected $mode;
     protected $element;
+    protected $actions;
 
     public function __construct($args)
     {
         parent::__construct($args);
         $this->element = $args['element'];
         $this->mode = $args['mode'];
+    }
+
+    public function getHtml()
+    {
+        $this->render();
+    }
+
+    public function getOutlineHtml()
+    {
+        $this->renderOutline();
     }
 
     protected function getElement()
@@ -23,16 +38,6 @@ abstract class ElementView extends AbstractView
     protected function isEdition()
     {
         return $this->mode == ElementView::MODE_EDIT;
-    }
-
-    public function getHtml()
-    {
-        return $this->render();
-    }
-
-    public function getOutlineHtml()
-    {
-        return $this->renderOutline();
     }
 
     protected function renderChildren()
@@ -59,6 +64,26 @@ abstract class ElementView extends AbstractView
         return $html;
     }
 
+    abstract protected function render();
+
+    abstract protected function renderOutline();
+
+
+    public function getModalHtml($action)
+    {
+        ob_start();
+        $this->buildModalHtmlContent($action);
+        $modalHtml = ob_get_contents();
+        ob_end_clean();
+
+        $modalHtml = str_replace("\n", "", $modalHtml);
+        $modalHtml = str_replace("  ", "", $modalHtml);
+
+        return $modalHtml;
+    }
+
+    abstract protected function buildModalHtmlContent($action);
+
     private function getSubView($subElementId)
     {
         $subElement = CacheElementsManager::getElement($subElementId);
@@ -74,8 +99,4 @@ abstract class ElementView extends AbstractView
 
         return $subView;
     }
-
-    abstract protected function render();
-
-    abstract protected function renderOutline();
 }

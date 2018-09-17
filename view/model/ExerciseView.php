@@ -1,5 +1,5 @@
 <?php
-class LessonView extends ElementView
+class ExerciseView extends ElementView
 {
     public function __construct($args)
     {
@@ -23,7 +23,7 @@ class LessonView extends ElementView
             </div>
             <!-- data-spy="scroll" data-target="#summary" data-offset="0"  -->
             <div class="col-9">
-                <div id="lesson" class="lessonEdition bd-content">
+                <div id="exercise" class="ExerciseEdition bd-content">
                     <?php
                     if ($this->isEdition()) {
                         ?>
@@ -34,7 +34,7 @@ class LessonView extends ElementView
                     </div>
                     <?php
                     } ?>
-                    <h1 class="lesson-title  mt-2" id='lesson-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
+                    <h1 class="exercise-title  mt-2" id='exercise-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
                     <?php echo $this->renderChildren(); ?>
                 </div>
             </div>
@@ -45,7 +45,7 @@ class LessonView extends ElementView
     protected function renderOutline()
     {
         ?>
-        <a class="nav-link" href="#lesson-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
+        <a class="nav-link" href="#exercise-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></a>
         <nav class="nav nav-pills flex-column">
         <?php echo $this->renderChildrenOutline(); ?>
         </nav>

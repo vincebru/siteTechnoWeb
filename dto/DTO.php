@@ -9,6 +9,7 @@ abstract class DTO{
 	protected static $id;
 
 	public static $UPDATE_FIELD_KEY="#UPDATE_FIELD_KEY#";
+	public static $UPDATE_FIELD_VALUES="";
 
 	function __construct($data){
 		$this->values=array();
@@ -71,7 +72,7 @@ abstract class DTO{
 	public static function getInsertRequests(){
 		return array();
 	}
-	public static function getPatchrequest(){
+	public static function getPatchRequest(){
 	    return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 	}
 
@@ -101,6 +102,14 @@ abstract class DTO{
 				$this->set($propertyName,$data[$propertyName]);
 			}
 		}
+	}
+
+	public function getAllProperties(){
+		return array_merge(static::propertyNameList(), static::complementPropertyNameList());
+	}
+
+	public function getComplementProperties(){
+		return static::complementPropertyNameList();
 	}
 
 	public function set($propertyName, $value){

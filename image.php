@@ -1,8 +1,8 @@
 <?php
 
-include_once 'AccesPoint.php';
+include_once 'AccessPoint.php';
 
-class ImageAcces extends AccesPoint {
+class ImageAcces extends AccessPoint {
 
     public function display(){
         if (!isset($_GET['id'])){

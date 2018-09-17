@@ -3,7 +3,8 @@
 class Input extends Element{
     
     static protected $elementType=Element::TYPE_INPUT;
-    
+    public static $UPDATE_FIELD_VALUES="content = :content, label = :label";
+
     protected static $complementTableName='input';
     
     static protected function complementPropertyNameList (){

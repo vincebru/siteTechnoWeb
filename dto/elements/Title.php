@@ -19,7 +19,7 @@ class Title extends Element{
     
     public static function getRemoveRequests(){
 		return array_merge(
-            array("delete from ".static::$complementTableName." where element_id = :element_id"),
+		    array("delete from ".strtolower(static::$complementTableName)." where element_id = :element_id"),
             parent::getRemovetRequests()
         );
 	}

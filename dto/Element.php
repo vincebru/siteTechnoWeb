@@ -56,7 +56,7 @@ abstract class Element extends DTO{
 	}
 
 	public static function getRequestSubElementById(){
-		return "select * from ".static::$tableName." where parent_id=:id";
+	    return "select * from ".strtolower(static::$tableName)." where parent_id=:id";
 	}
 	public static function getInsertRequests(){
 	    return array("insert into ".static::$tableName." (type, content, parent_id,rank) ".
@@ -71,7 +71,7 @@ abstract class Element extends DTO{
 		}
 	}
 	public static function getRemoveRequests(){
-		return array("delete from ".static::$tableName." where ".static::$id." = :id");
+	    return array("delete from ".strtolower(static::$tableName)." where ".static::$id." = :id");
 	}
 
 	public function getType(){

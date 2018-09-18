@@ -23,7 +23,7 @@ class GlobalModel
     public static function getElement($id)
     {
         $bdd = Database::getDb();
-        $request = 'select * from Element where element_id=:id';
+        $request = 'select * from element where element_id=:id';
         $preparedRequest = $bdd->prepare($request);
         $preparedRequest->execute(array('id' => $id));
 

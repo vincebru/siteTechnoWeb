@@ -12,7 +12,7 @@ class PageModel
 
     private static function getMenuList(){
         $bdd = Database::getDb();
-        $request = 'select * from Element where type=:menuType';
+        $request = 'select * from element where type=:menuType';
         $preparedRequest = $bdd->prepare($request);
         $preparedRequest->execute(array('menuType' => Element::TYPE_MENU));
         $result=array();

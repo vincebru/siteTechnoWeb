@@ -55,11 +55,14 @@ class Index extends AccessPoint {
         if(!isset($args['inputParam']['id'])){
             $args['inputParam']['id']=$this->executionResult;
         }
-
-        if (Element::isRootElements($menu)) {
+        
+        if (isset($refArray['code'])) {
+            $args['code'] = $refArray['code'];
+        }
+        if ($menu=='DynamicMenu') {
             try {
                 logDebug('Query for a root element: '.$menu);
-                $args['element'] = GlobalModel::getInstance($menu, $this->page);
+                $args['element'] = GlobalModel::getInstance(Element::TYPE_LESSON, $this->page);
                 $pagePath = $menu.'View';
             } catch (Exception $e) {
                 logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
@@ -109,8 +112,10 @@ class Index extends AccessPoint {
         $cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
         $jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
 
-        logDebug('$jsToInclude status: ' . $jsToInclude . '.');
-        logDebug($jsToInclude);
+        foreach ($jsToInclude as $jsToIncludeElement){
+            logDebug('$jsToInclude status: ' . $jsToIncludeElement . '.');
+            logDebug($jsToIncludeElement);
+        }
 
         $args['cssFiles'] = $cssToInclude;
         $args['jsFiles'] = $jsToInclude;

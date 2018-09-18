@@ -5,11 +5,10 @@ $action;
 
 
 
-if (isset($_GET['action'])){
+if (isset($refArray['action'])){
     // action could be Move/Patch/Delete
-    $action = $_GET['action'];
+    $action = $refArray['action'];
 }
-
 if($id == ''){
     if($action == 'Describe') {
         if (class_exists($object)){

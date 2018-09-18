@@ -1,8 +1,8 @@
 <?php
-class LessonView extends ElementView
+class DynamicMenuView extends ElementView
 {
     public function __construct($args)
-    {
+    {        
         parent::__construct($args);
         $this->actions = array(ElementView::ACTION_EDIT);
     }

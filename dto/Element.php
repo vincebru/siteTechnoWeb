@@ -4,7 +4,6 @@ abstract class Element extends DTO{
 
 	public static $UPDATE_FIELD_VALUES="content = :content";
 
-	const TYPE_EXERCICE='Exercice';
 	const TYPE_MENU='Menu';
 	const TYPE_LESSON='Lesson';
 	const TYPE_PAGE='Page';
@@ -49,7 +48,7 @@ abstract class Element extends DTO{
 	}
 	
 	public static function isRootElements($elementName){
-		return ($elementName == self::TYPE_LESSON || $elementName == self::TYPE_EXERCICE);
+		return $elementName == self::TYPE_LESSON ;
 	}
 
 	public static function getRequestById(){
@@ -64,10 +63,11 @@ abstract class Element extends DTO{
 	        "values (:object,:content,:parent_id,:rank)");
 	}
 	public static function getPatchRequest(){
-		if ($complementTableName == null){
+	    if (static::$complementTableName == null){
 			return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";
 		} else {
-			return "update ".static::$tableName." as elt, ".static::$complementTableName." as cmp set ".static::$UPDATE_FIELD_KEY." where elt.".static::$id." = :id and elt.".static::$id." = cmp.".static::$id;
+			return "update ".static::$tableName." as elt, ".static::$complementTableName." as cmp set ".static::$UPDATE_FIELD_KEY.
+			 " where elt.".static::$id." = :id and elt.".static::$id." = cmp.".static::$id;
 		}
 	}
 	public static function getRemoveRequests(){

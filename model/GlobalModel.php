@@ -111,14 +111,22 @@ class GlobalModel
         return $id;
     }
 
-    public static function removeInstance($class, $data)
+    public static function removeInstance($class, $id)
     {
+        if ($class instanceof Element) {
+            $elementToRemove = static::getInstance($class, $id);
+            foreach ($elementToRemove.getSubElements() as $subElementId) {
+                $subElement = static::getElement($subElementId);
+                static::removeInstance($subElement.getType(), $id);
+            }
+        }
+        
         $bdd = Database::getDb();
         $requests = $class::getRemoveRequests();
 
         foreach ($requests as $request) {
             $req = $bdd->prepare($request);
-            $req->bindValue(':id', $data['id']);
+            $req->bindValue(':id', $id);
             $req->execute();
         }
     }

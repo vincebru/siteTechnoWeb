@@ -10,6 +10,32 @@ class PageModel
         return $pagetName == self::ADMIN_EXERCICES || $pagetName == self::ADMIN_LESSONS;
     }
 
+    private static function getMenuList(){
+        $bdd = Database::getDb();
+        $request = 'select * from Element where type=:menuType';
+        $preparedRequest = $bdd->prepare($request);
+        $preparedRequest->execute(array('menuType' => Element::TYPE_MENU));
+        $result=array();
+        while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
+            $result[]=GlobalModel::getInstance(Element::TYPE_MENU, $data['element_id']);
+        }
+        return $result;
+    }
+    
+    
+    public static function isMenuElement($code){
+        $bdd = Database::getDb();
+        $request = 'select element_id from menu where code=:code';
+        $preparedRequest = $bdd->prepare($request);
+        $preparedRequest->execute(array('code' => $code));
+        $result=array();
+        if ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
+            return $data['element_id'];
+        }
+        return null;
+    }
+    
+    
     /*
         check user rights
         return array of array
@@ -24,23 +50,22 @@ class PageModel
     {
         $result = array();
 
-        // lesson menu
-        if (RoleModel::isAllowed('lesson', null)) {
-            $result[] = new MenuLink('Lesson','Lesson',
-                LessonModel::getAllLessonsForMenu('Lesson', UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
+        
+        $dynamicMenuList=static::getMenuList();
+        
+        foreach ($dynamicMenuList as  $dynamicMenu){
+            // lesson menu
+            if (RoleModel::isAllowed($dynamicMenu->getcontent(), null)) {
+                $result[] = new MenuLink($dynamicMenu->getcontent(),'DynamicMenu',
+                    LessonModel::getAllLessonsForMenu($dynamicMenu->getCode(), UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
+            }
         }
-
-        // exercices menu
-        if (RoleModel::isAllowed('exercice', null)) {
-            $result[] = new MenuLink('Exercice','Exercice',
-                LessonModel::getAllLessonsForMenu('Exercice', UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
-        }
-
+        
         // result menu
         if (RoleModel::isAllowed('results', 'results')) {
             $result[] = new MenuLink('Result', 'Result', null);
         }
-
+        
         //contact menu
         if (RoleModel::isAllowed('contact', null)) {
             $result[] = new MenuLink('Contact', 'Contact', null);
@@ -49,8 +74,8 @@ class PageModel
         // admin menu
         if (RoleModel::isAllowed('admin', null)) {
             $result[] = new MenuLink('Admin','Admin',
-                array('Lessons' => 'Lessons',
-                    'Exercices' => 'Exercices',
+                array('Lesson' => 'Lessons',
+                    'Exercice' => 'Exercices',
                     'Marks' => 'Marks',
                     'Users' => 'Users',
                     'Groups' => 'Groups',

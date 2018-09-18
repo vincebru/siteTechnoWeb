@@ -61,14 +61,13 @@ include_once 'view/ChangePasswordView.php';
 
 
 include_once 'view/administration/AdminView.php';
-include_once 'view/administration/LessonsView.php';
-include_once 'view/administration/ExercicesView.php';
+include_once 'view/administration/AdminDynamicMenuView.php';
 
 include_once 'view/model/ElementView.php';
 include_once 'view/model/CodeView.php';
 include_once 'view/model/ParagraphView.php';
 include_once 'view/model/ExerciseView.php';
-include_once 'view/model/LessonView.php';
+include_once 'view/model/DynamicMenuView.php';
 include_once 'view/model/PageView.php';
 include_once 'view/model/FormView.php';
 include_once 'view/model/ImageView.php';

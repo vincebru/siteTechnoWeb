@@ -17,14 +17,19 @@ class AdminView extends AbstractView
 
     public function getHtml()
     {
-        if (!PageModel::isAdminPage($this->args['page'])) {
+        $elementId = PageModel::isMenuElement($this->args['code']);
+        $class = $this->args['code'].'View';
+        if($elementId != null) {
+            $this->args['element_id'] = $elementId;
+            $class = 'AdminDynamicMenuView';
+        } else if (!PageModel::isAdminPage($this->args['code'])) {
             $mainPage = new MainView($this->args);
             $mainPage->getHtml();
 
             return;
         }
 
-        $class = $this->args['page'].'View';
+        
         $view = new $class($this->args);
         $view->getHtml();
 
@@ -37,7 +42,6 @@ class AdminView extends AbstractView
             $this->jsFiles = array_merge($this->jsFiles, $view->getJsFiles());
             $this->cssFiles = array_merge($this->cssFiles, $view->getCssFiles());
     
-            logDebug('$this->jsFiles: ' . $this->jsFiles . '.');
             logDebug($this->jsFiles);
         }
     }

@@ -12,12 +12,18 @@ abstract class ElementView extends AbstractView
     protected $mode;
     protected $element;
     protected $actions;
+    
+    protected $subViews;
 
     public function __construct($args)
     {
         parent::__construct($args);
         $this->element = $args['element'];
         $this->mode = $args['mode'];
+        $this->subViews=array();
+        foreach ($this->element->getSubElements() as $subElement) {
+            $this->subViews[]=$this->getSubView($subElement);
+        }
     }
 
     public function getHtml()
@@ -44,8 +50,7 @@ abstract class ElementView extends AbstractView
     {
         logDebug('Element '.$this->element->getType().' -  HTML: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
         $html = '';
-        foreach ($this->element->getSubElements() as $subElement) {
-            $subView = $this->getSubView($subElement);
+        foreach ($this->subViews as $subView) {
             $html = $html.$subView->getHtml();
         }
 
@@ -56,8 +61,7 @@ abstract class ElementView extends AbstractView
     {
         logDebug('Element '.$this->element->getType().' - Outline: '.$this->element->getId().', subElement: '.count($this->element->getSubElements()));
         $html = '';
-        foreach ($this->element->getSubElements() as $subElement) {
-            $subView = $this->getSubView($subElement);
+        foreach ($this->subViews as $subView) {
             $html = $html.$subView->getOutlineHtml();
         }
 

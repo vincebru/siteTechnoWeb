@@ -38,6 +38,9 @@ H2 {
 	margin-left: 150px;
 }
 
+.dropdown-menu {
+	z-index: 1100;
+}
 .ul-container {
 	margin-block-start: 1em;
     margin-block-end: 1em;

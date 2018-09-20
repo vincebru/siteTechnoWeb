@@ -28,17 +28,13 @@ class Header extends AbstractView
 			</header>
 <?php
         } elseif ($this->page != 'newAccount') {
-            //TODO retiré la classe container-fluid ainsi que la div de classe col-3 ainsi que la classe col-9 sur l'autre div.
-            // tout cela est à retirer une fois que le probleme du menu lesson inaccesible sur la zone qui recouvre le bandeau de navigation
             ?>
-			<header class="container-fluid navbar navbar-expand-lg navbar-light bd-navbar bg-light">
-				<div class='col-3'>
+			<header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
 				<a class="navbar-brand" href="index.php">Techno Web Module</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				</div>
-				<div class="col-9 collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 <?php
                     $menu = PageModel::getMenu();

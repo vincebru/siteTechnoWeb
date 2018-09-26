@@ -247,4 +247,10 @@ class GlobalModel
         }
         return $class::isUptable();
     }
+    
+    
+    public static function getElementParent($element){
+        return CacheElementsManager::getElement($element->getParentId());
+    }
+    
 }

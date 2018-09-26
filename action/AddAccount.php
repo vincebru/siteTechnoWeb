@@ -1,6 +1,13 @@
 <?php
 
 class AddAccount extends Action{
+    
+    function __construct($data){
+        parent::__construct($data);
+        $this->viewClass="MainView";
+    }
+    
+    
     public function execute() {
         
         // get formular information
@@ -49,9 +56,8 @@ class AddAccount extends Action{
                 UserModel::addUser($login,$password,$firstname,$lastname,$email);
 
                 //add user id into session
-
-                $page="main";
             }
         }
+        return $this->getview();
     }
 }

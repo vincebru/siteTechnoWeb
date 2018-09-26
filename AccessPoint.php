@@ -5,6 +5,8 @@ abstract class AccessPoint {
     protected $executionResult;
 
     protected $page;
+    
+    protected $view;
 
     private function init() {
         // start session
@@ -38,10 +40,11 @@ abstract class AccessPoint {
         if (class_exists($this->page)) {
             call_user_func (array($this->page,'checkAllowed'),$refArray);
             $action = new $this->page($refArray);
-            $this->executionResult=$action->execute();
         } else {
             logDebug('no action for '.$this->page);
+            $action = new Action($refArray);
         }
+        $this->view=$action->execute();
     }
 
     public function render() {

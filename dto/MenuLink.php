@@ -1,6 +1,6 @@
 <?php
 
-class MenuLink{
+class Link{
 
 	private $menuLabel;
 	private $menuLink;
@@ -23,12 +23,12 @@ class MenuLink{
 	    return $this;
 	}
 
-	public function getMenuLink()
+	public function getLink()
 	{
 	    return $this->menuLink;
 	}
 	 
-	public function setMenuLink($menuLink)
+	public function setLink($menuLink)
 	{
 	    $this->menuLink = $menuLink;
 	    return $this;

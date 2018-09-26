@@ -4,7 +4,7 @@ include_once 'AccessPoint.php';
 
 class ImageAcces extends AccessPoint {
 
-    public function display(){
+    protected function display(){
         if (!isset($_GET['id'])){
             $message="Undefined image id";
             Throw new TechnowebException($message, $message);

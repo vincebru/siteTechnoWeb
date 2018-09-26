@@ -17,7 +17,6 @@ class Ajax extends AccessPoint{
         
         // get action/page requested
         $this->page = 'get';
-        $pagePath = 'ajax/get';
         $refArray = $_GET;
         $isWriteAction = false;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -35,27 +34,51 @@ class Ajax extends AccessPoint{
         if ($isWriteAction) {
             try{
                 $this->manageAction($refArray);
-                $pagePath = 'ajax/get';
             }catch (Exception $e){
                 logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
                 logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
                 echo($e->getMessage());
                 vardumpDebug($e->getTrace());
-                $pagePath = 'ajax/notAllowed';
+                $this->page = 'NotAllowed';
             }
         }
         
         $id=$this->executionResult;
         $object = $refArray['object'];
-
-        $viewFile = 'view/'.$pagePath.'.php';
-        if (!file_exists($viewFile)) {
-            $pagePath = 'ajax/main';
-            logDebug($viewFile." doesn't exist, so the main view will be loaded");
+        
+        if (!class_exists($this->page.'View')){
+            $this->page = 'Main';
+            logDebug('The main view will be loaded. Class '.$this->page.'View does not exist :/ ');
         }
-        include 'view/'.$pagePath.'.php';
+        $class=$this->page.'View';
+        $args['page'] = $this->page;
+        $this->view = new $class($args);
+        
+        try {
+            $this->contentHtml = $this->view->getViewHtml();
+        } catch (Exception $e) {
+            logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
+            logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
+            $args['errorMessage'] = $e->getMessage();
+            $args['stack'] = $e->getTrace();
+            $pagePath = 'ErrorView';
+            $this->view = new $pagePath($args);
+            $this->contentHtml = $this->view->getViewHtml();
+        }
+        
+        $this->getHtml();
+        
+    }
+    
+    
+    public function getHtml(){
+        // load content view file
+        echo $this->contentHtml;
     }
 }
+
+
+
 
 $renderer= new Ajax();
 

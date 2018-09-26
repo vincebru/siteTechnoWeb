@@ -2,28 +2,38 @@
 
 abstract class ElementView extends AbstractView
 {
-    const MODE_EDIT = 'Edit';
-    const MODE_VIEW = 'View';
 
     const ACTION_ADD = 'Add';
     const ACTION_EDIT = 'Edit';
     const ACTION_REMOVE = 'Remove';
-
+    
+    const PROPERTY_ELEMENT_KEY='element';
+    
+    
     protected $mode;
     protected $element;
-    protected $actions;
     
     protected $subViews;
 
     public function __construct($args)
     {
         parent::__construct($args);
-        $this->element = $args['element'];
-        $this->mode = $args['mode'];
+        $this->element = $args[self::PROPERTY_ELEMENT_KEY];
         $this->subViews=array();
         foreach ($this->element->getSubElements() as $subElement) {
             $this->subViews[]=$this->getSubView($subElement);
         }
+    }
+    
+    public function checkAllowed() {
+        $parentLesson = LessonModel::getLessonParent($this->element);
+        $parentMenu = GlobalModel::getElementParent($parentLesson);
+        
+        if(! RoleModel::isAllowed($parentMenu->getCode(),$parentLesson->getId())){
+            $message = "NotAllowed";
+            throw new TechnowebException($message, $message);
+        }
+        return true;
     }
 
     public function getHtml()
@@ -43,7 +53,7 @@ abstract class ElementView extends AbstractView
 
     protected function isEdition()
     {
-        return $this->mode == ElementView::MODE_EDIT;
+        return isset($this->args['edit']);
     }
 
     protected function renderChildren()
@@ -94,8 +104,10 @@ abstract class ElementView extends AbstractView
 
         $subViewType = $subElement->getType().'View';
         $viewArg = array();
-        $viewArg['element'] = $subElement;
-        $viewArg['mode'] = $this->args['mode'];
+        $viewArg[ElementView::PROPERTY_ELEMENT_KEY] = $subElement;
+        if ($this->isEdition()){
+            $viewArg['edit'] = true;
+        }
         $subView = new $subViewType($viewArg);
 
         $this->jsFiles = array_merge($this->jsFiles, $subView->getJsFiles());

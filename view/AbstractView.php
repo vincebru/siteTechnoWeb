@@ -29,11 +29,18 @@ abstract class AbstractView
     public function getViewHtml()
     {
         ob_start();
+        
+        $this->checkAllowed();
+        
         $this->getHtml();
         $viewHtml = ob_get_contents();
         ob_end_clean();
 
         return $viewHtml;
+    }
+    
+    public function checkAllowed() {
+        return true;
     }
 
     abstract public function getHtml();

@@ -1,12 +1,12 @@
 <?php
-class DynamicMenuView extends ElementView
+class MenuView extends ElementView
 {
+    
     public function __construct($args)
-    {        
+    {
         parent::__construct($args);
         $this->actions = array(ElementView::ACTION_EDIT);
     }
-
     protected function render()
     {
         ?>
@@ -41,7 +41,6 @@ class DynamicMenuView extends ElementView
         </div>
         <?php
     }
-
     protected function renderOutline()
     {
         ?>
@@ -51,7 +50,6 @@ class DynamicMenuView extends ElementView
         </nav>
         <?php
     }
-
     public function buildModalHtmlContent($action)
     {
         $content = '';

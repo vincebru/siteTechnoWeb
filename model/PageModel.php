@@ -22,6 +22,18 @@ class PageModel
         return $result;
     }
     
+    public static function getMenuIdFromCode($code){
+        $bdd = Database::getDb();
+        $request = 'select element_id from menu where code=:code ';
+        $preparedRequest = $bdd->prepare($request);
+        $preparedRequest->execute(array('code' => $code));
+        $result=array();
+        if ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
+            return $data['element_id'];
+        }
+        return null;
+    }
+    
     
     public static function isMenuElement($code){
         $bdd = Database::getDb();
@@ -54,35 +66,39 @@ class PageModel
         $dynamicMenuList=static::getMenuList();
         
         foreach ($dynamicMenuList as  $dynamicMenu){
-            // lesson menu
-            if (RoleModel::isAllowed($dynamicMenu->getcontent(), null)) {
-                $result[] = new MenuLink($dynamicMenu->getcontent(),'DynamicMenu',
-                    LessonModel::getAllLessonsForMenu($dynamicMenu->getCode(), UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null));
+            // menu
+            if (RoleModel::isAllowed($dynamicMenu->getCode(), null)) {
+                $currentMenu=array();
+                
+                foreach (LessonModel::getAllLessonsForMenu($dynamicMenu->getCode(), UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null) as $lesson){
+                    $currentMenu[] = MenuLinkView::getInstance($lesson->getContent(), $lesson->getId());
+                }
+                if (!empty($currentMenu)){
+                    $result[$dynamicMenu->getcontent()] = $currentMenu;
+                }
             }
         }
         
         // result menu
         if (RoleModel::isAllowed('results', 'results')) {
-            $result[] = new MenuLink('Result', 'Result', null);
+            $result['Result'] = array(ResultLinkView::getInstance());
         }
         
         //contact menu
         if (RoleModel::isAllowed('contact', null)) {
-            $result[] = new MenuLink('Contact', 'Contact', null);
+            $result['Contact'] =  array(ContactLinkView::getInstance());
         }
 
         // admin menu
         if (RoleModel::isAllowed('admin', null)) {
-            $result[] = new MenuLink('Admin','Admin',
-                array('Lesson' => 'Lessons',
-                    'Exercice' => 'Exercices',
-                    'Marks' => 'Marks',
-                    'Users' => 'Users',
-                    'Groups' => 'Groups',
-                    'Sessions' => 'Sessions',
-                ));
+            $currentMenu=array();
+            foreach ($dynamicMenuList as  $dynamicMenu){
+                $currentMenu[] = AdminMenuLinkView::getInstance($dynamicMenu->getcode());
+            }
+            $result['Admin'] = $currentMenu;
+            
+            //TODO a voir si on ajoute un point de menu pour Marks, Users,Groups, Sessions
         }
-
         return $result;
     }
 }

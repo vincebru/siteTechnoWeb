@@ -3,6 +3,7 @@
 class Patch extends WriteAction{
     public function execute() {
         $id = GlobalModel::patchInstance($this->data['object'],$this->data);
-        return $id;
+        $this->data['id']=$id;
+        return $this->getview();
     }
 }

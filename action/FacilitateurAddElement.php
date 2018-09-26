@@ -8,6 +8,7 @@ class FacilitateurAddElement extends WriteAction{
             
             $id = GlobalModel::createInstance($this->data['object'],$this->data);
         }
-        return $id;
+        $this->data['id']=$id;
+        return $this->getview();
     }
 }

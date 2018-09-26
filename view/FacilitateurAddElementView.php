@@ -5,7 +5,7 @@ class FacilitateurAddElementView extends AbstractView
     
     public function getHtml()
     {
-        $param = $this->args['inputParam'];
+        $param = $this->args;
         echo "<form action='index.php' method='post'>".
             "<input type='hidden' name='page' value='FacilitateurAddElement' />".
             "<select  onchange='this.form.submit()' name='object'>";

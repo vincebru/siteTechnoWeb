@@ -1,6 +1,11 @@
 <?php
 class ContactView extends AbstractView
 {
+    
+    public function __construct($args){
+        parent::__construct($args);
+    }
+    
     public function getHtml()
     {
         ?> 

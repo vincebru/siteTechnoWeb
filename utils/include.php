@@ -40,6 +40,7 @@ include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
 include_once 'action/ajax/Post.php';
 include_once 'action/AddAccount.php';
+include_once 'action/Contact.php';
 include_once 'action/Disconnect.php';
 include_once 'action/Login.php';
 include_once 'action/UpdatePassword.php';

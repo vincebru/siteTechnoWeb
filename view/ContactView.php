@@ -2,18 +2,34 @@
 class ContactView extends AbstractView
 {
     
+    public $msg = "";
+
     public function __construct($args){
         parent::__construct($args);
     }
     
+    public function setMsg($msg) {
+        $this->msg = $msg;
+        //die($this->msg);
+    } 
+
     public function getHtml()
     {
         ?> 
-        <div class="container mt-3">
-        <?php 
-            //<p>To contact us, just add a ticket on Github: <a href="https://github.com/vincebru/siteTechnoWeb/issues">here</a>.</p>
-            ?>
-        </div>
+        <?php
+            if($this->msg!="") {
+                echo '<div class="errorMessage">'.$this->msg.'</div>';
+            } else {
+                echo '<div class="errorMessage">Pas de message</div>';
+            }
+            
+        ?>
+        <form class="form-inline my-2 my-lg-0" id="loginForm" action="index.php" method="POST">
+            <input type="hidden" name="page" value="Contact" />
+            <input class="form-control form-control-sm mr-sm-2" type="text" name="question" placeholder="Titre de la question" aria-label="question"/>
+            <input class="form-control form-control-sm mr-sm-2" type="type" name="content" placeholder="Contenu de la question" />
+            <button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit" value="Poser">Poser la question</button>
+        </form>
     <?php
     }
 }

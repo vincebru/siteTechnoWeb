@@ -2,16 +2,16 @@
 
 include_once 'AccessPoint.php';
 
-class ImageAcces extends AccessPoint {
+class FileAcces extends AccessPoint {
 
-    public function display(){
+    protected function display(){
         if (!isset($_GET['id'])){
             $message="Undefined image id";
             Throw new TechnowebException($message, $message);
         }
         $imageId=$_GET['id'];
 
-        $image=GlobalModel::getInstance(Element::TYPE_IMAGE,$imageId);
+        $image=GlobalModel::getElement($imageId);
 
         if (isset($image)){
             header("Content-Type:" . $image->getMime());
@@ -21,6 +21,6 @@ class ImageAcces extends AccessPoint {
 
 }
 
-$renderer= new ImageAcces();
+$renderer= new FileAcces();
 
 $renderer->render();

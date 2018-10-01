@@ -2,6 +2,11 @@
 
 class Login extends Action{
     
+    function __construct($data){
+        parent::__construct($data);
+        $this->viewClass="MainView";
+    }
+    
     
     public function execute() {
         $loginMessage="";
@@ -21,7 +26,6 @@ class Login extends Action{
             $user=UserModel::getUserFromLoginClearPwd($login,$password);
             if ($user!=null){
                 UserModel::logUser($user->getId());
-                $page="Main";
             } else {
                 $loginMessage = "Bad Login or Password";
                 throw new TechnowebException($loginMessage, $loginMessage);
@@ -29,6 +33,7 @@ class Login extends Action{
         }else{
             throw new TechnowebException($loginMessage, $loginMessage);
         }
+        return $this->getview();
     }
 }
 

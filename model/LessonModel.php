@@ -41,7 +41,7 @@ class LessonModel
 
         $result = array();
         while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
-            $result[$data['element_id']] = $data['content'];
+            $result[] = CacheElementsManager::getElement($data['element_id']);
         }
 
         return $result;
@@ -68,5 +68,14 @@ class LessonModel
         }
 
         return $result;
+    }
+    
+    
+    public static function getLessonParent($element){
+        if ($element instanceof Lesson){
+            return $element;
+        } else {
+            return self::getLessonParent(GlobalModel::getElementParent($element));
+        }
     }
 }

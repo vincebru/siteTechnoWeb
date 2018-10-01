@@ -11,6 +11,7 @@ abstract class Element extends DTO{
 	const TYPE_PARAGRAPH='Paragraph';
 	const TYPE_LINK='Link';
 	const TYPE_IMAGE='Image';
+	const TYPE_FILE='File';
 	const TYPE_TITLE='Title';
 	const TYPE_INPUT='Input';
 	const TYPE_TABLE='Table';

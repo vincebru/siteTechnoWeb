@@ -1,0 +1,14 @@
+AdminDynamicMenuView/index.php?menu=Admin&page=Admin&code=Lesson => 	index.php?page=AdminLesson&code=Lesson
+ChangePasswordForm/ page changePassword							 => ok	page changePassword
+ChangePasswordView/ page UpdatePassword							 => ok	page UpdatePassword
+CreateAccountForm/	page NewAccount								 => ok	page NewAccount
+2xFacilitateurAddElementView/ page FacilitateurAddElement		 => ok	page FacilitateurAddElement
+Header / rien													 => ok rien
+	   / index.php?menu=User									 => def	page User
+	   / index.php?menu=$link&page=Admin&code=$subMenuId		 => def	index.php?page=Admin&code=$subMenuId(code lesson)
+	   / index.php?menu=".$link.'&page='.$subMenuId				 => def	index.php?page=DynamicMenu&lessonId=$subMenuId
+	   / index.php?menu=".$link."'								 => def	index.php?page=".$link."'
+LoginForm / page login											 => ok	page Login
+LogoutForm / page disconnect									 => ok	page Disconnect
+NewAccountView / page AddAccount								 => ok  page AddAccount
+		/ rien													 => ok rien

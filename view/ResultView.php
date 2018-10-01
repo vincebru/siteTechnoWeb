@@ -1,6 +1,11 @@
 <?php
 class ResultView extends AbstractView
 {
+    
+    public function __construct($args){
+        parent::__construct(array_merge($args,array(AbstractLinkView::PROPERTY_MENU=>'Result')));
+    }
+    
     public function getHtml()
     {
         ?> 

@@ -5,13 +5,13 @@ class FacilitateurAddElementView extends AbstractView
     
     public function getHtml()
     {
-        $param = $this->args['inputParam'];
+        $param = $this->args;
         echo "<form action='index.php' method='post'>".
             "<input type='hidden' name='page' value='FacilitateurAddElement' />".
             "<select  onchange='this.form.submit()' name='object'>";
         
         $objectList=array('Code','Input','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
-            'Image','Link','Paragraph','TableRow');
+            'Image','File','Link','Paragraph','TableRow');
         foreach ($objectList as $object){
             echo "<option value='".$object."' ";
             if (isset($param['object']) && $param['object']==$object){
@@ -33,6 +33,7 @@ class FacilitateurAddElementView extends AbstractView
                 switch ($property) {
                     case 'element_id':
                     case 'mime':
+                    case 'name':
                     case 'rank':
                     case 'type':
                         break;
@@ -46,7 +47,7 @@ class FacilitateurAddElementView extends AbstractView
                         echo "<br>".$property.":<input type='number' name='".$property."' value='2'/>";
                         break;
                     case 'content':
-                        echo "<br>".$property.":<textarea name='".$property."' value='2'>";
+                        echo "<br>".$property.":<textarea name='".$property."' value='2' ></textarea>";
                         break;
                     default:
                         echo "<br>".$property.":<input type='text' name='".$property."'/>";

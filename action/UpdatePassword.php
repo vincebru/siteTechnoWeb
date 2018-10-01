@@ -1,6 +1,12 @@
 <?php
 
 class UpdatePassword extends Action{
+    
+    function __construct($data){
+        parent::__construct($data);
+        $this->viewClass="MainView";
+    }
+    
     public function execute() {
         
         // get formular information
@@ -19,5 +25,6 @@ class UpdatePassword extends Action{
         } else {
             UserModel::updatePassword($user,$_POST["newPassword"]);
         }
+        return $this->getview();
     }
 }

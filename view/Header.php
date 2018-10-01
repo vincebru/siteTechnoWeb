@@ -2,45 +2,32 @@
 class Header extends AbstractView
 {
     private $page;
+    private $view;
 
-    public function __construct($args)
+    public function __construct($args, $view)
     {
         parent::__construct($args);
-        $this->page = $args['page'];
+        $this->view=$view;
 
         $this->cssFiles['header'] = 'header';
     }
 
     public function getHtml()
     {
-        if ($this->page == 'NewAccount') {
-            ?>
-			<header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
-				<a class="navbar-brand" href="index.php">Techno Web Module</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+        ?>
+        <header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
+        <a class="navbar-brand" href="index.php">Techno Web Module</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        	<span class="navbar-toggler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+        <?php
+        if (!($this->view instanceof NewAccountView)) {
+            $menu = PageModel::getMenu();
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto">
-					</ul>
-				</div>
-			</header>
-<?php
-        } elseif ($this->page != 'newAccount') {
-            ?>
-			<header class="navbar navbar-expand-lg navbar-light bd-navbar bg-light">
-				<a class="navbar-brand" href="index.php">Techno Web Module</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto">
-<?php
-                    $menu = PageModel::getMenu();
-
-            foreach ($menu as $menuInfo) {
-                $this->displayMenuElement($menuInfo->getMenuLabel(), $menuInfo->getMenuLink(), $menuInfo->getPage());
+            foreach ($menu as $menuLabel => $menuInfo) {
+                $this->displayMenuElement($menuLabel,$menuInfo); 
             } ?>
 					</ul>
 <?php
@@ -55,7 +42,7 @@ class Header extends AbstractView
             } else {
                 logDebug('user connected');
                 echo 'welcome ';
-                echo UserModel::getCurrentUserName();
+                echo "<a class='nav-link' href='index.php?page=User'>".UserModel::getCurrentUserName()."</a>";
                 
                 $changePasswordForm = new ChangePasswordForm(array());
                 $changePasswordForm->getHtml();
@@ -63,12 +50,16 @@ class Header extends AbstractView
                 $logoutForm = new LogoutForm(array());
                 $logoutForm->getHtml();
             } ?>
-				</div>
-			</header>
 			<?php
         }
+        ?>
+        
+        </ul>
+        </div>
+        </header>
+        <?php 
     }
-
+    
     /**
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,36 +73,37 @@ class Header extends AbstractView
         </div>
     </li>
      */
-    public function displayMenuElement($label, $link, $subMenu)
+    public function displayMenuElement($menuLabel, $menuInfo) 
     {
         $html='';
-        if (isset($subMenu) && is_array($subMenu)) {
-            if (!empty($subMenu)){
-                $subMenuKeys=array_keys($subMenu);
-                $active = $link == $this->args['menu'] &&  in_array($this->args['page'],$subMenuKeys)? ' active' : '';
-                $html = "<li class='nav-item dropdown".$active."'>";
-                $html .= "<a  class='nav-link dropdown-toggle' id='Lesson' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' href='#' >".$label.'</a>';
-                $html .= "<div class='dropdown-menu' aria-labelledby='Lesson'>";
-    
-                foreach ($subMenu as $subMenuId => $subMenuLabel) {
-                    $subActive = $subMenuId == $this->args['page'] ? ' active' : '';
-                    if($link=='Admin') {
-                        $html .= "<a class='dropdown-item".$subActive."' href='index.php?menu=".$link.'&page=Admin&code='.$subMenuId."' >".$subMenuLabel.'</a>';
-                    }else{
-                        $html .= "<a class='dropdown-item".$subActive."' href='index.php?menu=".$link.'&page='.$subMenuId."' >".$subMenuLabel.'</a>';
-                    }
+        
+        $isCurrentViewInstanceOfMenuView = $this->view instanceof AbstractLinkView;
+        
+        $activeMenu = '';
+        if ($isCurrentViewInstanceOfMenuView && $this->view->isSameMenu($menuInfo[0])) {
+            $activeMenu=' active';
+        }
+        if (count($menuInfo)>1) {
+            //$active = $link == $this->args['menu'] &&  in_array($this->args['page'],$subMenuKeys)? ' active' : '';
+            $html = "<li class='nav-item dropdown".$activeMenu."'>";
+            $html .= "<a  class='nav-link dropdown-toggle' id='Lesson' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' href='#' >".$menuLabel.'</a>';
+            $html .= "<div class='dropdown-menu' aria-labelledby='Lesson'>";
+
+            foreach ($menuInfo as $subMenuInfo) {
+                //$subActive = $subMenuId == $this->args['page'] ? ' active' : '';
+                $subActive="";
+                if ($isCurrentViewInstanceOfMenuView && $this->view->isSamePage($subMenuInfo)) {
+                    $activeMenu=' active';
                 }
-    
-                $html .= '</div>';
-                $html .= '</li>';
+                
+                $html .= "<a class='dropdown-item".$subActive."' href='".$subMenuInfo->getUrl()."' >".$subMenuInfo->getLabel().'</a>';
             }
+
+            $html .= '</div>';
+            $html .= '</li>';
         } else {
-            if ($link == $this->args['menu']) {
-                $html = "<li class='nav-item active'>";
-            } else {
-                $html = "<li class='nav-item'>";
-            }
-            $html .= "<a class='nav-link' href='index.php?menu=".$link."' >".$label.'</a>';
+            $html = "<li class='nav-item".$activeMenu."'>";
+            $html .= "<a class='nav-link' href='".$menuInfo[0]->getUrl()."' >".$menuLabel.'</a>';
             $html .= '</li>';
         }
         echo $html;

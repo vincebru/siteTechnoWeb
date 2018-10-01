@@ -5,6 +5,8 @@ abstract class AccessPoint {
     protected $executionResult;
 
     protected $page;
+    
+    protected $view;
 
     private function init() {
         // start session
@@ -28,7 +30,7 @@ abstract class AccessPoint {
             $tmpFileName=$_FILES["file"]["tmp_name"];
             $mime=mime_content_type($tmpFileName);
             $file=fopen($tmpFileName, 'rb');
-            return array('mime'=> $mime,'file'=> $file);
+            return array('mime'=> $mime,'file'=> $file, 'name' => $_FILES["file"]["name"]);
         }
         return array();
     }
@@ -38,10 +40,11 @@ abstract class AccessPoint {
         if (class_exists($this->page)) {
             call_user_func (array($this->page,'checkAllowed'),$refArray);
             $action = new $this->page($refArray);
-            $this->executionResult=$action->execute();
         } else {
             logDebug('no action for '.$this->page);
+            $action = new Action($refArray);
         }
+        $this->view=$action->execute();
     }
 
     public function render() {

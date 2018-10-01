@@ -3,6 +3,10 @@
 include_once 'AccessPoint.php';
 
 class Index extends AccessPoint {
+    
+    
+    private $header;
+    private $contentHtml;
 
     protected function display(){
         // get action/page requested
@@ -12,118 +16,81 @@ class Index extends AccessPoint {
             $refArray = array_merge($_POST,static::getFileData());
         }
         
-        $menu = null;
-        if (isset($refArray['menu'])) {
-            $menu = $refArray['menu'];
-        } 
-
-        $edit = null;
-        if (isset($refArray['edit'])) {
-            $edit = $refArray['edit'];
-        } 
-
         $this->page = 'Main';
         if (isset($refArray['page'])) {
             $this->page = $refArray['page'];
         } 
 
-        $args = array();
-        
-        $args['inputParam']=$refArray;
-        
-
-        //control page access
-        if (!RoleModel::isAllowed($menu, $this->page)) {
-            $pagePath = 'NotAllowedView';
-        }
         try {
             $this->manageAction($refArray);
-        } catch (TechnowebException $e) {
-            logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
-            logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
-            $args[MainView::MESSAGE_TO_DISPLAY_KEY]=$e->getFunctionnalMessage();
-            vardumpDebug($e->getTrace());
-            $pagePath = 'MainView';
         } catch (Exception $e) {
-            logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
-            logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
-            
-            echo($e->getMessage());
+            if ($e instanceof TechnowebException){
+                $refArray[MainView::MESSAGE_TO_DISPLAY_KEY]=$e->getFunctionnalMessage();
+            }
             vardumpDebug($e->getTrace());
-            $pagePath = 'MainView';
+            $this->view = new MainView($refArray);
         }
-        if(!isset($args['inputParam']['id'])){
-            $args['inputParam']['id']=$this->executionResult;
-        }
-        
-        if (isset($refArray['code'])) {
-            $args['code'] = $refArray['code'];
-        }
-        if ($menu=='DynamicMenu') {
-            try {
-                logDebug('Query for a root element: '.$menu);
-                $args['element'] = GlobalModel::getInstance(Element::TYPE_LESSON, $this->page);
-                $pagePath = $menu.'View';
-            } catch (Exception $e) {
-                logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
-                logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
-                $args['errorMessage'] = $e->getMessage();
-                $args['stack'] = $e->getTrace();
-                $pagePath = 'ErrorView';
-            }
-        } else {
-            if (class_exists($menu.'View')) {
-                $pagePath = $menu.'View';
-                logDebug('The '.$menu.' view will be loaded.');
-            } else if (class_exists($this->page.'View')){
-                $pagePath = $this->page.'View';
-                logDebug('The '.$this->page.' view will be loaded.');
-            } else {
-                $pagePath = 'MainView';
-                logDebug('The main view will be loaded. Class '.$menu.' does not exist :/ ');
-            }
-        }
-        logDebug('load '.$pagePath.' view for page '.$this->page.'.');
-
-        $args['page'] = $this->page;
-        $args['menu'] = $menu;
-        if (isset($edit)) {
-            $args['edit'] = $edit;
-            $args['mode'] = ElementView::MODE_EDIT;
-        } else {
-            $args['mode'] = ElementView::MODE_VIEW;
-        }
-        $header = new Header($args);
-        $view = new $pagePath($args);
-        logDebug('$view status: '.$view->getStatus().'.');
 
         try {
-            $args['contentHtml'] = $view->getViewHtml();
+            $this->view->checkAllowed();
+            $this->contentHtml = $this->view->getViewHtml();
         } catch (Exception $e) {
-            logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
-            logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
-            $args['errorMessage'] = $e->getMessage();
-            $args['stack'] = $e->getTrace();
+            $refArray['errorMessage'] = $e->getMessage();
+            $refArray['stack'] = $e->getTrace();
             $pagePath = 'ErrorView';
-            $view = new $pagePath($args);
-            $args['contentHtml'] = $view->getViewHtml();
+            $this->view = new $pagePath($refArray);
+            $this->contentHtml = $this->view->getViewHtml();
         }
+        $this->header = new Header($refArray,$this->view);
 
-        $cssToInclude = array_merge($view->getCssFiles(), $header->getCssFiles());
-        $jsToInclude = array_merge($view->getJsFiles(), $header->getJsFiles());
-
-        foreach ($jsToInclude as $jsToIncludeElement){
-            logDebug('$jsToInclude status: ' . $jsToIncludeElement . '.');
-            logDebug($jsToIncludeElement);
-        }
-
-        $args['cssFiles'] = $cssToInclude;
-        $args['jsFiles'] = $jsToInclude;
-        $args['headerHtml'] = $header->getViewHtml();
-
-        $indexView = new IndexView($args);
-
-        $indexView->getHtml();
+        $this->getHtml();
+    }
+    
+    
+    public function getHtml(){
+        ?>
+        <!DOCTYPE HTML>
+        <html lang="en">
+            <head>
+                <!-- Required meta tags -->
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+                <!-- Bootstrap CSS -->
+                <link rel="stylesheet" href="css/bootstrap.min.css">
+        
+                <title>Techno web module</title>
+                <?php
+                    $cssFiles=array_merge($this->view->getCssFiles(), $this->header->getCssFiles());
+                    foreach ($cssFiles as $cssFileName) {
+                        echo "<link href='css/".$cssFileName.".css' type='text/css' rel='stylesheet'>";
+                    } ?>
+            </head>
+            <body>
+                <?php
+                    // load content header file
+                    echo $this->header->getViewHtml(); ?>
+        
+                <section class="main container-fluid">
+                <?php
+                    // load content view file
+                    echo $this->contentHtml; ?>
+                </section>
+                <!-- Optional JavaScript -->
+                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                <!-- using JQuery instead of JQuery mini otherwise we can't make ajax call -->
+                <script src="js/jquery-3.3.1.min.js"></script>
+                <script src="js/popper.min.js"></script>
+                <script src="js/bootstrap.min.js"></script>
+                <?php
+                    $jsFiles=array_merge($this->view->getJsFiles(), $this->header->getJsFiles());
+                    
+                    foreach ($jsFiles as $jsFileName) {
+                        echo "<script src='js/".$jsFileName.".js'></script>";
+                    } ?>
+            </body>
+        </html>
+		<?php
     }
 }
 

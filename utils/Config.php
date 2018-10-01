@@ -9,15 +9,14 @@ class Config{
 	public static $PAGE_RIGHTS;
 	
 	public static $MENU_WITH_LESSON = array(
-			'lessons','exercices'
+			'Lesson','Exercice'
 		);
 
 }
-
 Config::$PAGE_RIGHTS = new Rights();
 Config::$PAGE_RIGHTS->addRights("admin","adminPage",array( RoleModel::ROLE_ADMIN ));
-Config::$PAGE_RIGHTS->addRights("lessons",null,array( RoleModel::ROLE_ADMIN,RoleModel::ROLE_STUDENT ));
-Config::$PAGE_RIGHTS->addRights("exercices",null,array( RoleModel::ROLE_ADMIN,RoleModel::ROLE_STUDENT ));
+Config::$PAGE_RIGHTS->addRights("Lesson",null,array( RoleModel::ROLE_ADMIN,RoleModel::ROLE_STUDENT ));
+Config::$PAGE_RIGHTS->addRights("Exercice",null,array( RoleModel::ROLE_ADMIN,RoleModel::ROLE_STUDENT ));
 Config::$PAGE_RIGHTS->addRights("results","results",array( RoleModel::ROLE_ADMIN,RoleModel::ROLE_STUDENT ));
 
 ?>

@@ -35,7 +35,7 @@ class RoleModel{
 		$isAllowed=true;
 
 		if(!Usermodel::isAdminConnectedUser()) {
-			if (in_array($menu, Config::$MENU_WITH_LESSON)){
+		    if (in_array($menu, Config::$MENU_WITH_LESSON)){
 				$currentSessiongroupId=UserModel::getCurrentSessionGroupId();
 				//check than session group can access to the page
 				$isAllowed = LessonModel::isAllowed($currentSessiongroupId, $menu, $page);

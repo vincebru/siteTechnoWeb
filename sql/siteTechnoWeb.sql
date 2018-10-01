@@ -351,6 +351,7 @@ INSERT INTO `element` (`element_id`, `type`, `content`, `parent_id`, `rank`) VAL
 CREATE TABLE IF NOT EXISTS `file` (
   `element_id` int(3) NOT NULL,
   `mime` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `file` longblob NOT NULL,
   PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

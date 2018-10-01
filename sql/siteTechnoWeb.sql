@@ -348,6 +348,19 @@ INSERT INTO `element` (`element_id`, `type`, `content`, `parent_id`, `rank`) VAL
 -- Structure de la table `image`
 --
 
+CREATE TABLE IF NOT EXISTS `file` (
+  `element_id` int(3) NOT NULL,
+  `mime` varchar(100) NOT NULL,
+  `file` longblob NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `image`
+--
+
 CREATE TABLE IF NOT EXISTS `image` (
   `element_id` int(3) NOT NULL,
   `width` varchar(100) NOT NULL,

@@ -30,7 +30,7 @@ abstract class AccessPoint {
             $tmpFileName=$_FILES["file"]["tmp_name"];
             $mime=mime_content_type($tmpFileName);
             $file=fopen($tmpFileName, 'rb');
-            return array('mime'=> $mime,'file'=> $file);
+            return array('mime'=> $mime,'file'=> $file, 'name' => $_FILES["file"]["name"]);
         }
         return array();
     }

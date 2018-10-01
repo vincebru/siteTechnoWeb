@@ -56,13 +56,4 @@ class Image extends Element{
             
         }
     }
-    /*
-     autre methode pour specifier que le champ est un blob
-     $data = $req->fetch(PDO::FETCH_ASSOC);
-    
-    $req->bindColumn(1, $mime);
-    $req->bindColumn(2, $data, PDO::PARAM_LOB);
-    
-     $req->fetch(PDO::FETCH_BOUND);
-     */
 }

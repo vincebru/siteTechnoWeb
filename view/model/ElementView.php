@@ -12,12 +12,14 @@ abstract class ElementView extends AbstractView
     
     protected $mode;
     protected $element;
+    protected $parentView;
     
     protected $subViews;
 
-    public function __construct($args)
+    public function __construct($args, $parent)
     {
         parent::__construct($args);
+        $this->parentView=$parent;
         $this->element = $args[self::PROPERTY_ELEMENT_KEY];
         $this->subViews=array();
         foreach ($this->element->getSubElements() as $subElement) {
@@ -108,11 +110,12 @@ abstract class ElementView extends AbstractView
         if ($this->isEdition()){
             $viewArg['edit'] = true;
         }
-        $subView = new $subViewType($viewArg);
+        $subView = new $subViewType($viewArg,$this);
 
         $this->jsFiles = array_merge($this->jsFiles, $subView->getJsFiles());
         $this->cssFiles = array_merge($this->cssFiles, $subView->getCssFiles());
 
         return $subView;
     }
+    
 }

@@ -4,7 +4,7 @@ class MenuView extends ElementView
     
     public function __construct($args)
     {
-        parent::__construct($args);
+        parent::__construct($args, null);
         $this->actions = array(ElementView::ACTION_EDIT);
     }
     protected function render()

@@ -11,7 +11,7 @@ class FacilitateurAddElementView extends AbstractView
             "<select  onchange='this.form.submit()' name='object'>";
         
         $objectList=array('Code','Input','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
-            'Image','File','Link','Paragraph','TableRow');
+            'Image','File','Fieldset','Link','Paragraph','TableRow');
         foreach ($objectList as $object){
             echo "<option value='".$object."' ";
             if (isset($param['object']) && $param['object']==$object){

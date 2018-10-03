@@ -47,7 +47,7 @@ class FacilitateurAddElementView extends AbstractView
                         echo "<br>".$property.":<input type='number' name='".$property."' value='2'/>";
                         break;
                     case 'content':
-                        echo "<br>".$property.":<textarea name='".$property."' value='2' ></textarea>";
+                        echo "<br>".$property.":<textarea name='".$property."' value='2' style='margin-top: 0px; margin-bottom: 0px; width: 800px;height: 238px;' ></textarea>";
                         break;
                     default:
                         echo "<br>".$property.":<input type='text' name='".$property."'/>";

@@ -1,6 +1,6 @@
 <?php
 
-class Contact extends Action{
+class AddContact extends Action{
     
     function __construct($data){
         parent::__construct($data);
@@ -9,7 +9,9 @@ class Contact extends Action{
     
     public function execute() {
         $class = new ContactView($this->data);
-        $class->setMsg("test");
+        $addContact = new Contact($this->data);
+        GlobalModel::createInstance($addContact,$addContact->getValues());
+        $class->setMsg("La demande a bien été envoyée");
         $this->currentView = $class;
         return $this->getview();
     }

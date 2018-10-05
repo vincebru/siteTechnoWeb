@@ -6,6 +6,7 @@ include_once 'log.php';
 
 //include dto
 
+include_once 'dto/utils/PropertyKey.php';
 
 include_once 'dto/DTO.php';
 include_once 'dto/Answer.php';
@@ -15,6 +16,7 @@ include_once 'dto/Role.php';
 include_once 'dto/SessionGroup.php';
 include_once 'dto/User.php';
 include_once 'dto/WorkGroup.php';
+include_once 'dto/Contact.php';
 
 include_once 'dto/elements/Code.php';
 include_once 'dto/elements/Menu.php';
@@ -40,7 +42,7 @@ include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
 include_once 'action/ajax/Post.php';
 include_once 'action/AddAccount.php';
-include_once 'action/Contact.php';
+include_once 'action/AddContact.php';
 include_once 'action/Disconnect.php';
 include_once 'action/Login.php';
 include_once 'action/UpdatePassword.php';

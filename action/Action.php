@@ -37,7 +37,9 @@ class Action
 
     protected function getview(){
         if(isset($this->currentView)) {
-            return $this->currentView;
+            $view = $this->currentView;
+            unset($this->currentView);
+            return $view;
         } else {
             if (!class_exists($this->viewClass)){
                 $this->viewClass = 'MainView';

@@ -25,8 +25,8 @@ class ContactView extends AbstractView
             
         ?>
         <form class="form-inline my-2 my-lg-0" id="loginForm" action="index.php" method="POST">
-            <input type="hidden" name="page" value="Contact" />
-            <input class="form-control form-control-sm mr-sm-2" type="text" name="question" placeholder="Titre de la question" aria-label="question"/>
+            <input type="hidden" name="page" value="AddContact" />
+            <input class="form-control form-control-sm mr-sm-2" type="text" name="title" placeholder="Titre de la question" aria-label="question"/>
             <input class="form-control form-control-sm mr-sm-2" type="type" name="content" placeholder="Contenu de la question" />
             <button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit" value="Poser">Poser la question</button>
         </form>

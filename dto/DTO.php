@@ -43,6 +43,10 @@ abstract class DTO{
 	private $updatedProperties;
 	protected $values;
 
+	public function getValues() {
+		return $this->values;
+	}
+
 	public static function isUptable()
 	{
 	    return static::$isUptable;
@@ -70,7 +74,10 @@ abstract class DTO{
 	}
 	
 	public static function getInsertRequests(){
-		return array();
+		$keys = static::propertyNameList();
+		$keys_str = "(".join(',',$keys).")";
+		$prefixed_keys_str = "(:".join(",:", $keys).")";
+		return array("insert into ".static::$tableName." ".$keys_str." values ".$prefixed_keys_str);
 	}
 	public static function getPatchRequest(){
 	    return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";

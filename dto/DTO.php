@@ -13,9 +13,16 @@ abstract class DTO{
 
 	function __construct($data){
 		$this->values=array();
+		//une fois le refacto fait, la différenciation des cas ne sera plus necessaire
 		foreach (static::propertyNameList() as $propertyKey) {
-			if (isset($data[$propertyKey])) {
-				$this->values[$propertyKey]=$data[$propertyKey];
+			if($propertyKey instanceof propertyKey) {
+				if (isset($data[$propertyKey->getKey()])) {
+					$this->values[$propertyKey->getKey()]=$data[$propertyKey->getKey()];
+				}
+			} else {
+				if (isset($data[$propertyKey])) {
+					$this->values[$propertyKey]=$data[$propertyKey];
+				}
 			}
 		}
 		foreach (static::complementPropertyNameList() as $propertyKey) {
@@ -75,6 +82,7 @@ abstract class DTO{
 	
 	public static function getInsertRequests(){
 		$keys = static::propertyNameList();
+		$keys = array_map(function($var) {return $var->getKey(); }, $keys);
 		$keys_str = "(".join(',',$keys).")";
 		$prefixed_keys_str = "(:".join(",:", $keys).")";
 		return array("insert into ".static::$tableName." ".$keys_str." values ".$prefixed_keys_str);

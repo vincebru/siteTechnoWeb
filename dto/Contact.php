@@ -6,26 +6,25 @@ class Contact extends DTO {
 
 	static protected $isAdminUptable=true;
 
-	static protected $contact_id = ['contact_id',"OPTIONNAL"];
-	static protected $user_id = ['user_id',"OPTIONNAL"];
-	static protected $element_id = ['element_id',"OPTIONNAL"];
-	static protected $title = ['title',"MANDATORY"];
-	static protected $content = ['content',"MANDATORY"];
-	static protected $created = ['created',"OPTIONNAL"];
-	static protected $status = ['status',"OPTIONNAL"];
-	static protected $visibility = ['visibility',"OPTIONNAL"];
+	static protected $contact_id = "OPTIONNAL";
+	static protected $user_id = "OPTIONNAL";
+	static protected $element_id = "OPTIONNAL";
+	static protected $title = "MANDATORY";
+	static protected $content = "MANDATORY";
+	static protected $created = "OPTIONNAL";
+	static protected $status = "OPTIONNAL";
+	static protected $visibility = "OPTIONNAL";
 
 	function __construct($data){
 		$class = new ReflectionClass('Contact');
 		$staticMembers = $class->getStaticProperties();
+		//une fois le refacto fait, sera factoriser dans DTO
 		foreach($staticMembers as $field => &$value) {
-			if(gettype($value)=="array") {
-				static::${$field} = new PropertyKey($value[0],$value[1]);
+			if($value=="OPTIONNAL" || $value == "MANDATORY") {
+				static::${$field} = new PropertyKey($field,$value);
 			}
 			
 		}
-		$class = new ReflectionClass('Contact');
-		$staticMembers = $class->getStaticProperties();
 		parent::__construct($data);
 	}
 

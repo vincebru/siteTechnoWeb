@@ -50,7 +50,7 @@ class GlobalModel
             $split3 = explode(')', $split2[0]);
             //$split3[0]: var1  or var2
             $varName = trim($split3[0]);
-            
+
             $remove = False;
             switch ($varName) {
                 case 'creation_data':
@@ -100,8 +100,6 @@ class GlobalModel
         $specificDatabaseType=$class::getSpecificDatabaseType();
         $id;
 
-        $nonRemovableParams = ["creation_data","user_id","complementary_data", "group_id"];
-
         foreach ($requests as $request) {
             $params = explode("(", $request)[1];
             $values = explode("(", $request)[2];
@@ -113,12 +111,12 @@ class GlobalModel
             $usefulData = self::extractUsefullValueForInsert($request, $data, $class);
 
             foreach (explode(",",$params) as $value) {
-                if(array_key_exists($value, $usefulData) || in_array($value, $nonRemovableParams)) {
+                if(array_key_exists($value, $usefulData)) {
                     array_push($presentParams, $value);
                 }
             }
             foreach (explode(",",$values) as $value) {
-                if(array_key_exists(explode(':',$value)[1], $usefulData) || in_array(explode(":", $value)[1], $nonRemovableParams)) {
+                if(array_key_exists(explode(':',$value)[1], $usefulData)) {
                     array_push($presentValues, $value);
                 }
             }

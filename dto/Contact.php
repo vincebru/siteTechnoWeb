@@ -6,6 +6,8 @@ class Contact extends DTO {
 
 	static protected $isAdminUptable=true;
 
+	static protected $id = "contact_id";
+
 	static protected $contact_id = "OPTIONNAL";
 	static protected $user_id = "OPTIONNAL";
 	static protected $element_id = "OPTIONNAL";

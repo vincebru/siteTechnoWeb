@@ -124,7 +124,6 @@ class GlobalModel
             $presentValues = "(".join(",",$presentValues).")";
             $request = str_replace("(".$params.")", $presentParams, $request);
             $request = str_replace("(".$values.")", $presentValues, $request);
-            var_dump($request);
             $req = $bdd->prepare($request);
 
 

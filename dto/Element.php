@@ -20,7 +20,7 @@ abstract class Element extends DTO{
 	const TYPE_CODE='Code';
 	const TYPE_UL='Ul';
 	const TYPE_LI='Li';
-	const TYPE_FIELDSET='Fieldset';
+	const TYPE_INCLUDE_CODE='IncludeCode';
 
 	protected static $complementTableName=null;
 

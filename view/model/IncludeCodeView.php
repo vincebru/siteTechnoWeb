@@ -1,5 +1,5 @@
 <?php
-class FieldsetView extends ElementView
+class IncludeCodeView extends ElementView
 {
     protected function render()
     {
@@ -17,16 +17,18 @@ class FieldsetView extends ElementView
             </button>
         </div>
         <?php
-        } ?>
-        
-        <div class="row">
-        	<div class="col-<?php echo($this->getOffset());?> " ></div>
-  			<div class="col-<?php echo(12-$this->getOffset());?> ">
-  				<?php echo $this->getElement()->getContent(); ?>
-  				<?php echo $this->renderChildren(); ?>
-  			</div>
-        </div>
-        <?php
+        } ?><pre><code class="php"><?php echo htmlspecialchars($this->getElement()->getContent()); ?><div class="row"><div class="col-<?php echo($this->getOffset());?> " ></div><div class="col-<?php echo(12-$this->getOffset());?> "><?php echo $this->renderChildren(); ?></div></div></code></pre><?php
+        /*
+        <pre>
+        	<code class="php">
+        		<?php echo htmlspecialchars($this->getElement()->getContent()); ?>
+                	<div class="col-<?php echo($this->getOffset());?> " ></div>
+          			<div class="col-<?php echo(12-$this->getOffset());?> ">
+          				<?php echo $this->renderChildren(); ?>
+          			</div>
+        	</code>
+        </pre>
+        */
     }
 
     protected function renderOutline()
@@ -61,7 +63,7 @@ class FieldsetView extends ElementView
     }
     
     protected function getParentOffset(){
-        if ($this->parentView != null && $this->parentView instanceof FieldsetView){
+        if ($this->parentView != null && $this->parentView instanceof IncludeCodeView){
             return $this->parentView->getOffset();
         }
         return -1;

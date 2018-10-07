@@ -17,18 +17,8 @@ class IncludeCodeView extends ElementView
             </button>
         </div>
         <?php
-        } ?><pre><code class="php"><?php echo htmlspecialchars($this->getElement()->getContent()); ?><div class="row"><div class="col-<?php echo($this->getOffset());?> " ></div><div class="col-<?php echo(12-$this->getOffset());?> "><?php echo $this->renderChildren(); ?></div></div></code></pre><?php
-        /*
-        <pre>
-        	<code class="php">
-        		<?php echo htmlspecialchars($this->getElement()->getContent()); ?>
-                	<div class="col-<?php echo($this->getOffset());?> " ></div>
-          			<div class="col-<?php echo(12-$this->getOffset());?> ">
-          				<?php echo $this->renderChildren(); ?>
-          			</div>
-        	</code>
-        </pre>
-        */
+        } ?><pre><code class="php"><?php echo htmlspecialchars($this->getElement()->getContent()); ?><div class="row"><div class="col-<?php echo($this->getOffset());?> " ></div><div class="col-<?php echo(12-$this->getOffset());?> sub-code"><?php echo $this->renderChildren(); ?></div></div></code></pre><?php
+        
     }
 
     protected function renderOutline()

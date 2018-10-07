@@ -138,3 +138,7 @@ H2 {
 pre {
 	margin-bottom: 0em;
 }
+
+.lessonEdition code .row .sub-code {
+	border: 1px solid #777;
+}

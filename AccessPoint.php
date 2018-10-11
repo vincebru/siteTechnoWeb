@@ -36,7 +36,6 @@ abstract class AccessPoint {
     }
 
     protected function manageAction($refArray){
-        
         if (class_exists($this->page)) {
             call_user_func (array($this->page,'checkAllowed'),$refArray);
             $action = new $this->page($refArray);

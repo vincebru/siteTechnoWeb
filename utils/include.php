@@ -41,6 +41,7 @@ include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
 include_once 'action/ajax/Post.php';
+include_once 'action/ajax/PostWorkGroup.php';
 include_once 'action/AddAccount.php';
 include_once 'action/Disconnect.php';
 include_once 'action/Login.php';
@@ -64,14 +65,16 @@ include_once 'view/ChangePasswordView.php';
 include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
 include_once 'view/link/AdminLinkView.php';
+include_once 'view/link/AdminUserLinkView.php';
 include_once 'view/link/ContactLinkView.php';
 include_once 'view/link/MenuLinkView.php';
 include_once 'view/link/ResultLinkView.php';
 
-
+include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
+include_once 'view/administration/AdminUserView.php';
 
-
+include_once 'view/ajax/DescribeElementView.php';
 include_once 'view/ajax/GetView.php';
 include_once 'view/model/ElementView.php';
 include_once 'view/model/MenuView.php';

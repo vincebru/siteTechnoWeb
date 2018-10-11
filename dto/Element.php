@@ -50,10 +50,15 @@ abstract class Element extends DTO{
 	public static function isRootElements($elementName){
 		return $elementName == self::TYPE_LESSON ;
 	}
-
+	
+	public static function getSelectRequest(){
+	    return parent::getSelectRequest() . " where main.type='" . static::$elementType . "'";
+	}
+	
 	public static function getRequestById(){
 		return parent::getRequestById() . " and main.type='" . static::$elementType . "'";
 	}
+	
 
 	public static function getRequestSubElementById(){
 	    return "select * from ".strtolower(static::$tableName)." where parent_id=:id";

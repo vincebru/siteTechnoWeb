@@ -40,7 +40,9 @@ class MenuLinkView extends AbstractLinkView
     }
     
     public function isSamePage($otherView){
-        if($this->getPage() == null || $otherView->getPage() == null || !($otherView instanceof MenuLinkView)) {
+        if($this->getPage() == null 
+            || $otherView->getPage() == null 
+            || !($otherView instanceof MenuLinkView)) {
             return false;
         }
         return $this->isSameMenu($otherView) && $otherView->getPage() == $this->page

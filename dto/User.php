@@ -12,8 +12,10 @@ class User extends DTO{
 	static protected $email='email';
 	static protected $password='password';
 	static protected $role='role';
-	static protected $sessionGroupId='session_group_id';
-	static protected $workGroupId='work_group_id';
+	static public $sessionGroupId='session_group_id';
+	static public $workGroupId='work_group_id';
+	
+	public static $UPDATE_FIELD_VALUES="work_group_id = :work_group_id";
 
 	static protected function propertyNameList (){
 		return array(static::$id,

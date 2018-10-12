@@ -7,31 +7,20 @@ class Contact extends DTO {
 	static protected $isAdminUptable=true;
 
 	static protected $id = "contact_id";
-
-	static protected $contact_id = "OPTIONNAL";
-	static protected $user_id = "OPTIONNAL";
-	static protected $element_id = "OPTIONNAL";
-	static protected $title = "MANDATORY";
-	static protected $content = "MANDATORY";
-	static protected $created = "OPTIONNAL";
-	static protected $status = "OPTIONNAL";
-	static protected $visibility = "OPTIONNAL";
+	static protected $user_id = "user_id";
+	static protected $element_id = "element_id";
+	static protected $title = "title";
+	static protected $content = "content";
+	static protected $created = "created";
+	static protected $status = "status";
+	static protected $visibility = "visibility";
 
 	function __construct($data){
-		$class = new ReflectionClass('Contact');
-		$staticMembers = $class->getStaticProperties();
-		//une fois le refacto fait, sera factoriser dans DTO
-		foreach($staticMembers as $field => &$value) {
-			if($value=="OPTIONNAL" || $value == "MANDATORY") {
-				static::${$field} = new PropertyKey($field,$value);
-			}
-			
-		}
 		parent::__construct($data);
 	}
 
 	static protected function propertyNameList (){
-		return array(static::$contact_id,
+		return array(static::$id,
 			static::$user_id,
 			static::$element_id,
 			static::$title,
@@ -39,6 +28,20 @@ class Contact extends DTO {
 			static::$created,
 			static::$status,
 			static::$visibility
+		);
+	}
+
+
+	static public function propertyKeyList() {
+		return array(
+			new PropertyKey(static::$id,PropertyKey::$OPTIONNAL), 
+			new PropertyKey(static::$user_id, PropertyKey::$OPTIONNAL), 
+			new PropertyKey(static::$element_id, PropertyKey::$OPTIONNAL), 
+			new PropertyKey(static::$title, PropertyKey::$MANDATORY), 
+			new PropertyKey(static::$content, PropertyKey::$MANDATORY), 
+			new PropertyKey(static::$created, PropertyKey::$OPTIONNAL), 
+			new PropertyKey(static::$status, PropertyKey::$OPTIONNAL), 
+			new PropertyKey(static::$visibility, PropertyKey::$OPTIONNAL)
 		);
 	}
 

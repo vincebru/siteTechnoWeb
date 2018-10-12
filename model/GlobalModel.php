@@ -72,8 +72,8 @@ class GlobalModel
                     break;
                 default:
                     $optionnal = False;
-                    foreach ($class::getFullPropertyNameList() as $key => $value) {
-                        if($value->getKey()==$varName && $value->getOption()=="OPTIONNAL") {
+                    foreach ($class::propertyKeyList() as $key => $value) {
+                        if($value->getKey()==$varName && $value->getOption()==PropertyKey::$OPTIONNAL) {
                             $optionnal = True;
                         }
                     }

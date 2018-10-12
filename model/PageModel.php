@@ -95,7 +95,6 @@ class PageModel
             foreach ($dynamicMenuList as  $dynamicMenu){
                 $currentMenu[] = AdminMenuLinkView::getInstance($dynamicMenu->getcode());
             }
-            $currentMenu[] = AdminUserLinkView::getInstance();
             $result['Admin'] = $currentMenu;
             
             //TODO a voir si on ajoute un point de menu pour Marks, Users,Groups, Sessions

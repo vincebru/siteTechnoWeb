@@ -28,16 +28,15 @@ $(document).ready(function () {
         $('#newElementType').on('change', function(e) {
             var elementType = $('#newElementType').val();
             console.log("elementType   :" + elementType);
-            console.log("AddElement to parentId: " + parentId);
     
             $.ajax({
                 url: "ajax.php",
-                method: "POST",
-                data: { object: elementType, action: "DescribeElement",parentId: parentId },
-                dataType: "html"
+                method: "GET",
+                data: { object: elementType, action: "Add" },
+                dataType: "json"
             }).done(function( msg ) {
                 $('#AddElementModal #actionForm').empty();
-                $('#AddElementModal #actionForm').append(msg);
+                $('#AddElementModal #actionForm').append(msg.popup);
             }).fail(function( jqXHR, textStatus, errorThrown ) {
                 $("#AddElementModal").find(".alert").removeClass("d-none");
                 console.log( "AddModalForm Request failed: " + textStatus + ", " + errorThrown );
@@ -47,13 +46,13 @@ $(document).ready(function () {
         function doAddElement(){
             console.log("AddElement to parentId: " + parentId);
             var elementType = $('#AddElementModal #newElementType').val();
-            var param= $('#elementForm').serializeArray();
+
             $.ajax({
                 url: "ajax.php",
-                method: "POST",
-                data: param,
+                method: "GET",
+                data: { object: elementType, action : "Describe" },
                 //data to set for element :object,:content,:parent_id,:rank
-                dataType: "html"
+                dataType: "json"
             }).done(function( msg ) {
                 fillAddJsonObject(elementType, msg);
             }).fail(function( jqXHR, textStatus, errorThrown ) {
@@ -215,8 +214,6 @@ $(document).ready(function () {
         }
 
         /*** REMOVE ELEMENT:  END ***/
-        
-        
 
     /*** ADMIN PAGE:  END ***/
 });

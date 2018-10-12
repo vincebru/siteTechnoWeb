@@ -12,12 +12,13 @@ class Ajax extends AccessPoint{
         return '';
     }
 
-    protected function display(){        
+    protected function display(){
+        
+        
         // get action/page requested
         $this->page = 'get';
         $refArray = $_GET;
         $isWriteAction = false;
-        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->page = 'post';
             if (isset($_POST['action'])){
@@ -42,24 +43,26 @@ class Ajax extends AccessPoint{
             }
         }
         
+        $id=$this->executionResult;
+        $object = $refArray['object'];
         
         if (!class_exists($this->page.'View')){
             $this->page = 'Main';
             logDebug('The main view will be loaded. Class '.$this->page.'View does not exist :/ ');
         }
         $class=$this->page.'View';
-        $refArray['page'] = $this->page;
-        $this->view = new $class($refArray);
+        $args['page'] = $this->page;
+        $this->view = new $class($args);
         
         try {
             $this->contentHtml = $this->view->getViewHtml();
         } catch (Exception $e) {
             logDebug('Error ('.$e->getMessage().') occured on '.$this->page.', so the main view will be loaded');
             logDebug('File: '.$e->getFile().', line: '.$e->getLine().', code: '.$e->getCode().', occured on '.$this->page);
-            $refArray['errorMessage'] = $e->getMessage();
-            $refArray['stack'] = $e->getTrace();
+            $args['errorMessage'] = $e->getMessage();
+            $args['stack'] = $e->getTrace();
             $pagePath = 'ErrorView';
-            $this->view = new $pagePath($refArray);
+            $this->view = new $pagePath($args);
             $this->contentHtml = $this->view->getViewHtml();
         }
         

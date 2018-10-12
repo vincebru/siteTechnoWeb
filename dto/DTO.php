@@ -65,12 +65,7 @@ abstract class DTO{
 	    return isset(static::$complementTableName) && static::$complementTableName != '';
 	}
 	
-	
 	public static function getRequestById(){
-	    return self::getSelectRequest(). ' WHERE main.'.static::$id . ' = :id ';
-	}
-	
-	public static function getSelectRequest(){
 		$complementJoin = '';
 		$complementFields = '';
 		if (static::hasComplementTableName()){
@@ -80,7 +75,7 @@ abstract class DTO{
 			$complementJoin = ' JOIN ' . static::$complementTableName . ' comp ON comp.element_id = main.element_id ';
 		}
 
-		return 'SELECT main.* ' . $complementFields . ' FROM ' . static::$tableName . ' main ' . $complementJoin ;
+		return 'SELECT main.* ' . $complementFields . ' FROM ' . static::$tableName . ' main ' . $complementJoin . ' WHERE main.'.static::$id . ' = :id ';
 	}
 	
 	public static function getInsertRequests(){
@@ -148,9 +143,4 @@ abstract class DTO{
 	public function getId(){
 		return $this->get(static::$id);
 	}
-	
-	public static function getColIdName() {
-	    return static::$id;
-	}
-	
 }

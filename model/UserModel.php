@@ -193,22 +193,5 @@ class UserModel{
 	        'id' => $user->getId()
 	    ));
 	}
-	
-	
-	public static function getUsersBySessionGroupId($sessionGroupId, $orderBy){
-        
-		$bdd = Database::getDb();		
-		$request = "select * from user".
-		  " where ".User::$sessionGroupId."=:sessionGroupId ".
-		  " order by ".$orderBy;
-		$preparedRequest = $bdd->prepare($request);
-		$preparedRequest->execute(array('sessionGroupId'=>$sessionGroupId));
-		$userList=array();
-		while($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)){
-		    $user=new User($data);
-		    $userList[] = $user;
-		}
-		return $userList;
-    }
 
 }

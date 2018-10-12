@@ -8,12 +8,15 @@ class GetView extends AbstractView{
         $element = '{';
         $action;
         
+        
+        
         if (isset($refArray['action'])){
             // action could be Move/Patch/Delete
             $action = $refArray['action'];
         }
-        if(!isset($id) || $id == ''){
+        if($id == ''){
             
+            die('iuiu');
             if($action == 'Describe') {
                 if (class_exists($object)){
                     // http://localhost/sitetechnoweb/ajax.php?object=Lesson&action=Describe

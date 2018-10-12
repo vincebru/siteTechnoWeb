@@ -13,7 +13,6 @@ abstract class DTO{
 
 	function __construct($data){
 		$this->values=array();
-		//une fois le refacto fait, la différenciation des cas ne sera plus necessaire
 		foreach (static::propertyNameList() as $propertyKey) {
 			if (isset($data[$propertyKey])) {
 				$this->values[$propertyKey]=$data[$propertyKey];

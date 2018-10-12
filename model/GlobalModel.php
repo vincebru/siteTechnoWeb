@@ -53,7 +53,7 @@ class GlobalModel
 
             $remove = False;
             switch ($varName) {
-                case 'creation_data':
+                case 'creation_date':
                     $array[$varName]=getdate();
                     break;
                 case 'user_id':
@@ -61,6 +61,9 @@ class GlobalModel
                     break;
                 case 'complementary_data':
                     $array[$varName]=serialize($array);
+                    break;
+                case 'rank':
+                    $array['rank']=GlobalModel::getMaxRankForParentId($array['parent_id'])+1;;
                     break;
                 case 'group_id':
                     if (isset($array[$varName]) && !UserModel::isGroupOfConnectedUser($array[$varName])){
@@ -207,7 +210,7 @@ class GlobalModel
 
         $bdd = Database::getDb();
         $request = $class::getPatchRequest();
-
+        
         $request = str_replace($class::$UPDATE_FIELD_KEY, $class::$UPDATE_FIELD_VALUES, $request);
         $req = $bdd->prepare($request);
 
@@ -287,4 +290,30 @@ class GlobalModel
         return CacheElementsManager::getElement($element->getParentId());
     }
     
+    public static function getAllFromIds($className, $ids){
+        $inQuery = implode(',', array_fill(0, count($ids), '?'));
+        
+        
+        $restriction = ' where main.'.$className::getColIdName().' in ('.$inQuery.')';
+        return static::getAll($className,$restriction, $ids);
+    }
+    
+    public static function getAll($className,$restriction,$param ){
+        $bdd = Database::getDb();
+        $request = $className::getSelectRequest();
+        if ($restriction !=null){
+            $request .= $restriction;
+        }
+        $preparedRequest = $bdd->prepare($request);
+        if ($param == null){
+            $param = array();
+        }
+        $preparedRequest->execute($param);
+        $result=array();
+        while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
+            
+            $result[]= new $className($data);
+        }
+        return $result;
+    }
 }

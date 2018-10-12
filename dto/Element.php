@@ -11,6 +11,7 @@ abstract class Element extends DTO{
 	const TYPE_PARAGRAPH='Paragraph';
 	const TYPE_LINK='Link';
 	const TYPE_IMAGE='Image';
+	const TYPE_FILE='File';
 	const TYPE_TITLE='Title';
 	const TYPE_INPUT='Input';
 	const TYPE_TABLE='Table';
@@ -19,6 +20,7 @@ abstract class Element extends DTO{
 	const TYPE_CODE='Code';
 	const TYPE_UL='Ul';
 	const TYPE_LI='Li';
+	const TYPE_INCLUDE_CODE='IncludeCode';
 
 	protected static $complementTableName=null;
 
@@ -50,10 +52,15 @@ abstract class Element extends DTO{
 	public static function isRootElements($elementName){
 		return $elementName == self::TYPE_LESSON ;
 	}
-
+	
+	public static function getSelectRequest(){
+	    return parent::getSelectRequest() . " where main.type='" . static::$elementType . "'";
+	}
+	
 	public static function getRequestById(){
 		return parent::getRequestById() . " and main.type='" . static::$elementType . "'";
 	}
+	
 
 	public static function getRequestSubElementById(){
 	    return "select * from ".strtolower(static::$tableName)." where parent_id=:id";

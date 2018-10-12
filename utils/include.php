@@ -23,8 +23,10 @@ include_once 'dto/elements/Menu.php';
 include_once 'dto/elements/Paragraph.php';
 include_once 'dto/elements/Lesson.php';
 include_once 'dto/elements/Page.php';
+include_once 'dto/elements/IncludeCode.php';
 include_once 'dto/elements/Form.php';
 include_once 'dto/elements/Image.php';
+include_once 'dto/elements/File.php';
 include_once 'dto/elements/Input.php';
 include_once 'dto/elements/Li.php';
 include_once 'dto/elements/Link.php';
@@ -41,6 +43,7 @@ include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
 include_once 'action/ajax/Post.php';
+include_once 'action/ajax/PostWorkGroup.php';
 include_once 'action/AddAccount.php';
 include_once 'action/AddContact.php';
 include_once 'action/Disconnect.php';
@@ -65,22 +68,26 @@ include_once 'view/ChangePasswordView.php';
 include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
 include_once 'view/link/AdminLinkView.php';
+include_once 'view/link/AdminUserLinkView.php';
 include_once 'view/link/ContactLinkView.php';
 include_once 'view/link/MenuLinkView.php';
 include_once 'view/link/ResultLinkView.php';
 
-
+include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
+include_once 'view/administration/AdminUserView.php';
 
-
+include_once 'view/ajax/DescribeElementView.php';
 include_once 'view/ajax/GetView.php';
 include_once 'view/model/ElementView.php';
 include_once 'view/model/MenuView.php';
 include_once 'view/model/CodeView.php';
 include_once 'view/model/ParagraphView.php';
 include_once 'view/model/PageView.php';
+include_once 'view/model/IncludeCodeView.php';
 include_once 'view/model/FormView.php';
 include_once 'view/model/ImageView.php';
+include_once 'view/model/FileView.php';
 include_once 'view/model/InputView.php';
 include_once 'view/model/LiView.php';
 include_once 'view/model/LinkView.php';

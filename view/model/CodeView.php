@@ -1,9 +1,9 @@
 <?php
 class CodeView extends ElementView
 {
-    public function __construct($args)
+    public function __construct($args, $parent)
     {
-        parent::__construct($args);
+        parent::__construct($args, $parent);
         $this->elements = LessonModel::getAllElementsForAdmin('Lesson');
         $this->cssFiles['code'] = 'styles/default';
         $this->jsFiles['highlight'] = 'highlight.pack';
@@ -13,9 +13,7 @@ class CodeView extends ElementView
 
     public function render()
     {
-        ?>
-        <pre><code class="<?php echo $this->getElement()->getLanguage(); ?>"><?php echo htmlspecialchars($this->getElement()->getContent()); ?></code></pre>
-    <?php
+        ?><pre><code class="<?php echo $this->getElement()->getLanguage(); ?>"><?php echo htmlspecialchars($this->getElement()->getContent()); ?></code></pre><?php
     }
 
     protected function renderOutline()

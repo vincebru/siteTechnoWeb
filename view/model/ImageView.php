@@ -5,7 +5,7 @@ class ImageView extends ElementView
     {
         ?>
         <br>
-        <img class="rounded mx-auto d-block img-fluid" src="image.php?id=<?php echo $this->getElement()->getId(); ?>" width="<?php echo $this->getElement()->getWidth(); ?>"
+        <img class="rounded mx-auto d-block img-fluid" src="file.php?id=<?php echo $this->getElement()->getId(); ?>" width="<?php echo $this->getElement()->getWidth(); ?>"
         height="<?php echo $this->getElement()->getHeight(); ?>" alt="<?php echo $this->getElement()->getContent(); ?>" />
         <br>
         <?php

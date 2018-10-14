@@ -15,6 +15,8 @@ include_once 'dto/Role.php';
 include_once 'dto/SessionGroup.php';
 include_once 'dto/User.php';
 include_once 'dto/WorkGroup.php';
+include_once 'dto/Evaluation.php';
+include_once 'dto/Result.php';
 
 include_once 'dto/elements/Code.php';
 include_once 'dto/elements/Menu.php';
@@ -36,6 +38,7 @@ include_once 'dto/elements/Ul.php';
 
 include_once 'action/Action.php';
 include_once 'action/WriteAction.php';
+include_once 'action/admin/EvaluateUser.php';
 include_once 'action/FacilitateurAddElement.php';
 include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
@@ -73,6 +76,7 @@ include_once 'view/link/ResultLinkView.php';
 include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
 include_once 'view/administration/AdminUserView.php';
+include_once 'view/administration/EvaluateUserView.php';
 
 include_once 'view/ajax/DescribeElementView.php';
 include_once 'view/ajax/GetView.php';
@@ -97,6 +101,7 @@ include_once 'view/model/UlView.php';
 //include model
 include_once 'model/CacheElementsManager.php';
 include_once 'model/GlobalModel.php';
+include_once 'model/ResultModel.php';
 include_once 'model/RoleModel.php';
 include_once 'model/UserModel.php';
 include_once 'model/PageModel.php';

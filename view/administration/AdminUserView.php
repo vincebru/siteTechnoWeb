@@ -43,12 +43,16 @@ class AdminUserView extends AbstractAdminView{
             <div class="col-2">
             	Group id
             		<a href='<?php echo $this->getUrlGroup()?>'>
-                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm" >
-                        <i class="fa fa-group" id='container'>
-                        	<?php if($this->isGrouped){?><i class="fa fa-ban nested"></i><?php }?>
-                        </i>
-                    </button>
+                        <button type="button" class="btn btn-outline-primary mr-1 btn-sm" >
+                            <i class="fa fa-group" id='container'>
+                            	<?php if($this->isGrouped){?><i class="fa fa-ban nested"></i><?php }?>
+                            </i>
+                        </button>
                   	</a>
+                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm addWorkGroup" 
+            			data-toggle="modal" data-target="#AddWorkGroupModal" id="createGroupBtn">
+                        <i class="fa fa-plus"></i>
+                    </button>
             </div>
             <div class="col-1"></div>
           </div>
@@ -72,10 +76,13 @@ class AdminUserView extends AbstractAdminView{
           ?>
           <div class="row">
             <div class="col-1">
-            	<button type="button" class="btn btn-outline-primary mr-1 btn-sm" 
-            	data-toggle="modal" data-target="#EvaluationModal" id="evaluationBtn">
-                	<i class="fa fa-pencil" id='container'></i>
-                </button>
+            	
+            	<a href='index.php?page=EvaluateUser&userId=<?php echo $user->getId()?>'>
+                	<button type="button" class="btn btn-outline-primary mr-1 btn-sm" 
+                	data-toggle="modal" data-target="#EvaluationModal" id="evaluationBtn">
+                    	<i class="fa fa-pencil" id='container'></i>
+                    </button>
+                </a>
             </div>
             <div class="col-4"><?php echo $user->getLastname()?></div>
             <div class="col-4"><?php echo $user->getFirstname()?></div>
@@ -83,12 +90,6 @@ class AdminUserView extends AbstractAdminView{
             <div class="col-1"><input type='checkbox' class="workGroupBy" data-user-id='<?php echo $user->getId()?>'></div>
           </div>
           <?php }?>
-        </div>
-		<div class="toolbar">
-            <button type="button" class="btn btn-outline-primary mr-1 btn-sm addWorkGroup" 
-            	data-toggle="modal" data-target="#AddWorkGroupModal" id="evaluation<Btn">
-                <i class="fa fa-plus"></i>
-            </button>
         </div>
         <?php $this->buildModalHtml(ElementView::ACTION_ADD, 'WorkGroup'); ?>
         

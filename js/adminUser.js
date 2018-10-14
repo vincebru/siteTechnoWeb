@@ -57,7 +57,7 @@ $(document).ready(function () {
     	userId = "";
     	$('.workGroupBy').each(function() {
     		if ($(this).is(':checked')){
-    			userId=$(this).attr('user-id'));	
+    			userId=$(this).attr('user-id');	
     		}
     	})
     	$("#AddWorkGroupModal #actionForm").empty();

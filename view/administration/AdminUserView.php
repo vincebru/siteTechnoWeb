@@ -77,7 +77,7 @@ class AdminUserView extends AbstractAdminView{
           <div class="row">
             <div class="col-1">
             	
-            	<a href='index.php?page=EvaluateUser&userId=<?php echo $user->getId()?>'>
+            	<a href='index.php?page=EvaluateUser&userId=<?php echo $user->getId()?>&edit=true'>
                 	<button type="button" class="btn btn-outline-primary mr-1 btn-sm" 
                 	data-toggle="modal" data-target="#EvaluationModal" id="evaluationBtn">
                     	<i class="fa fa-pencil" id='container'></i>
@@ -138,7 +138,8 @@ class AdminUserView extends AbstractAdminView{
         </form>
         <?php
     }
-    
+
+
 }
 
 

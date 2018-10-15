@@ -59,7 +59,6 @@ include_once 'view/LoginForm.php';
 include_once 'view/MainView.php';
 include_once 'view/NotAllowedView.php';
 include_once 'view/NewAccountView.php';
-include_once 'view/ResultView.php';
 include_once 'view/UserView.php';
 include_once 'view/FacilitateurAddElementView.php';
 include_once 'view/ChangePasswordForm.php';

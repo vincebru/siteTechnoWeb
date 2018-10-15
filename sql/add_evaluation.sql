@@ -40,4 +40,4 @@ CREATE TABLE IF NOT EXISTS `result` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 
-ALTER TABLE `sitetechnoweb`.`result` ADD UNIQUE `unique_result` (`group_id`, `user_id`, `evaluation_id`);
+ALTER TABLE `result` ADD UNIQUE `unique_result` (`group_id`, `user_id`, `evaluation_id`);

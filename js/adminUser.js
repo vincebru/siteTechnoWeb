@@ -91,6 +91,13 @@ $(document).ready(function () {
     
     //validation popup
     $('.doAddWorkGroup').click(doAddWorkGroup);
+
+
+    function doSaveEvaluation(){
+        $('#evaluateUserForm').submit();
+    }
+
+    $('.doSaveUserEvaluation').click(doSaveEvaluation);
     
     /*** EVALUATION:  END ***/
 });

@@ -50,6 +50,8 @@ include_once 'action/Disconnect.php';
 include_once 'action/Login.php';
 include_once 'action/UpdatePassword.php';
 
+include_once 'view/utils/ContactFunctions.php';
+
 include_once 'view/AbstractView.php';
 include_once 'view/ContactView.php';
 include_once 'view/CreateAccountForm.php';
@@ -69,6 +71,7 @@ include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
 include_once 'view/link/AdminLinkView.php';
 include_once 'view/link/AdminUserLinkView.php';
+include_once 'view/link/AdminContactLinkView.php';
 include_once 'view/link/ContactLinkView.php';
 include_once 'view/link/MenuLinkView.php';
 include_once 'view/link/ResultLinkView.php';
@@ -76,6 +79,7 @@ include_once 'view/link/ResultLinkView.php';
 include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
 include_once 'view/administration/AdminUserView.php';
+include_once 'view/administration/AdminContactView.php';
 
 include_once 'view/ajax/DescribeElementView.php';
 include_once 'view/ajax/GetView.php';

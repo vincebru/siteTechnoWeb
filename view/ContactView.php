@@ -23,33 +23,13 @@ class ContactView extends AbstractView
         $this->missingProps = $array;
     }
 
-    protected function formatMsg() {
+    protected function displayMsg() {
         if($this->msg!="") {
             return '<div class="errorMessage" style="margin-top: 15px;">'.$this->msg.'</div>';
         }
     }
 
-    protected function formatInsertedContact() {
-        $insertedContactStr = "";
-        if(isset($this->insertedContact)) {
-            $values = $this->insertedContact->getValues();
-            $title = $values["title"];
-            $content = $values["content"];
-            $username = UserModel::getUserFromId($values['user_id'])->getLogin();
-            $mail = UserModel::getUserFromId($values['user_id'])->getEmail();
-            $insertedContactStr = <<<EOF
-            <div style="border: 1px solid lightgray;border-radius: 5px;padding: 5px;box-shadow: 6px 10px 10px -5px;">
-                <h4>$title</h4>
-                <p>$content</p>
-                <br>
-                <p style="margin: 0;font-size: 10px;">Asked by <a href="mailto:$mail" title="$mail">$username</a></p>
-            </div>
-EOF;
-        }
-        return $insertedContactStr;
-    }
-
-    protected function formatMissingProps() {
+    protected function displayMissingProps() {
         $missingPropsStr = "";
         if(!empty($this->missingProps)) {
             $missingPropsStr = "<div id='missingProps'>Missing fields :<br><script>";
@@ -64,9 +44,8 @@ EOF;
         return $missingPropsStr;
     }
 
-    public function getHtml()
-    {
-        ?>
+    protected function displayForm() {
+        return <<<EOF
         <br>
         <button class="btn btn-sm btn-primary my-2 my-sm-0" onclick="$('#contactForm').slideToggle();">Show/Hide contact form</button>
         <br>
@@ -78,11 +57,66 @@ EOF;
             <button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit" value="Ask">Ask a question</button>
         </form>
         </div>
-        <?=$this->formatMsg()?>
-        <?=$this->formatMissingProps()?>
-        <?=$this->formatInsertedContact()?>
-        <hr>
-        <!--Contacts here -->
-    <?php
+EOF;
+    }
+
+    public function getHtml()
+    {
+        if(!isset($this->args["view"])) {
+            ?>
+            <?=$this->displayForm()?>
+            <?=$this->displayMsg()?>
+            <?=$this->displayMissingProps()?>
+            <?php ContactFunctions::displayContact($this->insertedContact, "ContactLink")?>
+            <br>
+            <table class="table table-hover table-sm">
+                <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Posted by</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                </thead>
+                <tbody>
+            <?php
+                $contacts = GlobalModel::getAll(Contact::class, ' where main.visibility = 0 and main.parent_id = -1 order by created DESC',null);
+                foreach ($contacts as $value) {
+                    ContactFunctions::displayContact($value, "ContactLink");
+                }
+            ?>
+            </tbody>
+            </table>
+        <?php
+            if(UserModel::isConnected()) {
+                $currentUserContact = GlobalModel::getAll(Contact::class, ' where main.user_id = '. UserModel::getConnectedUser()->getId() .' and main.visibility = 0 and main.parent_id = -1 order by created DESC',null);
+                if(count($currentUserContact) > 0) {
+                    ?>
+                    <br>
+                    <h3>My contacts</h3>
+                    <table class="table table-hover table-sm">
+                        <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Posted by</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                    <?php
+                    foreach ($currentUserContact as $value) {
+                        ContactFunctions::displayContact($value, "ContactLink");
+                    }
+                    ?>
+                    </tbody>
+                    </table>
+                    <?php              
+                }
+            }
+        } else {
+            $id = $this->args["view"];
+            ContactFunctions::displayContactDetail(GlobalModel::getInstance("Contact", $id), "ContactLink");
+            echo $this->displayMsg();
+            echo $this->displayMissingProps();
+        }
     }
 }

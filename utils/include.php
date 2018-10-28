@@ -15,6 +15,8 @@ include_once 'dto/Role.php';
 include_once 'dto/SessionGroup.php';
 include_once 'dto/User.php';
 include_once 'dto/WorkGroup.php';
+include_once 'dto/Evaluation.php';
+include_once 'dto/Result.php';
 
 include_once 'dto/elements/Code.php';
 include_once 'dto/elements/Menu.php';
@@ -36,11 +38,13 @@ include_once 'dto/elements/Ul.php';
 
 include_once 'action/Action.php';
 include_once 'action/WriteAction.php';
+include_once 'action/admin/EvaluateUser.php';
 include_once 'action/FacilitateurAddElement.php';
 include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
 include_once 'action/ajax/Post.php';
+include_once 'action/ajax/PostWorkGroup.php';
 include_once 'action/AddAccount.php';
 include_once 'action/Disconnect.php';
 include_once 'action/Login.php';
@@ -55,7 +59,6 @@ include_once 'view/LoginForm.php';
 include_once 'view/MainView.php';
 include_once 'view/NotAllowedView.php';
 include_once 'view/NewAccountView.php';
-include_once 'view/ResultView.php';
 include_once 'view/UserView.php';
 include_once 'view/FacilitateurAddElementView.php';
 include_once 'view/ChangePasswordForm.php';
@@ -64,14 +67,17 @@ include_once 'view/ChangePasswordView.php';
 include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
 include_once 'view/link/AdminLinkView.php';
+include_once 'view/link/AdminUserLinkView.php';
 include_once 'view/link/ContactLinkView.php';
 include_once 'view/link/MenuLinkView.php';
 include_once 'view/link/ResultLinkView.php';
 
-
+include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
+include_once 'view/administration/AdminUserView.php';
+include_once 'view/administration/EvaluateUserView.php';
 
-
+include_once 'view/ajax/DescribeElementView.php';
 include_once 'view/ajax/GetView.php';
 include_once 'view/model/ElementView.php';
 include_once 'view/model/MenuView.php';
@@ -94,6 +100,7 @@ include_once 'view/model/UlView.php';
 //include model
 include_once 'model/CacheElementsManager.php';
 include_once 'model/GlobalModel.php';
+include_once 'model/ResultModel.php';
 include_once 'model/RoleModel.php';
 include_once 'model/UserModel.php';
 include_once 'model/PageModel.php';

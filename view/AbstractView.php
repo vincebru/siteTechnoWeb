@@ -5,12 +5,18 @@ abstract class AbstractView
     protected $args;
     protected $jsFiles;
     protected $cssFiles;
+    private $edit;
 
     public function __construct($args)
     {
         $this->args = $args;
         $this->jsFiles = array();
         $this->cssFiles = array();
+
+        $this->edit=false;
+        if (isset($args['edit']) && $args['edit']=true){
+            $this->edit=true;
+        }
 
         $this->cssFiles['common'] = 'common';
         $this->jsFiles['common'] = 'script';
@@ -48,5 +54,10 @@ abstract class AbstractView
     public function getStatus()
     {
         return ' tout va bien !';
+    }
+
+
+    protected function isEdit(){
+        return $this->edit;
     }
 }

@@ -39,6 +39,7 @@ include_once 'dto/elements/Ul.php';
 include_once 'action/Action.php';
 include_once 'action/WriteAction.php';
 include_once 'action/admin/EvaluateUser.php';
+include_once 'action/admin/AddUserToGroup.php';
 include_once 'action/FacilitateurAddElement.php';
 include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
@@ -76,6 +77,8 @@ include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
 include_once 'view/administration/AdminUserView.php';
 include_once 'view/administration/EvaluateUserView.php';
+include_once 'view/administration/UpdateGroupView.php';
+
 
 include_once 'view/ajax/DescribeElementView.php';
 include_once 'view/ajax/GetView.php';

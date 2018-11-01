@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `result` (
 	`group_id` int(3) NULL,
 	`user_id` int(3) NULL,
 	`evaluation_id` int(3) NOT NULL,
+	`comment` varchar(255) NOT NULL,
 	`value` int(9) DEFAULT NULL,
   PRIMARY KEY (`result_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;

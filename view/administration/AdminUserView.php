@@ -14,6 +14,10 @@ class AdminUserView extends AbstractAdminView{
         if(isset($args['isGrouped'])){
             $this->isGrouped=true;
         }
+        $this->sessionGroupId="";
+        if (isset($this->args['sessionGroupId'])){
+            $this->sessionGroupId=$this->args['sessionGroupId'];
+        }
     }
     
     private function getUrlGroup(){
@@ -35,7 +39,7 @@ class AdminUserView extends AbstractAdminView{
         
         $userList = UserModel::getUsersBySessionGroupId($this->sessionGroupId , $groupBy);
         ?>
-        <div class="container-fluid">
+        <div class="container-fluid table">
           <div class="row">
           	<?php if($this->isGrouped){?><div class="col-1"></div><?php }?>
             <div class="col-4">Name</div>
@@ -68,7 +72,21 @@ class AdminUserView extends AbstractAdminView{
                       }
                        ?>
                           <div class="row">
-                            <div class="col-12"><?php echo $workgroup!=null?'Group name:'.$workgroup->getName():'NoGroup'?></div>
+                            <div class="col-12">
+                                <?php if( $workgroup!=null) {
+                                    echo 'Group name:'.$workgroup->getName()." (".$workgroup->getRepository().")";
+                                ?><a href='index.php?page=UpdateGroup&groupId=<?php echo $workgroup->getId()?>&sessionGroupId=<?php echo $this->sessionGroupId ?>'>
+                                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm">
+                                        <i class="fa fa-pencil" id='container'></i>
+                                    </button>
+                                </a>
+                                <?php
+                                } else {
+                                    echo 'NoGroup';
+                                }
+                               ?>
+
+                            </div>
                           </div>
                        <?php 
                   }
@@ -113,10 +131,6 @@ class AdminUserView extends AbstractAdminView{
     }
     
     private function getSessionGroupForm(){
-        $this->sessionGroupId="";
-        if (isset($this->args['sessionGroupId'])){
-            $this->sessionGroupId=$this->args['sessionGroupId'];
-        }
         $sessionGroupList = GlobalModel::getAll(SessionGroup::class, null, null);
         ?>
         <form id="sessionGroupForm" action='index.php' method="post">

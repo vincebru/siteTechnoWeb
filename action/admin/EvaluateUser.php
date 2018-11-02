@@ -30,6 +30,7 @@ class EvaluateUser  extends WriteAction{
     public function execute() {
         if (isset($this->data['save'])) {
             $resultCommentToSave=$this->getResultToSave("result_comment_");
+
             foreach ($this->getResultToSave("result_") as $evaluationId => $value){
                 $comment='';
                 if(isset($resultCommentToSave[$evaluationId])){
@@ -47,6 +48,7 @@ class EvaluateUser  extends WriteAction{
                     $resultParam[Result::$userId]=$this->user->getId();
                     $resultParam[Result::$groupId]=null;
                 }
+
                 if(!isset($this->results[$evaluationId])){
                     //insert value
                     GlobalModel::createInstance('Result',$resultParam);
@@ -67,7 +69,9 @@ class EvaluateUser  extends WriteAction{
         foreach ($this->data as $key=>$value){
             if ($this->isAResultKey($key,$prefix) && $value!=''){
                 $resultId=str_replace($prefix,"",$key);
-                $resultsValueToSave[$resultId]=$value;
+		if (is_numeric($resultId)) {
+	                $resultsValueToSave[$resultId]=$value;
+		}
             }
         }
         return $resultsValueToSave;

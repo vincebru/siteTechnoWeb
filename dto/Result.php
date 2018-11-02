@@ -25,7 +25,7 @@ class Result extends DTO{
     }
     
     public static function getInsertRequests(){
-        return array("insert into ".static::$tableName." (group_id, user_id, evaluation_id, comment, value) ".
+        return array("insert into ".strtolower(static::$tableName)." (group_id, user_id, evaluation_id, comment, value) ".
             "values (:group_id, :user_id, :evaluation_id, :comment, :value)");
     }
     

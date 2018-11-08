@@ -74,7 +74,7 @@ class AdminUserView extends AbstractAdminView{
                           <div class="row">
                             <div class="col-12">
                                 <?php if( $workgroup!=null) {
-                                    echo 'Group name:'.$workgroup->getName()." (".$workgroup->getRepository().")";
+                                    echo 'Group name:'.$workgroup->getName()." (<a href='https://github.com/".$workgroup->getRepository()."'>".$workgroup->getRepository().")</a>";
                                 ?><a href='index.php?page=UpdateGroup&groupId=<?php echo $workgroup->getId()?>&sessionGroupId=<?php echo $this->sessionGroupId ?>'>
                                     <button type="button" class="btn btn-outline-primary mr-1 btn-sm">
                                         <i class="fa fa-pencil" id='container'></i>

@@ -1,0 +1,13 @@
+h2 a {
+	display:inline-block;
+	text-decoration:none;
+}
+
+h2 button {
+	text-decoration:none;
+	display: none !important;
+}
+
+h2:hover button {
+	display: inline-block !important;
+}

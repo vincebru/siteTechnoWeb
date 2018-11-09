@@ -47,6 +47,7 @@ include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
 include_once 'action/ajax/Patch.php';
 include_once 'action/ajax/Post.php';
+include_once 'action/ajax/Get.php';
 include_once 'action/ajax/PostWorkGroup.php';
 include_once 'action/AddAccount.php';
 include_once 'action/AddContact.php';

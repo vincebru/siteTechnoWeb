@@ -2,12 +2,13 @@
 class ContactView extends AbstractView
 {
     
-    protected $msg = "";
+    protected $msg = '';
     protected $insertedContact;
     protected $missingProps;
 
     public function __construct($args){
         parent::__construct($args);
+        $this->cssFiles['admin'] = 'ContactView';
     }
     
     public function setMsg($msg) {
@@ -24,19 +25,19 @@ class ContactView extends AbstractView
     }
 
     protected function displayMsg() {
-        if($this->msg!="") {
-            return '<div class="errorMessage" style="margin-top: 15px;">'.$this->msg.'</div>';
+        if($this->msg!='') {
+            return '<div class="errorMessage">'.$this->msg.'</div>';
         }
     }
 
     protected function displayMissingProps() {
-        $missingPropsStr = "";
+        $missingPropsStr = '';
         if(!empty($this->missingProps)) {
-            $missingPropsStr = "<div id='missingProps'>Missing fields :<br><script>";
+            $missingPropsStr = '<div id="missingProps">Missing fields :<br><script>';
             foreach ($this->missingProps as $value) {
                 $missingPropsStr = $missingPropsStr . <<<EOF
                 document.getElementsByName("$value")[0].style.borderColor = "red";
-                document.getElementById("missingProps").innerHTML += "<li style='list-style:inside;'>"+document.getElementsByName("$value")[0].placeholder+"</li>";
+                document.getElementById("missingProps").innerHTML += "<li>"+document.getElementsByName("$value")[0].placeholder+"</li>";
 EOF;
             }
             $missingPropsStr .= "</script></div>";
@@ -44,31 +45,19 @@ EOF;
         return $missingPropsStr;
     }
 
-    protected function displayForm() {
-        return <<<EOF
-        <br>
-        <button class="btn btn-sm btn-primary my-2 my-sm-0" onclick="$('#contactForm').slideToggle();">Show/Hide contact form</button>
-        <br>
-        <div id="contactForm" style="display: none;">
-        <form class="" id="loginForm" action="index.php" style="margin-top: 15px;margin-bottom: 15px;" method="POST">
-            <input type="hidden" name="page" value="AddContact" />
-            <input class="form-control form-control-sm mr-sm-2" type="text" name="title" placeholder="Title of the question" aria-label="question"/><br>
-            <textarea class="form-control form-control-sm mr-sm-2" type="type" name="content" placeholder="Detail of the question"></textarea><br>
-            <button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit" value="Ask">Ask a question</button>
-        </form>
-        </div>
-EOF;
-    }
-
     public function getHtml()
     {
-        if(!isset($this->args["view"])) {
+        if(!isset($this->args['view'])) {
             ?>
-            <?=$this->displayForm()?>
+            <br>
+            <button class="btn btn-sm btn-primary my-2 my-sm-0" onclick="$('#contactForm').slideToggle();">Show/Hide contact form</button>
+            <br>
+            <?=ContactFunctions::displayForm('none', 'inline', false)?>
             <?=$this->displayMsg()?>
             <?=$this->displayMissingProps()?>
-            <?php ContactFunctions::displayContact($this->insertedContact, "ContactLink")?>
+            <?php ContactFunctions::displayContact($this->insertedContact, 'ContactLink')?>
             <br>
+            <h3>Public contacts</h3>
             <table class="table table-hover table-sm">
                 <thead>
                         <tr>
@@ -81,14 +70,14 @@ EOF;
             <?php
                 $contacts = GlobalModel::getAll(Contact::class, ' where main.visibility = 0 and main.parent_id = -1 order by created DESC',null);
                 foreach ($contacts as $value) {
-                    ContactFunctions::displayContact($value, "ContactLink");
+                    ContactFunctions::displayContact($value, 'ContactLink');
                 }
             ?>
             </tbody>
             </table>
         <?php
             if(UserModel::isConnected()) {
-                $currentUserContact = GlobalModel::getAll(Contact::class, ' where main.user_id = '. UserModel::getConnectedUser()->getId() .' and main.visibility = 0 and main.parent_id = -1 order by created DESC',null);
+                $currentUserContact = GlobalModel::getAll(Contact::class, ' where main.visibility <> 2 and main.user_id = '. UserModel::getConnectedUser()->getId() .' and main.parent_id = -1 order by created DESC',null);
                 if(count($currentUserContact) > 0) {
                     ?>
                     <br>
@@ -104,7 +93,30 @@ EOF;
                         <tbody>
                     <?php
                     foreach ($currentUserContact as $value) {
-                        ContactFunctions::displayContact($value, "ContactLink");
+                        ContactFunctions::displayContact($value, 'ContactLink');
+                    }
+                    ?>
+                    </tbody>
+                    </table>
+                    <?php              
+                }
+                $currentUserNotes = GlobalModel::getAll(Contact::class, ' where main.visibility = 2 and main.user_id = '. UserModel::getConnectedUser()->getId() .' and main.parent_id = -1 order by created DESC',null);
+                if(count($currentUserNotes) > 0) {
+                    ?>
+                    <br>
+                    <h3>My notes</h3>
+                    <table class="table table-hover table-sm">
+                        <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Posted by</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                    <?php
+                    foreach ($currentUserNotes as $value) {
+                        ContactFunctions::displayContact($value, 'ContactLink');
                     }
                     ?>
                     </tbody>
@@ -113,8 +125,8 @@ EOF;
                 }
             }
         } else {
-            $id = $this->args["view"];
-            ContactFunctions::displayContactDetail(GlobalModel::getInstance("Contact", $id), "ContactLink");
+            $id = $this->args['view'];
+            ContactFunctions::displayContactDetail(GlobalModel::getInstance('Contact', $id), 'ContactLink');
             echo $this->displayMsg();
             echo $this->displayMissingProps();
         }

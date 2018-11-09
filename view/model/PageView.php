@@ -17,8 +17,26 @@ class PageView extends ElementView
             </button>
         </div>
         <?php
-        } ?>
-        <h2 id="page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></h2>
+        } 
+        $id = $this->getElement()->getId();
+        $content = $this->getElement()->getContent();
+        ?>
+        <h2 id="page-<?=$id?>">
+            <?=$content?>
+            <?php 
+                if(UserModel::isConnected()) {
+                    $contacts = GlobalModel::getAll(Contact::class, ' where user_id = '.UserModel::getConnectedUser()->getId().' and main.parent_id = -1 and element_id = '.$id.' order by created DESC',null);
+                    $length = count($contacts);
+                    if ($length != 0) {
+                        echo <<<EOF
+                            <a data-toggle="modal" data-target="#listContact" id="number-$id" class="btn btn-sm btn-primary my-2 my-sm-0">$length</a>  
+EOF;
+                    }
+                    echo <<<EOF
+                        <button data-toggle="modal" data-target="#addContact" id="ask-$id" content="$content" class="btn btn-sm btn-primary my-2 my-sm-0">Ask question/Add note</button>
+EOF;
+            }?>    
+        </h2>      
         <?php echo $this->renderChildren(); ?>
         <?php
     }

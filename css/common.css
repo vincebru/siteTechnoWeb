@@ -71,7 +71,7 @@ H2 {
 
 .bd-content {
 	-ms-flex-order: 1;
-	overflow-y: auto;
+	/*overflow-y: auto;*/
 	order: 1;
 }
 

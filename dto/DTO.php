@@ -47,6 +47,19 @@ abstract class DTO{
 	private $updatedProperties;
 	protected $values;
 
+    public function validateForm() {
+        $missingProps = array();
+        foreach (static::propertyKeyList() as $value) {
+            if($value->getOption()=="MANDATORY" && $this->getValues()[$value->getKey()]=="") {
+                array_push($missingProps, $value->getKey());
+            }
+        }
+        if(empty($missingProps)) {
+        	return true;
+        }
+        return $missingProps;
+    }
+
 	public function getValues() {
 		return $this->values;
 	}

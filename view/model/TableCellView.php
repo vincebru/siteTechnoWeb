@@ -5,7 +5,7 @@ class TableCellView extends ElementView
     {
         ?>
         <div class="col-<?php echo $this->getElement()->getSpan(); ?>">
-        <?php echo htmlspecialchars($this->getElement()->getContent()); ?>
+        <?php echo str_replace("\n", '<br />',htmlspecialchars($this->getElement()->getContent())); ?>
         </div>
         <?php
     }

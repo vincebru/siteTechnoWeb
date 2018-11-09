@@ -14,6 +14,10 @@ class AdminUserView extends AbstractAdminView{
         if(isset($args['isGrouped'])){
             $this->isGrouped=true;
         }
+        $this->sessionGroupId="";
+        if (isset($this->args['sessionGroupId'])){
+            $this->sessionGroupId=$this->args['sessionGroupId'];
+        }
     }
     
     private function getUrlGroup(){
@@ -35,7 +39,7 @@ class AdminUserView extends AbstractAdminView{
         
         $userList = UserModel::getUsersBySessionGroupId($this->sessionGroupId , $groupBy);
         ?>
-        <div class="container-fluid">
+        <div class="container-fluid table">
           <div class="row">
           	<?php if($this->isGrouped){?><div class="col-1"></div><?php }?>
             <div class="col-4">Name</div>
@@ -43,12 +47,16 @@ class AdminUserView extends AbstractAdminView{
             <div class="col-2">
             	Group id
             		<a href='<?php echo $this->getUrlGroup()?>'>
-                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm" >
-                        <i class="fa fa-group" id='container'>
-                        	<?php if($this->isGrouped){?><i class="fa fa-ban nested"></i><?php }?>
-                        </i>
-                    </button>
+                        <button type="button" class="btn btn-outline-primary mr-1 btn-sm" >
+                            <i class="fa fa-group" id='container'>
+                            	<?php if($this->isGrouped){?><i class="fa fa-ban nested"></i><?php }?>
+                            </i>
+                        </button>
                   	</a>
+                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm addWorkGroup" 
+            			data-toggle="modal" data-target="#AddWorkGroupModal" id="createGroupBtn">
+                        <i class="fa fa-plus"></i>
+                    </button>
             </div>
             <div class="col-1"></div>
           </div>
@@ -64,7 +72,21 @@ class AdminUserView extends AbstractAdminView{
                       }
                        ?>
                           <div class="row">
-                            <div class="col-12"><?php echo $workgroup!=null?'Group name:'.$workgroup->getName():'NoGroup'?></div>
+                            <div class="col-12">
+                                <?php if( $workgroup!=null) {
+                                    echo 'Group name:'.$workgroup->getName()." (".$workgroup->getRepository().")";
+                                ?><a href='index.php?page=UpdateGroup&groupId=<?php echo $workgroup->getId()?>&sessionGroupId=<?php echo $this->sessionGroupId ?>'>
+                                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm">
+                                        <i class="fa fa-pencil" id='container'></i>
+                                    </button>
+                                </a>
+                                <?php
+                                } else {
+                                    echo 'NoGroup';
+                                }
+                               ?>
+
+                            </div>
                           </div>
                        <?php 
                   }
@@ -72,10 +94,13 @@ class AdminUserView extends AbstractAdminView{
           ?>
           <div class="row">
             <div class="col-1">
-            	<button type="button" class="btn btn-outline-primary mr-1 btn-sm" 
-            	data-toggle="modal" data-target="#EvaluationModal" id="evaluationBtn">
-                	<i class="fa fa-pencil" id='container'></i>
-                </button>
+            	
+            	<a href='index.php?page=EvaluateUser&userId=<?php echo $user->getId()?>&edit=true'>
+                	<button type="button" class="btn btn-outline-primary mr-1 btn-sm" 
+                	data-toggle="modal" data-target="#EvaluationModal" id="evaluationBtn">
+                    	<i class="fa fa-pencil" id='container'></i>
+                    </button>
+                </a>
             </div>
             <div class="col-4"><?php echo $user->getLastname()?></div>
             <div class="col-4"><?php echo $user->getFirstname()?></div>
@@ -83,12 +108,6 @@ class AdminUserView extends AbstractAdminView{
             <div class="col-1"><input type='checkbox' class="workGroupBy" data-user-id='<?php echo $user->getId()?>'></div>
           </div>
           <?php }?>
-        </div>
-		<div class="toolbar">
-            <button type="button" class="btn btn-outline-primary mr-1 btn-sm addWorkGroup" 
-            	data-toggle="modal" data-target="#AddWorkGroupModal" id="evaluation<Btn">
-                <i class="fa fa-plus"></i>
-            </button>
         </div>
         <?php $this->buildModalHtml(ElementView::ACTION_ADD, 'WorkGroup'); ?>
         
@@ -112,10 +131,6 @@ class AdminUserView extends AbstractAdminView{
     }
     
     private function getSessionGroupForm(){
-        $this->sessionGroupId="";
-        if (isset($this->args['sessionGroupId'])){
-            $this->sessionGroupId=$this->args['sessionGroupId'];
-        }
         $sessionGroupList = GlobalModel::getAll(SessionGroup::class, null, null);
         ?>
         <form id="sessionGroupForm" action='index.php' method="post">
@@ -137,7 +152,8 @@ class AdminUserView extends AbstractAdminView{
         </form>
         <?php
     }
-    
+
+
 }
 
 

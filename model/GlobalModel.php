@@ -57,7 +57,9 @@ class GlobalModel
                     $array[$varName]=getdate();
                     break;
                 case 'user_id':
-                    $array[$varName]=UserModel::getConnectedUser()->getId();
+                    if (!UserModel::isAdminConnectedUser() || !array_key_exists($varName,$array)){
+                        $array[$varName]=UserModel::getConnectedUser()->getId();
+                    }
                     break;
                 case 'complementary_data':
                     $array[$varName]=serialize($array);
@@ -66,11 +68,13 @@ class GlobalModel
                     $array['rank']=GlobalModel::getMaxRankForParentId($array['parent_id'])+1;;
                     break;
                 case 'group_id':
-                    if (isset($array[$varName]) && !UserModel::isGroupOfConnectedUser($array[$varName])){
-                        $message = 'Error: Invalid group id '.$array[$varName] ;
-                        throw new TechnowebException($message, $message);
-                    } else if (!isset($array[$varName])){
-                        $array[$varName] = null;
+                    if (!UserModel::isAdminConnectedUser() || !array_key_exists($varName,$array)){
+                        if (isset($array[$varName]) && !UserModel::isGroupOfConnectedUser($array[$varName])){
+                            $message = 'Error: Invalid group id '.$array[$varName] ;
+                            throw new TechnowebException($message, $message);
+                        } else if (!isset($array[$varName])){
+                            $array[$varName] = null;
+                        }
                     }
                     break;
                 default:
@@ -213,7 +217,7 @@ class GlobalModel
         
         $request = str_replace($class::$UPDATE_FIELD_KEY, $class::$UPDATE_FIELD_VALUES, $request);
         $req = $bdd->prepare($request);
-
+        
         $usefulData = self::extractUsefullValueForUpdate($class::$UPDATE_FIELD_VALUES, $data);
 
         $req->execute($usefulData);
@@ -291,11 +295,16 @@ class GlobalModel
     }
     
     public static function getAllFromIds($className, $ids){
-        $inQuery = implode(',', array_fill(0, count($ids), '?'));
-        
-        
-        $restriction = ' where main.'.$className::getColIdName().' in ('.$inQuery.')';
-        return static::getAll($className,$restriction, $ids);
+        $restriction='where 1=2';
+        if (!empty($ids)){
+            $inQuery = implode(',', array_fill(0, count($ids), '?'));
+            $restriction = ' where main.'.$className::getColIdName().' in ('.$inQuery.')';
+        }
+        $result=array();
+        foreach (static::getAll($className,$restriction, $ids) as $value){
+            $result[$value->getId()]=$value;
+        }
+        return $result;
     }
     
     public static function getAll($className,$restriction,$param ){

@@ -49,48 +49,25 @@ $(document).ready(function () {
     
     /*** CREATE GROUP:  END ***/
 
+    /*** UPDATE GROUP:  START ***/
+
+    function doAddUserToGroup(){
+        $('#addUserToFormGroup').submit();
+    }
+
+    $('.doAddUserToGroup').click(doAddUserToGroup);
+
+    /*** UPDATE GROUP:  END ***/
+
 
     /*** EVALUATION :  START ***/
-    var userId;
 
-    function setUserIdToEvaluate(event){
-    	userId = "";
-    	$('.workGroupBy').each(function() {
-    		if ($(this).is(':checked')){
-    			userId=$(this).attr('user-id'));	
-    		}
-    	})
-    	$("#AddWorkGroupModal #actionForm").empty();
-    	$("#AddWorkGroupModal #actionForm").append($('#addUserGroup').html());
-    	$('#AddWorkGroupModal #actionForm #usersId').val(usersId);
+
+    function doSaveEvaluation(){
+        $('#evaluateUserForm').submit();
     }
 
-    //action à l'ouverture popup
-    $('#evaluationBtn').click(setUserIdToEvaluate);
-    
-    function doAddWorkGroup(){
-    	
-
-        $('#AddWorkGroupModal').modal('toggle');
-
-        var param= $('#AddWorkGroupModal #addUserGroupForm').serializeArray();
-        
-        $.ajax({
-            url: "ajax.php",
-            method: "POST",
-            data: param,
-            dataType: "html"
-        }).done(function( msg ) {
-           // alert('coucou');
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $("#AddElementModal").find(".alert").removeClass("d-none");
-            console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );
-            return;
-        });
-    }
-    
-    //validation popup
-    $('.doAddWorkGroup').click(doAddWorkGroup);
+    $('.doSaveUserEvaluation').click(doSaveEvaluation);
     
     /*** EVALUATION:  END ***/
 });

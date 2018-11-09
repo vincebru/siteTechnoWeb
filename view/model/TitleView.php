@@ -5,7 +5,7 @@ class TitleView extends ElementView
     {
         ?>
         <div class="ul-container">
-            <h<?php echo $this->element->getLevel(); ?> id="title-<?php echo $this->getElement()->getId(); ?>"><?php echo htmlspecialchars($this->getElement()->getContent()); ?></h<?php echo $this->getElement()->getLevel(); ?>>
+            <h<?php echo $this->element->getLevel(); ?> id="title-<?php echo $this->getElement()->getId(); ?>"><?php echo str_replace("\n", '<br />',htmlspecialchars($this->getElement()->getContent())); ?></h<?php echo $this->getElement()->getLevel(); ?>>
         </div>
         <?php
     }

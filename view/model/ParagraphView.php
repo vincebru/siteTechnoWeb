@@ -5,7 +5,7 @@ class ParagraphView extends ElementView
     {
         ?>
         <p>
-        <?php echo htmlspecialchars($this->getElement()->getContent()); ?>
+        <?php echo str_replace("\n", '<br />',htmlspecialchars($this->getElement()->getContent())); ?>
         <?php echo $this->renderChildren(); ?>
         </p>
         <?php

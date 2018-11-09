@@ -56,6 +56,6 @@ class IncludeCodeView extends ElementView
         if ($this->parentView != null && $this->parentView instanceof IncludeCodeView){
             return $this->parentView->getOffset();
         }
-        return -1;
+        return 0;
     }
 }

@@ -7,11 +7,21 @@ abstract class AbstractAdminView extends AbstractView {
         $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
         $host     = $_SERVER['HTTP_HOST'];
         $script   = $_SERVER['SCRIPT_NAME'];
-        $params   = $_SERVER['QUERY_STRING'];
+        $params='';
+        if (isset($_SERVER['QUERY_STRING'])){
+            $params = $_SERVER['QUERY_STRING'];
+        }
                 
         return $protocol . '://' . $host . $script . '?' . $params;
     }
-    
+
+
+    public function checkAllowed() {
+        if(!UserModel::isAdminConnectedUser()) {
+            throw new TechnowebException('NotAllowed', 'NotAllowed');
+        }
+    }
+
 	protected function buildModalHtml($action, $class)
 	{
 	    ?>

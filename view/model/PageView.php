@@ -37,8 +37,8 @@ EOF;
 EOF;
             }?>    
         </h2>      
-        <?php echo $this->renderChildren(); ?>
-        <?php
+        <?php echo $this->renderChildren();
+    
     }
 
     protected function renderOutline()
@@ -50,7 +50,7 @@ EOF;
         </nav>
         <?php
     }
-    ccc
+
     public function buildModalHtmlContent($action)
     {
         $content = '';

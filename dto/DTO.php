@@ -77,6 +77,9 @@ abstract class DTO{
 	    return isset(static::$complementTableName) && static::$complementTableName != '';
 	}
 	
+	public static function getRemoveRequests(){
+	    return array("delete from ".strtolower(static::$tableName)." where ".static::$id." = :id");
+	}
 	
 	public static function getRequestById(){
 	    return self::getSelectRequest(). ' WHERE main.'.static::$id . ' = :id ';

@@ -92,6 +92,7 @@ class AdminUserView extends AbstractAdminView{
                   }
               }
           ?>
+
           <div class="row">
             <div class="col-1">
             	
@@ -101,6 +102,17 @@ class AdminUserView extends AbstractAdminView{
                     	<i class="fa fa-pencil" id='container'></i>
                     </button>
                 </a>
+                <a href='index.php?page=UpdatePasswordUser&userId=<?php echo $user->getId()?>' title="Edit the password of a user">
+                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm">
+                        <i class="fa fa-key" id='container'></i>
+                    </button>
+                </a>
+                <a onclick="return confirm('Are you sure to delete the users ?')" href='index.php?page=DeleteUser&userId=<?php echo $user->getId()?>' title="Delete the user">
+                    <button type="button" class="btn btn-outline-primary mr-1 btn-sm">
+                        <i class="fa fa-trash" id='container'></i>
+                    </button>
+                </a>
+
             </div>
             <div class="col-4"><?php echo $user->getLastname()?></div>
             <div class="col-4"><?php echo $user->getFirstname()?></div>

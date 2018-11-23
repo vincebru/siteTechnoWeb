@@ -211,4 +211,29 @@ class UserModel{
 		return $userList;
     }
 
+
+    /**
+     * Delete a specific user
+     *
+     * @param User user informations
+     *
+     * @author Grégoire Gaonach
+     * @return void
+     */
+    public static function deleteUser($user){
+
+    	$bdd = Database::getDb();
+
+    	var_dump($user); die();
+
+		$query='DELETE * FROM users WHERE ID = ?';
+		
+		if($bdd->prepare($query)->execute([$user['id']])){
+			return true; 
+		} else {
+			return false;
+		}
+
+    }
+
 }

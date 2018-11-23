@@ -1,6 +1,7 @@
 h2 a {
-	display:inline-block;
-	text-decoration:none;
+	display:inline-block !important;
+	text-decoration:none !important;
+	color: white !important;
 }
 
 h2 button {

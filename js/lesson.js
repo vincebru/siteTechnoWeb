@@ -11,11 +11,16 @@ $(document).ready(function(){
             data: param,
             dataType: "html"
         }).done(function( msg ) {
+            console.log(msg);
             msg = msg.slice(0, -2);
             contacts = JSON.parse(msg);
             $("#listContact .modal-body").html("");
             contacts.forEach(function(element) {
-                $("#listContact .modal-body").append( "<a href='?page=ContactLink&view="+element["contact_id"]+"'><h2>"+element["title"]+"</h2></a><span>"+element["content"]+"</span><hr>" );
+                if (element["parent_id"] != "-1") {
+                    $("#response-"+element["parent_id"]).append( "<span>"+element["content"]+"</span><br><span style='font-size:10px;'>by "+element["user_id"]+" the "+element["created"]+"</span><hr>" );
+                } else {
+                    $("#listContact .modal-body").append( "<a href='?page=ContactLink&view="+element["contact_id"]+"'><h2>"+element["title"]+"</h2></a><span>"+element["content"]+"</span><br><span style='font-size:10px;'>the "+element["created"]+"</span><br><br><button class='btn btn-sm btn-primary my-2 my-sm-0' onclick=\"$('#response-"+element["contact_id"]+"').slideToggle();\">Show/Hide responses</button><div style='display: none;padding-left:30px;' id='response-"+element["contact_id"]+"'><br></div><hr>" );
+                }
             });
         }).fail(function( jqXHR, textStatus, errorThrown ) {
             alert(errorThrown);

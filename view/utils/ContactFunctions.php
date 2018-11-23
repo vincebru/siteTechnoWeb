@@ -52,6 +52,7 @@ EOF;
             return;
         }
         $values = $contact->getValues();
+        $id = $values['contact_id'];
         $formStr = <<<EOF
                 <form class="" action="index.php?page=$formPage&view=$id" style="padding-left:15px;margin-top: 15px;margin-bottom: 15px;" method="POST">
                     <input type="hidden" name="page" value="AddContact" />
@@ -64,8 +65,10 @@ EOF;
 EOF;
         if($values['parent_id'] != -1) {
             echo '<span>Cannot display a comment</span>';
+            return;
         } else if($values['visibility'] == 1 && UserModel::getConnectedUser()==null) { 
             echo '<span>You don\'t have right to see this contact</span>';
+            return;
         } else if (UserModel::getConnectedUser()!=null) {
             if($values['visibility'] == 1 && $values['user_id']!=UserModel::getConnectedUser()->getId() && UserModel::getConnectedUser()->getRole() != 1) {
                 echo '<span>You don\'t have right to see this contact</span>';
@@ -87,12 +90,19 @@ EOF;
         }
 
 		echo <<<EOF
-            <h3 style="text-decoration: underline;">$title</h3>
-            <span>$content</span>
+            <h3 id="title" contenteditable style="text-decoration: underline;">$title<button class="btn btn-sm btn-primary my-2 my-sm-0" id="edit">Edit title/message</button></h3>
+            <span id="content" contenteditable>$content</span>
             <br>
             <span style='font-size:10px;'>by <a href="mailto:$mail" title="$mail">$username</a> the $date</span>
             $elementLink
             <hr>
+            <script>
+                document.getElementById('edit').onclick = click;
+
+                function click() {
+                    
+                }
+            </script>
 EOF;
 
         $comments = GlobalModel::getAll(Contact::class, ' where main.parent_id = '.$id.' order by created ASC', null);

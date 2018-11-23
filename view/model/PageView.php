@@ -33,7 +33,7 @@ class PageView extends ElementView
 EOF;
                     }
                     echo <<<EOF
-                        <button data-toggle="modal" data-target="#addContact" id="ask-$id" content="$content" class="btn btn-sm btn-primary my-2 my-sm-0">Ask question/Add note</button>
+                        <button data-toggle="modal" data-target="#addContact" id="ask-$id" content="$content" class="btn btn-sm btn-primary my-2 my-sm-0"><i class="fa fa-pencil"></i></button>
 EOF;
             }?>    
         </h2>      
@@ -50,7 +50,7 @@ EOF;
         </nav>
         <?php
     }
-
+    ccc
     public function buildModalHtmlContent($action)
     {
         $content = '';

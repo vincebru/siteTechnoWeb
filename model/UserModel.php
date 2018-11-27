@@ -47,6 +47,16 @@ class UserModel{
 	}
 
 	/*
+	Get the id of the current user if there's one
+	*/
+	public static function getCurrentId(){
+		if (self::isConnected()){
+			return self::$connectedUser->getId();
+		}
+		return "";
+	}
+
+	/*
 	Get the user name of the current user if there's one
 	*/
 	public static function getCurrentUserName(){
@@ -193,7 +203,6 @@ class UserModel{
 	        'id' => $user->getId()
 	    ));
 	}
-	
 	
 	public static function getUsersBySessionGroupId($sessionGroupId, $orderBy){
         

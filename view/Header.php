@@ -29,6 +29,7 @@ class Header extends AbstractView
             foreach ($menu as $menuLabel => $menuInfo) {
                 $this->displayMenuElement($menuLabel,$menuInfo); 
             } ?>
+                <li><a class="nav-link" href="index.php?page=MultipleChoiceList">Multiple choice</a></li>
 					</ul>
 <?php
             if (!UserModel::isConnected()) {

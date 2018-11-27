@@ -71,7 +71,6 @@ include_once 'view/FacilitateurAddElementView.php';
 include_once 'view/ChangePasswordForm.php';
 include_once 'view/ChangePasswordView.php';
 include_once 'view/MultipleChoiceDisplayView.php';
-include_once 'view/MultipleChoiceResultsView.php';
 
 include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
@@ -87,6 +86,7 @@ include_once 'view/administration/AdminUserView.php';
 include_once 'view/administration/EvaluateUserView.php';
 include_once 'view/administration/UpdateGroupView.php';
 include_once 'view/administration/AdminMultipleChoice.php';
+include_once 'view/administration/MultipleChoiceResultsView.php';
 
 
 include_once 'view/ajax/DescribeElementView.php';

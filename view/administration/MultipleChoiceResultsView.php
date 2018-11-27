@@ -16,6 +16,12 @@ class MultipleChoiceResultsView extends AbstractView{
         $this->statistics     = MultipleChoiceUsersModel::getStatistics($args["multipleChoiceId"]);
 
     }
+
+    public function checkAllowed() {
+        if(!UserModel::isAdminConnectedUser()) {
+            throw new TechnowebException('NotAllowed', 'NotAllowed');
+        }
+    }
     
     public function getHtml()
     {

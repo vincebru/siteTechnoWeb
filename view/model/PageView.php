@@ -23,19 +23,7 @@ class PageView extends ElementView
         ?>
         <h2 id="page-<?=$id?>">
             <?=$content?>
-            <?php 
-                if(UserModel::isConnected()) {
-                    $contacts = GlobalModel::getAll(Contact::class, ' where user_id = '.UserModel::getConnectedUser()->getId().' and main.parent_id = -1 and element_id = '.$id.' order by created DESC',null);
-                    $length = count($contacts);
-                    if ($length != 0) {
-                        echo <<<EOF
-                            <a data-toggle="modal" data-target="#listContact" id="number-$id" class="btn btn-sm btn-primary my-2 my-sm-0">$length</a>  
-EOF;
-                    }
-                    echo <<<EOF
-                        <button data-toggle="modal" data-target="#addContact" id="ask-$id" content="$content" class="btn btn-sm btn-primary my-2 my-sm-0"><i class="fa fa-pencil"></i></button>
-EOF;
-            }?>    
+            <?php ModalMenuView::contactButtons($id);?>  
         </h2>      
         <?php echo $this->renderChildren();
     

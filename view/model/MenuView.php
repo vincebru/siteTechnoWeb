@@ -35,44 +35,10 @@ class MenuView extends ElementView
                         </button>
                     </div>
                     <?php
-                    } ?>
-                    <div class="modal fade" id="addContact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h2 class="modal-title" id="addContactLabel">Ask Question/Add note</h2>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <?=ContactFunctions::displayForm("inline", "none", true)?>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary doAddContact">Ask a question</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="listContact" tabindex="-1" role="dialog" aria-labelledby="listContactLabel" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h2 class="modal-title" id="listContactLabel">Questions/Notes</h2>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
+                    ModalMenuView::addContactodal();
+                    ModalMenuView::listContactModal();
+                     ?>
                     <h1 class="lesson-title  mt-2" id='lesson-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
                     <?php echo $this->renderChildren(); ?>
                 </div>

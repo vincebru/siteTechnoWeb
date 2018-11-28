@@ -107,7 +107,7 @@ include_once 'view/model/TableView.php';
 include_once 'view/model/TableRowView.php';
 include_once 'view/model/TableCellView.php';
 include_once 'view/model/UlView.php';
-
+include_once 'view/model/ModalMenuView.php';
 //include model
 include_once 'model/CacheElementsManager.php';
 include_once 'model/GlobalModel.php';

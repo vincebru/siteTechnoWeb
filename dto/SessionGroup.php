@@ -16,7 +16,15 @@ class SessionGroup extends DTO{
         );
     }
     
-    
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$code, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$name, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$isAdminUptable, PropertyKey::$MANDATORY),
+        );
+    }    
+
     public function setId($id)
     {
         $this->set(static::$id, $id);

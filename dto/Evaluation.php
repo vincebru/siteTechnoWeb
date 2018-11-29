@@ -28,6 +28,19 @@ class Evaluation extends DTO{
         );
     }
     
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$sessionGroupId, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$name, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$type, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$minValue, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$maxValue, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$coef, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$isAdminUptable, PropertyKey::$MANDATORY),
+        );
+    }
+
     public static function getInsertRequests(){
         return array("insert into ".static::$tableName." (session_group_id, name, type, min_value, max_value, coef) ".
             "values (:session_group_id, :name, :type, :min_value, :max_value, :coef)");

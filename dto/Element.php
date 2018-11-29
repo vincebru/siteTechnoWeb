@@ -42,6 +42,16 @@ abstract class Element extends DTO{
 			static::$position);
 	}
 
+	static public function propertyKeyList() {
+		return array(
+			new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+			new PropertyKey(static::$type, PropertyKey::$MANDATORY),
+			new PropertyKey(static::$content, PropertyKey::$MANDATORY), 
+			new PropertyKey(static::$parentId, PropertyKey::$MANDATORY), 
+			new PropertyKey(static::$position, PropertyKey::$MANDATORY)
+		);
+	}
+
 	private $subElements;
 
 	function __construct($data){

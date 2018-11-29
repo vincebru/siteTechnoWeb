@@ -23,7 +23,19 @@ class Result extends DTO{
             static::$value
         );
     }
-    
+   
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$groupId, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$userId, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$evaluationId, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$comment, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$value, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$isAdminUptable, PropertyKey::$MANDATORY),
+        );
+    }
+
     public static function getInsertRequests(){
         return array("insert into ".strtolower(static::$tableName)." (group_id, user_id, evaluation_id, comment, value) ".
             "values (:group_id, :user_id, :evaluation_id, :comment, :value)");

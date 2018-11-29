@@ -23,6 +23,17 @@ class Answer extends DTO
             static::$complementaryData);
     }
     
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$value, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$userId, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$groupId, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$creationDate, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$complementaryData, PropertyKey::$MANDATORY)
+        );
+    }
+
     function __construct($data){
         parent::__construct($data);
     }

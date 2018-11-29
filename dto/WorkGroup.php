@@ -16,6 +16,15 @@ class WorkGroup extends DTO{
             static::$name
         );
     }
+
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$repository, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$name, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$isAdminUptable, PropertyKey::$MANDATORY)
+        );
+    }
     
     public static function getInsertRequests(){
         return array("insert into ".static::$tableName." (repository, name) ".

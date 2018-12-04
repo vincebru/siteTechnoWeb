@@ -13,6 +13,7 @@ $(document).ready(function(){
         }).done(function( msg ) {
             console.log(msg);
             msg = msg.slice(0, -2);
+            alert(msg);
             contacts = JSON.parse(msg);
             $("#listContact .modal-body").html("");
             contacts.forEach(function(element) {

@@ -2,6 +2,11 @@
 
 include_once 'AccessPoint.php';
 
+// Paramètres
+date_default_timezone_set('Europe/Paris');
+// On passe le error reporting en 1 (le -1 affiche les notices)
+error_reporting(1);
+
 class Index extends AccessPoint {
     
     

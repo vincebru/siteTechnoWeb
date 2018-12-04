@@ -17,6 +17,9 @@ include_once 'dto/User.php';
 include_once 'dto/WorkGroup.php';
 include_once 'dto/Evaluation.php';
 include_once 'dto/Result.php';
+include_once 'dto/MultipleChoice.php';
+include_once 'dto/MultipleChoiceQuestions.php';
+include_once 'dto/MultipleChoiceAnswers.php';
 
 include_once 'dto/elements/Code.php';
 include_once 'dto/elements/Menu.php';
@@ -40,6 +43,9 @@ include_once 'action/Action.php';
 include_once 'action/WriteAction.php';
 include_once 'action/admin/EvaluateUser.php';
 include_once 'action/admin/AddUserToGroup.php';
+include_once 'action/admin/MultipleChoiceList.php';
+include_once 'action/MultipleChoiceDisplay.php';
+include_once 'action/MultipleChoiceResults.php';
 include_once 'action/FacilitateurAddElement.php';
 include_once 'action/ajax/Delete.php';
 include_once 'action/ajax/Move.php';
@@ -64,6 +70,7 @@ include_once 'view/UserView.php';
 include_once 'view/FacilitateurAddElementView.php';
 include_once 'view/ChangePasswordForm.php';
 include_once 'view/ChangePasswordView.php';
+include_once 'view/MultipleChoiceDisplayView.php';
 
 include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
@@ -78,6 +85,8 @@ include_once 'view/administration/AdminMenuView.php';
 include_once 'view/administration/AdminUserView.php';
 include_once 'view/administration/EvaluateUserView.php';
 include_once 'view/administration/UpdateGroupView.php';
+include_once 'view/administration/AdminMultipleChoice.php';
+include_once 'view/administration/MultipleChoiceResultsView.php';
 
 
 include_once 'view/ajax/DescribeElementView.php';
@@ -108,6 +117,10 @@ include_once 'model/RoleModel.php';
 include_once 'model/UserModel.php';
 include_once 'model/PageModel.php';
 include_once 'model/LessonModel.php';
+include_once 'model/MultipleChoiceModel.php';
+include_once 'model/MultipleChoiceQuestionsModel.php';
+include_once 'model/MultipleChoiceAnswersModel.php';
+include_once 'model/MultipleChoiceUsersModel.php';
 
 include_once 'utils/Config.php';
 include_once 'utils/TechnowebException.php';

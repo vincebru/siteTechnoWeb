@@ -149,8 +149,8 @@ class EvaluateUserView extends AbstractAdminView{
             $this->getResult(3)+
             $this->getResult(4)+
             $this->getResult(5)+
-            $this->getResult(6)+
-            $this->getResult(1))*20/17,0,PHP_ROUND_HALF_UP )/2+
+            $this->getResult(6))*20/15,0,PHP_ROUND_HALF_UP )/2+
+            $this->getResult(1)+
             $this->getResult(10);
     }
     
@@ -184,7 +184,7 @@ class EvaluateUserView extends AbstractAdminView{
         if($this->isEdit()){
         ?>
             <input class="eval" type='number' name="result_<?php echo $idEvaluation?>"
-                   min="<?php echo $minValue?>" max="<?php echo $maxValue?>"
+                   min="<?php echo $minValue?>" max="<?php echo $maxValue?>" step="0.5"
                    value='<?php echo $this->getResult($idEvaluation)?>'/>
         <?php
         } else {

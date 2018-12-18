@@ -87,6 +87,12 @@ class EvaluateUserView extends AbstractAdminView{
                 <div class="col-5"><?php $this->getResultCommentField(6)?></div>
                 <div class="col-2"><?php $this->getResultValueField(6,0,3)?>/3</div>
             </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-3">Bonus</div>
+                <div class="col-5"><?php $this->getResultCommentField(10)?></div>
+                <div class="col-2"><?php $this->getResultValueField(10,0,2)?>/2</div>
+            </div>
         <?php } ?>
             <div class="row">
                 <div class="col-1"></div>
@@ -98,6 +104,34 @@ class EvaluateUserView extends AbstractAdminView{
                 <div class="col-5"><?php $this->getResultCommentField(1)?></div>
                 <div class="col-2"><?php $this->getResultValueField(1,-2,2)?>/2</div>
             </div>
+        <?php if ($this->group!=null){ ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-11">Total</div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-3">Project</div>
+                <div class="col-5"></div>
+                <div class="col-2"><?php echo $this->getSum() ?>/20</div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-3">Examen</div>
+                <div class="col-5"><?php $this->getResultCommentField(8)?></div>
+                <div class="col-2"><?php $this->getResultValueField(8,0,20)?>/20</div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-11">Average</div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-3">Average</div>
+                <div class="col-5"><?php ?></div>
+                <div class="col-2"><?php echo($this->getSum()+$this->getResult(8))/2?>/20</div>
+            </div>
+        <?php } ?>
         </div>
 
         <?php if($this->isEdit()){?>
@@ -110,6 +144,16 @@ class EvaluateUserView extends AbstractAdminView{
     }
 
 
+    private function getSum(){
+        return round(2*($this->getResult(2)+
+            $this->getResult(3)+
+            $this->getResult(4)+
+            $this->getResult(5)+
+            $this->getResult(6)+
+            $this->getResult(1))*20/17,0,PHP_ROUND_HALF_UP )/2+
+            $this->getResult(10);
+    }
+    
     private function getResult($evaluationId){
         if (isset($this->results[''.$evaluationId])){
             return $this->results[''.$evaluationId]->getValue();

@@ -48,12 +48,14 @@ include_once 'action/ajax/Post.php';
 include_once 'action/ajax/PostWorkGroup.php';
 include_once 'action/AddAccount.php';
 include_once 'action/Disconnect.php';
+include_once 'action/ChangeSessionGroup.php';
 include_once 'action/Login.php';
 include_once 'action/UpdatePassword.php';
 
 include_once 'view/AbstractView.php';
 include_once 'view/ContactView.php';
 include_once 'view/CreateAccountForm.php';
+include_once 'view/ChangeSessionGroupForm.php';
 include_once 'view/ErrorView.php';
 include_once 'view/LogoutForm.php';
 include_once 'view/LoginForm.php';

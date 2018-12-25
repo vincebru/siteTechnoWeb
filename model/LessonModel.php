@@ -16,9 +16,7 @@ class LessonModel
 
         $request .= ' JOIN element lesson ON lesson.parent_id = menu.element_id ';
         
-        if (isset($sessionGroupId)) {
-            $request .= ' JOIN lesson_session_group ON lesson.element_id = lesson_session_group.lesson_id ';
-        }
+        $request .= ' LEFT JOIN lesson_session_group ON lesson.element_id = lesson_session_group.lesson_id ';
         
         $request .= ' WHERE menu.code = :menu ';
 
@@ -27,6 +25,8 @@ class LessonModel
         if (isset($sessionGroupId)) {
             $request .= ' AND session_group_id = :sessionGroupId ';
             $param['sessionGroupId'] = $sessionGroupId;
+        } else {
+            $request .= ' AND session_group_id is null ';
         }
 
         if (isset($lesson)) {
@@ -36,6 +36,7 @@ class LessonModel
 
         $request .= ' ORDER BY lesson.rank ';
 
+        
         $preparedRequest = $bdd->prepare($request);
         $preparedRequest->execute($param);
 

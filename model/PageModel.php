@@ -70,7 +70,15 @@ class PageModel
             if (RoleModel::isAllowed($dynamicMenu->getCode(), null)) {
                 $currentMenu=array();
                 
-                foreach (LessonModel::getAllLessonsForMenu($dynamicMenu->getCode(), UserModel::isAdminConnectedUser() ? null : UserModel::getCurrentSessionGroupId(), null) as $lesson){
+                $adminCurrentSessionGroupId = null;
+                if(isset($_SESSION['currentSessionGroupId'])){
+                    $adminCurrentSessionGroupId = $_SESSION['currentSessionGroupId'];
+                }
+                
+                foreach (LessonModel::getAllLessonsForMenu(
+                        $dynamicMenu->getCode(), 
+                        UserModel::isAdminConnectedUser() ? $adminCurrentSessionGroupId : UserModel::getCurrentSessionGroupId(),
+                        null) as $lesson){
                     $currentMenu[] = MenuLinkView::getInstance($lesson->getContent(), $lesson->getId());
                 }
                 if (!empty($currentMenu)){

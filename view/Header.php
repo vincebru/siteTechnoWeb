@@ -41,8 +41,8 @@ class Header extends AbstractView
                 $loginForm->getHtml();
             } else {
                 logDebug('user connected');
-                echo 'welcome ';
-                echo "<a class='nav-link' href='index.php?page=User'>".UserModel::getCurrentUserName()."</a>";
+                echo 'welcome '.UserModel::getCurrentUserName();
+                //echo "<a class='nav-link' href='index.php?page=User'>".UserModel::getCurrentUserName()."</a>";
                 
                 $changeSessionGroupForm = new ChangeSessionGroupForm(array());
                 $changeSessionGroupForm->getHtml();

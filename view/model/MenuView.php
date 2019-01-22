@@ -6,6 +6,8 @@ class MenuView extends ElementView
     {
         parent::__construct($args, null);
         $this->actions = array(ElementView::ACTION_EDIT);
+        $this->jsFiles['admin'] = 'lesson';
+        $this->cssFiles['admin'] = 'lesson';
     }
     protected function render()
     {
@@ -33,7 +35,10 @@ class MenuView extends ElementView
                         </button>
                     </div>
                     <?php
-                    } ?>
+                    }
+                    ModalMenuView::addContactodal();
+                    ModalMenuView::listContactModal();
+                     ?>
                     <h1 class="lesson-title  mt-2" id='lesson-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
                     <?php echo $this->renderChildren(); ?>
                 </div>

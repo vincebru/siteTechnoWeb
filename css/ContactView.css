@@ -1,0 +1,7 @@
+.errorMessage {
+	margin-top: 15px;
+}
+
+#missingProps li {
+	list-style:inside;
+}

@@ -30,6 +30,20 @@ class User extends DTO{
 		);
 	}
 
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$id,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$login, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$firstname, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$lastname, PropertyKey::$MANDATORY), 
+            new PropertyKey(static::$email, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$password, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$role, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$sessionGroupId, PropertyKey::$MANDATORY),
+            new PropertyKey(static::$workGroupId, PropertyKey::$MANDATORY),
+        );
+    }
+
 	public function getId(){
 	    return $this->get(static::$id);
 	}

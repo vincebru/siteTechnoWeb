@@ -25,6 +25,10 @@ abstract class DTO{
 		}
 	}
 
+	static public function propertyKeyList() {
+		return array();
+	}
+
 	static protected function propertyNameList (){
 		return array();
 	}
@@ -42,6 +46,23 @@ abstract class DTO{
 
 	private $updatedProperties;
 	protected $values;
+
+    public function validateForm() {
+        $missingProps = array();
+        foreach (static::propertyKeyList() as $value) {
+            if($value->getOption()=="MANDATORY" && $this->getValues()[$value->getKey()]=="") {
+                array_push($missingProps, $value->getKey());
+            }
+        }
+        if(empty($missingProps)) {
+        	return true;
+        }
+        return $missingProps;
+    }
+
+	public function getValues() {
+		return $this->values;
+	}
 
 	public static function isUptable()
 	{
@@ -75,7 +96,11 @@ abstract class DTO{
 	}
 	
 	public static function getInsertRequests(){
-		return array();
+		$keys = static::propertyKeyList();
+		$keys = array_map(function($var) {return $var->getKey(); }, $keys);
+		$keys_str = "(".join(',',$keys).")";
+		$prefixed_keys_str = "(:".join(",:", $keys).")";
+		return array("insert into ".static::$tableName." ".$keys_str." values ".$prefixed_keys_str);
 	}
 	public static function getPatchRequest(){
 	    return "update ".static::$tableName." set ".static::$UPDATE_FIELD_KEY." where ".static::$id." = :id";

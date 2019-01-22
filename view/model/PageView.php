@@ -17,10 +17,16 @@ class PageView extends ElementView
             </button>
         </div>
         <?php
-        } ?>
-        <h2 id="page-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getContent(); ?></h2>
-        <?php echo $this->renderChildren(); ?>
-        <?php
+        } 
+        $id = $this->getElement()->getId();
+        $content = $this->getElement()->getContent();
+        ?>
+        <h2 id="page-<?=$id?>">
+            <?=$content?>
+            <?php ModalMenuView::contactButtons($id);?>  
+        </h2>      
+        <?php echo $this->renderChildren();
+    
     }
 
     protected function renderOutline()

@@ -3,7 +3,8 @@
 class Action
 {
     protected $data;
-    protected $viewClass;
+    private $viewClass;
+    private $curentView;
     
     function __construct($data){
         $this->data=$data;
@@ -26,15 +27,28 @@ class Action
         
     }
     
+    protected function setViewClass($viewClass) {
+        $this->viewClass = $viewClass;
+    }
+
+    protected function getViewClass() {
+        return $this->viewClass;
+    }
+
     protected function getview(){
-        if (!class_exists($this->viewClass)){
-            $this->viewClass = 'MainView';
-            logDebug('The main view will be loaded. Class '.$this->viewClass.' does not exist :/ ');
+        if(isset($this->currentView)) {
+            $view = $this->currentView;
+            unset($this->currentView);
+            return $view;
+        } else {
+            if (!class_exists($this->viewClass)){
+                $this->viewClass = 'MainView';
+                logDebug('The main view will be loaded. Class '.$this->viewClass.' does not exist :/ ');
+            }
+        
+            $class=$this->viewClass;
+            return new $class($this->data);
         }
-        
-        $class=$this->viewClass;
-        return new $class($this->data);
-        
     }
     
     public function execute(){

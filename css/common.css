@@ -71,7 +71,7 @@ H2 {
 
 .bd-content {
 	-ms-flex-order: 1;
-	overflow-y: auto;
+	/*overflow-y: auto;*/
 	order: 1;
 }
 
@@ -81,8 +81,7 @@ H2 {
 
 .bd-content>h1[id]::before, .bd-content>h2[id]::before, .bd-content>h3[id]::before, .bd-content>h4[id]::before {
 	display: block;
-	height: 6rem;
-	margin-top: -6rem;
+
 	visibility: hidden;
 	content: "";
 }

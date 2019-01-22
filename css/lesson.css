@@ -1,0 +1,14 @@
+h2 a {
+	display:inline-block !important;
+	text-decoration:none !important;
+	color: white !important;
+}
+
+h2 button {
+	text-decoration:none;
+	display: none !important;
+}
+
+h2:hover button {
+	display: inline-block !important;
+}

@@ -34,7 +34,7 @@ class GlobalModel
         }
     }
 
-    private static function extractUsefullValueForInsert($request, $array)
+    private static function extractUsefullValueForInsert($request, $array, $class)
     {
         // $request format:
         // insert.....(...)values (:var1 ,:var2 )....
@@ -50,7 +50,8 @@ class GlobalModel
             $split3 = explode(')', $split2[0]);
             //$split3[0]: var1  or var2
             $varName = trim($split3[0]);
-            
+
+            $remove = False;
             switch ($varName) {
                 case 'creation_date':
                     $array[$varName]=getdate();
@@ -77,13 +78,23 @@ class GlobalModel
                     }
                     break;
                 default:
+                    $optionnal = False;
+                    foreach ($class::propertyKeyList() as $key => $value) {
+                        if($value->getKey()==$varName && $value->getOption()==PropertyKey::$OPTIONNAL) {
+                            $optionnal = True;
+                        }
+                    }
                     if (!isset($array[$varName])) {
-                        $message='Error: Missing property '.$varName;
-                        throw new TechnowebException($message, $message);
+                        if($optionnal) {
+                            $remove = True;
+                        } else {
+                            $message='Error: Missing property '.$varName;
+                            throw new TechnowebException($message, $message);
+                        }
                     }
             }            
-            
-            $paramList[$varName] = $array[$varName];
+
+            if(!$remove) $paramList[$varName] = $array[$varName];
         }
 
         return $paramList;
@@ -95,10 +106,33 @@ class GlobalModel
         $requests = $class::getInsertRequests();
         $specificDatabaseType=$class::getSpecificDatabaseType();
         $id;
+
         foreach ($requests as $request) {
+            $params = explode("(", $request)[1];
+            $values = explode("(", $request)[2];
+            $params = explode(")",$params)[0];
+            $values = explode(")", $values)[0];
+            $presentParams = array();
+            $presentValues = array();
+
+            $usefulData = self::extractUsefullValueForInsert($request, $data, $class);
+
+            foreach (explode(",",$params) as $value) {
+                if(array_key_exists($value, $usefulData)) {
+                    array_push($presentParams, $value);
+                }
+            }
+            foreach (explode(",",$values) as $value) {
+                if(array_key_exists(explode(':',$value)[1], $usefulData)) {
+                    array_push($presentValues, $value);
+                }
+            }
+            $presentParams = "(".join(",",$presentParams).")";
+            $presentValues = "(".join(",",$presentValues).")";
+            $request = str_replace("(".$params.")", $presentParams, $request);
+            $request = str_replace("(".$values.")", $presentValues, $request);
             $req = $bdd->prepare($request);
 
-            $usefulData = self::extractUsefullValueForInsert($request, $data);
 
             foreach($usefulData as $key => $value) {
                 if (isset($specificDatabaseType[$key])) {

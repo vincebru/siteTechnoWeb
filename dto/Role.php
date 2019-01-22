@@ -16,6 +16,13 @@ class Role extends DTO{
 		);
 	}
 
+    static public function propertyKeyList() {
+        return array(
+            new PropertyKey(static::$code,PropertyKey::$MANDATORY),
+            new PropertyKey(static::$name, PropertyKey::$MANDATORY)
+        );
+    }
+
 	public function setId($id)
 	{
 	    $this->set(static::$id, $id);

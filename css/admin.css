@@ -11,6 +11,12 @@
 /*    line-height: 48px;   */
 	margin-bottom: .5rem;
     vertical-align: text-top;
+	display: none;
+}
+
+
+.elementDiv:hover>.toolbar,.always-visible {
+    display: block;
 }
 
 .lesson-title {

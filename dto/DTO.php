@@ -124,8 +124,10 @@ abstract class DTO{
 		return $this;
 	}
 
-	public function get($propertyName){
-		$this->verifyPropertyName($propertyName);
+	public function get($propertyName, $noError=false){
+	    if (!$noError){
+	        $this->verifyPropertyName($propertyName);
+	    }
 		if (isset($this->values[$propertyName])){
 			return $this->values[$propertyName];
 		}

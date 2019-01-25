@@ -60,6 +60,7 @@ include_once 'view/ErrorView.php';
 include_once 'view/LogoutForm.php';
 include_once 'view/LoginForm.php';
 include_once 'view/MainView.php';
+include_once 'view/MainAjaxView.php';
 include_once 'view/NotAllowedView.php';
 include_once 'view/NewAccountView.php';
 include_once 'view/UserView.php';

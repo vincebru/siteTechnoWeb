@@ -7,6 +7,9 @@ class MenuView extends ElementView
         parent::__construct($args, null);
         $this->actions = array(ElementView::ACTION_EDIT);
     }
+    protected function getToolBar(){
+        
+    }
     protected function render()
     {
         ?>
@@ -24,19 +27,22 @@ class MenuView extends ElementView
             <!-- data-spy="scroll" data-target="#summary" data-offset="0"  -->
             <div class="col-9">
                 <div id="lesson" class="lessonEdition bd-content">
-                    <?php
-                    if ($this->isEdition()) {
-                        ?>
-                    <div class="toolbar">
-                        <button type="button" class="btn btn-outline-primary mr-1 btn-sm addElement" data-id="<?php echo $this->getElement()->getId(); ?>" data-type="<?php echo $this->getElement()->getElementType(); ?>" data-toggle="modal" data-target="#AddElementModal">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                    <?php
-                    } ?>
                     <h1 class="lesson-title  mt-2" id='lesson-<?php echo $this->getElement()->getId(); ?>'><?php echo $this->getElement()->getContent(); ?></h1>
                     <?php echo $this->renderChildren(); ?>
                 </div>
+                <?php
+                if ($this->isEdition()) {
+                    ?>
+                <div class="toolbar always-visible">
+            		<a href="index.php?page=FacilitateurAddElement&parentId=<?php echo $this->getElement()->getId(); 
+                ?>&sourceId=<?php echo $this->lessonId?>" >
+                        <button type="button" class="btn btn-outline-primary mr-1 btn-sm addElement" >
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </a>
+                </div>
+                <?php
+                } ?>
             </div>
         </div>
         <?php

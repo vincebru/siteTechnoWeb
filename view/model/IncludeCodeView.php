@@ -4,19 +4,7 @@ class IncludeCodeView extends ElementView
     protected function render()
     {
         if ($this->isEdition()) {
-            ?>
-        <div class="toolbar">
-            <button type="button" class="btn btn-outline-primary mr-1 btn-sm addElement" data-id="<?php echo $this->getElement()->getId(); ?>" data-type="<?php echo $this->getElement()->getElementType(); ?>" data-toggle="modal" data-target="#AddElementModal">
-                <i class="fa fa-plus"></i>
-            </button>
-            <button type="button" class="btn btn-outline-primary mr-1 btn-sm removeElement" data-id="<?php echo $this->getElement()->getId(); ?>" data-type="<?php echo $this->getElement()->getElementType(); ?>" data-toggle="modal" data-target="#RemoveElementModal">
-                <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-outline-primary mr-1 btn-sm editElement" data-id="<?php echo $this->getElement()->getId(); ?>" data-type="<?php echo $this->getElement()->getElementType(); ?>" data-toggle="modal" data-target="#EditElementModal">
-                <i class="fa fa-edit"></i>
-            </button>
-        </div>
-        <?php
+            
         } ?><pre><code class="php"><?php echo htmlspecialchars($this->getElement()->getContent()); ?><div class="row"><div class="col-<?php echo($this->getOffset());?> " ></div><div class="col-<?php echo(12-$this->getOffset());?> sub-code"><?php echo $this->renderChildren(); ?></div></div></code></pre><?php
         
     }

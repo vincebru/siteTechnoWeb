@@ -44,7 +44,7 @@ class Ajax extends AccessPoint{
         
         
         if (!class_exists($this->page.'View')){
-            $this->page = 'Main';
+            $this->page = 'MainAjax';
             logDebug('The main view will be loaded. Class '.$this->page.'View does not exist :/ ');
         }
         $class=$this->page.'View';

@@ -57,9 +57,5 @@ class UpdateGroupView extends AbstractAdminView{
         }
 
 
-
-        // var_dump($this->users);
-
-        //echo $this->group->getName();
     }
 }

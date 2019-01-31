@@ -13,12 +13,22 @@ abstract class ElementView extends AbstractView
     protected $mode;
     protected $element;
     protected $parentView;
+    protected $lessonId;
     
     protected $subViews;
 
     public function __construct($args, $parent)
     {
         parent::__construct($args);
+        if ($parent instanceof ElementView){
+            $this->lessonId=$parent->lessonId;   
+        } else {
+            if ($this->isEdition()) {
+                $this->lessonId = $args['edit'];
+            } else {
+                $this->lessonId = $args['id'];
+            }
+        }
         $this->parentView=$parent;
         $this->element = $args[self::PROPERTY_ELEMENT_KEY];
         $this->subViews=array();
@@ -37,10 +47,40 @@ abstract class ElementView extends AbstractView
         }
         return true;
     }
+    
+    protected function getToolBar(){
+        ?>
+        <div class="toolbar">
+            <a href="index.php?page=FacilitateurAddElement&parentId=<?php echo $this->getElement()->getId(); 
+                ?>&sourceId=<?php echo $this->lessonId?>" >
+                <button type="button" class="btn btn-outline-primary mr-1 btn-sm addElement" >
+                    <i class="fa fa-plus"></i>
+                </button>
+            </a>
+            <button type="button" class="btn btn-outline-primary mr-1 btn-sm removeElement" 
+            	data-id="<?php echo $this->getElement()->getId(); ?>" 
+            	data-type="<?php echo $this->getElement()->getElementType(); ?>" >
+                <i class="fa fa-minus"></i>
+            </button>
+            <a href="index.php?page=FacilitateurAddElement&elementId=<?php echo $this->getElement()->getId(); 
+                ?>&sourceId=<?php echo $this->lessonId?>" >
+                <button type="button" class="btn btn-outline-primary mr-1 btn-sm editElement">
+                    <i class="fa fa-edit"></i>
+                </button>
+            </a>
+        </div>
+        <?php
+    }
 
     public function getHtml()
     {
+        ?><div class='elementDiv' ><?php 
+        if ($this->isEdition()) {
+            $this->getToolBar();
+        }           
+        
         $this->render();
+        ?></div><?php 
     }
 
     public function getOutlineHtml()

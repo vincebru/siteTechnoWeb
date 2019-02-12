@@ -261,7 +261,7 @@ class GlobalModel
     }
     
     public static function getAllFromIds($className, $ids){
-        $restriction='where 1=2';
+        $restriction='';
         if (!empty($ids)){
             $inQuery = implode(',', array_fill(0, count($ids), '?'));
             $restriction = ' where main.'.$className::getColIdName().' in ('.$inQuery.')';

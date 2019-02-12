@@ -21,10 +21,11 @@ class AdminUserView extends AbstractAdminView{
     }
     
     private function getUrlGroup(){
+        $url = "?page=AdminUserLink&sessionGroupId=".$this->sessionGroupId;
         if ($this->isGrouped){
-            return str_replace("&isGrouped=true","",$this->currentUrl());
+            return $url;
         } else {
-            return $this->currentUrl()."&isGrouped=true";
+            return $url."&isGrouped=true";
         }
     }
     
@@ -133,7 +134,7 @@ class AdminUserView extends AbstractAdminView{
     private function getSessionGroupForm(){
         $sessionGroupList = GlobalModel::getAll(SessionGroup::class, null, null);
         ?>
-        <form id="sessionGroupForm" action='index.php' method="post">
+        <form id="sessionGroupForm" action='index.php' method="get">
         	<input type='hidden' name='page' value='AdminUserLink' />
             <select name='sessionGroupId' id='sessionGroupId'>
             <?php 

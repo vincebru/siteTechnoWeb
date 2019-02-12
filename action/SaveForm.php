@@ -4,7 +4,8 @@ class SaveForm extends Action{
     
     function __construct($data){
         parent::__construct($data);
-        $this->viewClass="MainView";
+        $this->viewClass="MenuLinkView";
+        $this->data['id']=$this->data['sourceLessonId'];
     }
     
     

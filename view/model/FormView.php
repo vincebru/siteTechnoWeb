@@ -7,6 +7,7 @@ class FormView extends ElementView
         <form action="index.php" method="post" enctype="multipart/form-data">
         	<input type='hidden' name='form_id' value='<?php echo $this->getElement()->getId()?>' />
         	<input type='hidden' name='page' value='SaveForm' />
+        	<input type='hidden' name='sourceLessonId' value='<?php echo $this->lessonId?>' />
         <?php echo $this->renderChildren(); ?>
         	<input type='reset' />
         	<input type='submit' />

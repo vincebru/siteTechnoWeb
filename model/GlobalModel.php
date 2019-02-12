@@ -264,7 +264,7 @@ class GlobalModel
         $restriction='';
         if (!empty($ids)){
             $inQuery = implode(',', array_fill(0, count($ids), '?'));
-            $restriction = ' where main.'.$className::getColIdName().' in ('.$inQuery.')';
+            $restriction = ' and main.'.$className::getColIdName().' in ('.$inQuery.')';
         }
         $result=array();
         foreach (static::getAll($className,$restriction, $ids) as $value){

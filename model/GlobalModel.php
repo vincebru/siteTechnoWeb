@@ -99,7 +99,7 @@ class GlobalModel
             $req = $bdd->prepare($request);
 
             $usefulData = self::extractUsefullValueForInsert($request, $data);
-
+            
             foreach($usefulData as $key => $value) {
                 if (isset($specificDatabaseType[$key])) {
                     $req->bindValue(':'.$key, $value, $specificDatabaseType[$key]);
@@ -108,7 +108,7 @@ class GlobalModel
                 }
             }
             $req->execute();
-
+            
             if (!isset($id)) {
                 $id = $bdd->lastInsertId();
                 $data['id'] = $id;
@@ -122,7 +122,7 @@ class GlobalModel
     {
         if ($class instanceof Element) {
             $elementToRemove = static::getInstance($class, $id);
-            foreach ($elementToRemove.getSubElements() as $subElementId) {
+            foreach ($elementToRemove->getSubElements() as $subElementId) {
                 $subElement = static::getElement($subElementId);
                 static::removeInstance($subElement.getType(), $id);
             }
@@ -273,6 +273,40 @@ class GlobalModel
         return $result;
     }
     
+    
+    public static function getUsefullValuesForselect($request, $values){
+        $split1 = explode(':', $request);
+        $paramList = array();
+        $result = array();
+        for ($i = 1; $i < count($split1); ++$i) {
+            $split2 = explode(' ', $split1[$i]);
+            $result[$split2[0]]=$values[$split2[0]];
+        }
+        return $result;
+            
+    }
+    
+    public static function getDtoFromUniqueConstraints($className, $values){
+        $restriction='';
+        if (!empty($values) && !empty($className::uniqueConstraintKeyList())){
+            $restriction = ' and ';
+            $first=true;
+            foreach ($className::uniqueConstraintKeyList() as $key){
+                if (!$first){
+                    $restriction .= ' and ';
+                }else {
+                    $first=false;
+                }
+                $restriction .= 'main.'.$key.' = :'.$key;
+            }
+        }
+        $result=null;
+        foreach (static::getAll($className,$restriction, static::getUsefullValuesForselect($restriction,$values)) as $value){
+            $result=$value;
+        }
+        return $result;
+    }
+    
     public static function getAll($className,$restriction,$param ){
         $bdd = Database::getDb();
         $request = $className::getSelectRequest();
@@ -283,12 +317,14 @@ class GlobalModel
         if ($param == null){
             $param = array();
         }
+        
         $preparedRequest->execute($param);
         $result=array();
         while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
             
             $result[]= new $className($data);
         }
+        
         return $result;
     }
 }

@@ -14,6 +14,7 @@ abstract class Element extends DTO{
 	const TYPE_FILE='File';
 	const TYPE_TITLE='Title';
 	const TYPE_INPUT='Input';
+	const TYPE_INPUT_FILE='InputFile';
 	const TYPE_TABLE='Table';
 	const TYPE_TABLE_ROW='TableRow';
 	const TYPE_TABLE_CELL='TableCell';
@@ -54,7 +55,7 @@ abstract class Element extends DTO{
 	}
 	
 	public static function getSelectRequest(){
-	    return parent::getSelectRequest() . " where main.type='" . static::$elementType . "'";
+	    return parent::getSelectRequest() . " and main.type='" . static::$elementType . "'";
 	}
 	
 	public static function getRequestById(){
@@ -77,9 +78,16 @@ abstract class Element extends DTO{
 			 " where elt.".static::$id." = :id and elt.".static::$id." = cmp.".static::$id;
 		}
 	}
-	public static function getRemoveRequests(){
-	    return array("delete from ".strtolower(static::$tableName)." where ".static::$id." = :id");
-	}
+	
+    public static function getRemoveRequests(){
+        
+        $result= array("delete from ".strtolower(static::$tableName)." where ".static::$id." = :id");
+        if (static::$complementTableName != null){
+            return array_merge($result,
+                array("delete from ".strtolower(static::$complementTableName)." where ".static::$id." = :id"));
+        }
+        return $result;
+    }
 
 	public function getType(){
 	    return $this->get(static::$type);

@@ -19,13 +19,6 @@ class Menu extends Element{
             " values (:id,:code)"));
     }
     
-    public static function getRemoveRequests(){
-		return array_merge(
-		    array("delete from ".strtolower(static::$complementTableName)." where element_id = :element_id"),
-            parent::getRemovetRequests()
-        );
-	}
-
     public function getCode()
     {
         return $this->get(static::$code);

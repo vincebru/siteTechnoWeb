@@ -41,9 +41,9 @@ class AdminUserView extends AbstractAdminView{
         ?>
         <div class="container-fluid table">
           <div class="row">
-          	<?php if($this->isGrouped){?><div class="col-1"></div><?php }?>
+          	<div class="col-1"></div>
             <div class="col-4">Name</div>
-            <div class="col-<?php if($this->isGrouped){echo 4;} else {echo 5;}?>">Firstname</div>
+            <div class="col-4">Firstname</div>
             <div class="col-2">
             	Group id
             		<a href='<?php echo $this->getUrlGroup()?>'>

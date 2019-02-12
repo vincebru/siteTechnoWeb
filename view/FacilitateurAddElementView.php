@@ -43,7 +43,7 @@ class FacilitateurAddElementView extends AbstractView
             "<input type='hidden' name='parent_id' value='".$this->getParamValue("parent_id")."' />".
             "<select  onchange='this.form.submit()' name='object'>";
         
-        $objectList=array('Code','Input','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
+        $objectList=array('Code','Input','InputFile','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
             'Image','File','IncludeCode','Link','Paragraph','TableRow');
         foreach ($objectList as $object){
             echo "<option value='".$object."' ";

@@ -20,13 +20,6 @@ class Link extends Element{
             " values (:id,:label)"));
     }
 
-    public static function getRemoveRequests(){
-		return array_merge(
-		    array("delete from ".strtolower(static::$complementTableName)." where element_id = :element_id"),
-            parent::getRemovetRequests()
-        );
-	}
-
     public function getLabel()
     {
         return $this->get(static::$label);

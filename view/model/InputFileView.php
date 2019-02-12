@@ -1,5 +1,5 @@
 <?php
-class InputView extends ElementView
+class InputFileView extends ElementView
 {
     protected function render()
     {
@@ -9,18 +9,20 @@ class InputView extends ElementView
         
         $value="";
         if ($inputValue!=null){
-            $value=$inputValue->getInputValue();
+            $value=$inputValue->getName();
         }
         ?>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" 
-            	for="input-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getLabel(); ?>
-            </label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="input-<?php echo $this->getElement()->getId(); ?>" 
-                	placeholder="<?php echo $this->getElement()->getLabel(); ?>" 
-                	value="<?php echo $value?>"
-                	name="<?php echo $this->getElement()->getContent(); ?>"/>
+            <label class="col-sm-2 col-form-label" for="input-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getLabel(); ?></label>
+        	<div class="col-sm-9">
+                <input type="file" class="form-control" id="input-<?php echo $this->getElement()->getId(); ?>" name="<?php echo $this->getElement()->getContent(); ?>"/>
+            </div>
+            <div class="col-sm-1">
+            <?php if($value!=""){?>
+                <i class="fa fa-check-circle-o" id='container'></i>
+            <?php } else {?>
+                <i class="fa fa-circle-o" id='container'></i>
+            <?php }?>
             </div>
         </div>
         <?php

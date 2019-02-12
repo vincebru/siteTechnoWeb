@@ -4,8 +4,12 @@ class FormView extends ElementView
     public function render()
     {
         ?>
-        <form action="<?php echo $this->getElement()->getContent(); ?>" method="post">
+        <form action="index.php" method="post" enctype="multipart/form-data">
+        	<input type='hidden' name='form_id' value='<?php echo $this->getElement()->getId()?>' />
+        	<input type='hidden' name='page' value='SaveForm' />
         <?php echo $this->renderChildren(); ?>
+        	<input type='reset' />
+        	<input type='submit' />
         </form>
         <?php
     }
@@ -26,7 +30,7 @@ class FormView extends ElementView
             $readonly = 'readonly';
         }
         ?>
-        <form>
+        <form >
             <div class="form-group row">
                 <label for="Content" class="col-sm-2 col-form-label">Action</label>
                 <div class="col-sm-10">

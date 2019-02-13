@@ -21,6 +21,11 @@ class InputFileValue extends InputValue{
         );
     }
     
+    
+    static public function getSpecificDatabaseType(){
+        return array(static::$file=>PDO::PARAM_LOB);
+    }
+    
     public static function getInsertRequests(){
         return array_merge(parent::getInsertRequests(),array("insert into ".static::$complementTableName.
             " (input_value_id, ".static::$mime.", ".static::$name.", ".static::$file.") ".

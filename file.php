@@ -9,13 +9,22 @@ class FileAcces extends AccessPoint {
             $message="Undefined image id";
             Throw new TechnowebException($message, $message);
         }
-        $imageId=$_GET['id'];
+        $id=$_GET['id'];
+        if(isset($_GET['type'])){
+            $file=GlobalModel::getInstance($_GET['type'], $id);
+            if ($file instanceof InputValue){
+                $user= UserModel::getConnectedUSer();
+                if (!UserModel::isAdminConnectedUser() && ($user->getId() != $file->getUserId())){
+                    throw new TechnowebException('NotAllowed', 'NotAllowed');
+                }
+            }
+        } else {
+            $file=GlobalModel::getElement($id);
+        }
 
-        $image=GlobalModel::getElement($imageId);
-
-        if (isset($image)){
-            header("Content-Type:" . $image->getMime());
-            echo $image->getFile();
+        if (isset($file)){
+            header("Content-Type:" . $file->getMime());
+            echo $file->getFile();
         }
     }
 

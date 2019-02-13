@@ -19,7 +19,9 @@ class InputFileView extends ElementView
             </div>
             <div class="col-sm-1">
             <?php if($value!=""){?>
-                <i class="fa fa-check-circle-o" id='container'></i>
+            	<a href="file.php?id=<?php echo $inputValue->getId()?>&type=InputFileValue" download="<?php echo $value?>">
+                	<i class="fa fa-check-circle-o" id='container'></i>
+                </a>
             <?php } else {?>
                 <i class="fa fa-circle-o" id='container'></i>
             <?php }?>

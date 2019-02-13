@@ -185,8 +185,18 @@ class GlobalModel
         $req = $bdd->prepare($request);
         
         $usefulData = self::extractUsefullValueForUpdate($class::$UPDATE_FIELD_VALUES, $data);
+        
+        
+        $specificDatabaseType=$class::getSpecificDatabaseType();
+        foreach($usefulData as $key => $value) {
+            if (isset($specificDatabaseType[$key])) {
+                $req->bindValue(':'.$key, $value, $specificDatabaseType[$key]);
+            } else {
+                $req->bindValue(':'.$key, $value);
+            }
+        }
 
-        $req->execute($usefulData);
+        $req->execute();
     }
     
     private static function isInstanceOf($class, $id){

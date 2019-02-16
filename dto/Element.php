@@ -50,8 +50,8 @@ abstract class Element extends DTO{
 		parent::__construct($data);
 	}
 	
-	public static function isRootElements($elementName){
-		return $elementName == self::TYPE_LESSON ;
+	public static function isRootElements($elementType){
+		return $elementType == self::TYPE_LESSON ;
 	}
 	
 	public static function getSelectRequest(){

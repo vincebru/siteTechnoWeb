@@ -68,4 +68,31 @@ class InputModel
         } 
         return null;
     }
+    
+    public static function getAllInputValuesGroupByUserId($formId){
+        $request = "SELECT iv.input_value_id, iv.type, iv.element_id, iv.user_id, ".
+            "itv.input_value, ".
+            "ifv.mime, ".
+            "ifv.name, ".
+            "ifv.file ".
+            "FROM `input_value` iv ".
+            "join element e on e.element_id=iv.element_id ". 
+            "left join input_text_value itv on itv.input_value_id=iv.input_value_id ".
+            "left join input_file_value ifv on ifv.input_value_id=iv.input_value_id ".
+            "WHERE  ".
+            "e.parent_id=:formId";
+        
+        $bdd = Database::getDb();
+        $preparedRequest = $bdd->prepare($request);
+        $preparedRequest->execute(array("formId" => $formId));
+        $result=array();
+        while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
+            $className = $data["type"];
+            if (!array_key_exists($data["user_id"],$result)){
+                $result[$data['user_id']] = array();
+            }
+            $result[$data['user_id']][]= new $className($data);
+        }
+        return $result;
+    }
 }

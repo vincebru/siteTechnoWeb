@@ -77,6 +77,7 @@ include_once 'view/link/AbstractLinkView.php';
 include_once 'view/link/AdminMenuLinkView.php';
 include_once 'view/link/AdminLinkView.php';
 include_once 'view/link/AdminUserLinkView.php';
+include_once 'view/link/AdminFormValuesLinkView.php';
 include_once 'view/link/ContactLinkView.php';
 include_once 'view/link/MenuLinkView.php';
 include_once 'view/link/ResultLinkView.php';
@@ -84,6 +85,7 @@ include_once 'view/link/ResultLinkView.php';
 include_once 'view/administration/AbstractAdminView.php';
 include_once 'view/administration/AdminMenuView.php';
 include_once 'view/administration/AdminUserView.php';
+include_once 'view/administration/AdminFormValuesView.php';
 include_once 'view/administration/EvaluateUserView.php';
 include_once 'view/administration/UpdateGroupView.php';
 

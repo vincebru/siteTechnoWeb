@@ -36,7 +36,7 @@ $(document).ready(function () {
             data: param,
             dataType: "html"
         }).done(function( msg ) {
-           // alert('coucou');
+        	location.reload();
         }).fail(function( jqXHR, textStatus, errorThrown ) {
             $("#AddElementModal").find(".alert").removeClass("d-none");
             console.log( "Describe Request failed: " + textStatus + ", " + errorThrown );

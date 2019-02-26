@@ -76,6 +76,9 @@ class GlobalModel
                         }
                     }
                     break;
+                case 'mime_allowed':
+                    $array[$varName]=implode(";",$array[$varName]);
+                    break;
                 default:
                     if (!isset($array[$varName])) {
                         $message='Error: Missing property '.$varName;

@@ -85,6 +85,18 @@ class FacilitateurAddElementView extends AbstractView
                         echo "<br>".$property.":<textarea name='".$property."' style='margin-top: 0px; margin-bottom: 0px; width: 800px;height: 238px;' >".
                             $this->getParamValue("$property")."</textarea>";
                         break;
+                    case 'mime_allowed':
+                        echo "<br>".$property.":".'<br><table><tr>';
+                            $i =0;
+                            foreach(InputModel::$acceptedMime as $key => $value){
+                                ++$i;
+                                echo '<td><input type="checkbox" name="'.$property.'[]" value="'.$key.'">'.$key.'</td>';
+                                if ($i % 5 ==0){
+                                    echo '</tr><tr>';
+                                }
+                            }
+                            echo '</tr></table>';
+                        break;
                     default:
                         echo "<br>".$property.":<input type='text' name='".$property."' value='".$this->getParamValue("$property")."'/>";
                 }            

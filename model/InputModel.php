@@ -2,45 +2,114 @@
 
 class InputModel
 {
+    
+        
+    public static $acceptedMime = array(
+            
+            'txt' => 'text/plain',
+            'htm' => 'text/html',
+            'html' => 'text/html',
+            'php' => 'text/html',
+            'css' => 'text/css',
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'xml' => 'application/xml',
+//             'swf' => 'application/x-shockwave-flash',
+//             'flv' => 'video/x-flv',
+            
+            // images
+            'png' => 'image/png',
+            'jpe' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'bmp' => 'image/bmp',
+            'ico' => 'image/vnd.microsoft.icon',
+//             'tiff' => 'image/tiff',
+//             'tif' => 'image/tiff',
+//             'svg' => 'image/svg+xml',
+//             'svgz' => 'image/svg+xml',
+            
+            // archives
+            'zip' => 'application/zip',
+            'rar' => 'application/x-rar-compressed',
+//             'exe' => 'application/x-msdownload',
+//             'msi' => 'application/x-msdownload',
+//             'cab' => 'application/vnd.ms-cab-compressed',
+            
+            // audio/video
+//             'mp3' => 'audio/mpeg',
+//             'qt' => 'video/quicktime',
+//             'mov' => 'video/quicktime',
+            
+            // adobe
+            'pdf' => 'application/pdf',
+//             'psd' => 'image/vnd.adobe.photoshop',
+//             'ai' => 'application/postscript',
+//             'eps' => 'application/postscript',
+//             'ps' => 'application/postscript',
+            
+            // ms office
+            'doc' => 'application/msword',
+            'rtf' => 'application/rtf',
+            'xls' => 'application/vnd.ms-excel',
+            'ppt' => 'application/vnd.ms-powerpoint',
+            
+            // open office
+            'odt' => 'application/vnd.oasis.opendocument.text',
+            'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
+        );
+    
+    
     public static function addOrUpdateValue($formData){
         //recuperation de l'element formulaire et de ses enfants
         $form = GlobalModel::getInstance("Form", $formData["form_id"]);
-        // boucle sur les enfants pour conniatre le type
+        $toSave=array();
+        // boucle sur les enfants pour connaitre le type
         foreach ($form->getSubElements() as $subElementId) {
             //en fonction du type des enfant on crée ou update un input_value ou un input_file
             $subElement = GlobalModel::getElement($subElementId);
             
-            $inputValueClass="";
             $data=array();
             $data[InputValue::$userId]=UserModel::getConnectedUser()->getId();
             $data[InputValue::$elementId]=$subElementId;
             
+            // on controle et on formate les données
             if ($subElement instanceof Input){
                 $treatmentToDo = true; // treatment to do only if iinput values are set for current input
                 if ($subElement instanceof InputFile) {
-                    $inputValueClass="InputFileValue";
+                    $data['object']="InputFileValue";
                     /// gerer le cas ou le fichier n'est pas fourni
                     if (array_key_exists($subElement->getContent(),$formData)) {
+                        // on verifie que le fichier est du bon type.
+                        $inputFile=CacheElementsManager::getElement($subElementId);
+                        $mimeAllowedList = static::getMimeAllowedList($inputFile);
+                        if (!in_array($formData[$subElement->getContent()]['mime'], array_values($mimeAllowedList))){
+                            throw new TechnowebException('NotAllowedMime', 'Mime '.$formData[$subElement->getContent()]['mime'].' is not allowed');
+                        }
                         $data=array_merge($data, $formData[$subElement->getContent()]);
                     } else {
                         $treatmentToDo = false;
                     }
                     
                 } else {
-                    $inputValueClass="InputTextValue";
+                    $data['object']="InputTextValue";
                     $data[InputTextValue::$inputValue] = $formData[$subElement->getContent()];
                 }
                 if ($treatmentToDo){
-                    $existing = GlobalModel::getDtoFromUniqueConstraints ($inputValueClass, $data);
-                    $data['object']=$inputValueClass;
-                    if ($existing ==null){
-                        $id=GlobalModel::createInstance($inputValueClass, $data);
-                    } else {
-                        $id=$existing->getId();
-                        $data['id']=$id;
-                        GlobalModel::patchInstance($inputValueClass, $data);
-                    }
+                    $toSave[]=$data;
                 }
+            }
+        }
+        //on insere toutes les données si elles sont toutes ok
+        foreach ($toSave as $data){
+            $existing = GlobalModel::getDtoFromUniqueConstraints ($data['object'], $data);
+            if ($existing ==null){
+                $id=GlobalModel::createInstance($data['object'], $data);
+            } else {
+                $id=$existing->getId();
+                $data['id']=$id;
+                GlobalModel::patchInstance($data['object'], $data);
             }
         }
     }
@@ -52,6 +121,20 @@ class InputModel
         }
     }
     
+    
+    private static function getMimeAllowedList($inputFile){
+        $mimeAllowedList=static::$acceptedMime;
+        if($inputFile->getMimeAllowed()!=""){
+            $codeMimeAllowedList = explode(';', $inputFile->getMimeAllowed());
+            $mimeAllowedList = array();
+            foreach ($codeMimeAllowedList as $codeMimeAllowed){
+                if (array_key_exists($codeMimeAllowed, static::$acceptedMime)){
+                    $mimeAllowedList[$codeMimeAllowed] = static::$acceptedMime[$codeMimeAllowed];
+                }
+            }
+        }
+        return $mimeAllowedList;
+    }
     
     public static function getInputValue($elementId)
     {

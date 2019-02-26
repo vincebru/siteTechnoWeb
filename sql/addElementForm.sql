@@ -6,6 +6,13 @@ CREATE TABLE IF NOT EXISTS `input` (
   PRIMARY KEY (`element_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `input_file` (
+  `element_id` int(3) NOT NULL,
+  `mime_allowed` varchar(100) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  PRIMARY KEY (`element_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `input_value` (
   `input_value_id` int(3) NOT NULL AUTO_INCREMENT,
   `element_id` int(3) NOT NULL,

@@ -13,9 +13,16 @@ class InputFileView extends ElementView
         }
         ?>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="input-<?php echo $this->getElement()->getId(); ?>"><?php echo $this->getElement()->getLabel(); ?></label>
+            <label class="col-sm-2 col-form-label" for="input-<?php echo $this->getElement()->getId(); ?>">
+            	<?php echo $this->getElement()->getLabel(); 
+            	if ($this->getElement()->getMimeAllowed()!=null && $this->getElement()->getMimeAllowed() !=""){
+            	    echo ("(".$this->getElement()->getMimeAllowed().")");
+            	}
+            	?>
+            </label>
         	<div class="col-sm-9">
-                <input type="file" class="form-control" id="input-<?php echo $this->getElement()->getId(); ?>" name="<?php echo $this->getElement()->getContent(); ?>"/>
+                <input type="file" class="form-control" id="input-<?php echo $this->getElement()->getId(); ?>" 
+                	name="<?php echo $this->getElement()->getContent(); ?>"/>
             </div>
             <div class="col-sm-1">
             <?php if($value!=""){?>

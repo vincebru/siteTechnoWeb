@@ -12,6 +12,8 @@ class Input extends Element{
     }
     
     static protected $label='label';
+    
+    protected $inputValues=array();
 
     
     public static function getInsertRequests(){
@@ -23,5 +25,16 @@ class Input extends Element{
     public function getLabel()
     {
         return $this->get(static::$label);
+    }
+    
+    public function getInputValue ($userId){
+        if(array_key_exists($userId, $this->inputValues)){
+            return $this->inputValues[$userId];
+        }
+        return null;
+    }
+    
+    public function addInputValue($userId, $inputValue){
+        $this->inputValues[$userId]= $inputValue;
     }
 }

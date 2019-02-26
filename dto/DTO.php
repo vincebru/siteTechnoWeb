@@ -32,6 +32,10 @@ abstract class DTO{
 		return array();
 	}
 	
+	
+	static public function uniqueConstraintKeyList (){
+	    return array();
+	}
 	static public function getFullPropertyNameList (){
 	    return array_merge(static::propertyNameList(),static::complementPropertyNameList());
 	}
@@ -58,7 +62,7 @@ abstract class DTO{
 	
 	
 	public static function getRequestById(){
-	    return self::getSelectRequest(). ' WHERE main.'.static::$id . ' = :id ';
+	    return self::getSelectRequest(). ' and main.'.static::$id . ' = :id ';
 	}
 	
 	public static function getSelectRequest(){
@@ -68,10 +72,12 @@ abstract class DTO{
 			foreach (static::complementPropertyNameList() as $propertyKey) {
 				$complementFields .= ', comp.' . $propertyKey;
 			}
-			$complementJoin = ' JOIN ' . static::$complementTableName . ' comp ON comp.element_id = main.element_id ';
+			$complementJoin = ' JOIN ' . static::$complementTableName . 
+			     ' comp ON comp.'.static::$id.' = main.'.static::$id.' ';
 		}
 
-		return 'SELECT main.* ' . $complementFields . ' FROM ' . static::$tableName . ' main ' . $complementJoin ;
+		return 'SELECT main.* ' . $complementFields . ' FROM ' . static::$tableName . ' main ' . $complementJoin .
+		      " where 1=1 ";
 	}
 	
 	public static function getInsertRequests(){

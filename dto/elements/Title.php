@@ -17,13 +17,6 @@ class Title extends Element{
             " values (:id,:level)"));
     }
     
-    public static function getRemoveRequests(){
-		return array_merge(
-		    array("delete from ".strtolower(static::$complementTableName)." where element_id = :element_id"),
-            parent::getRemovetRequests()
-        );
-	}
-
     static protected $level='level';
 
 	public function getLevel()

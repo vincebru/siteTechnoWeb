@@ -76,6 +76,9 @@ class GlobalModel
                         }
                     }
                     break;
+                case 'mime_allowed':
+                    $array[$varName]=implode(";",$array[$varName]);
+                    break;
                 default:
                     if (!isset($array[$varName])) {
                         $message='Error: Missing property '.$varName;
@@ -99,7 +102,7 @@ class GlobalModel
             $req = $bdd->prepare($request);
 
             $usefulData = self::extractUsefullValueForInsert($request, $data);
-
+            
             foreach($usefulData as $key => $value) {
                 if (isset($specificDatabaseType[$key])) {
                     $req->bindValue(':'.$key, $value, $specificDatabaseType[$key]);
@@ -108,7 +111,7 @@ class GlobalModel
                 }
             }
             $req->execute();
-
+            
             if (!isset($id)) {
                 $id = $bdd->lastInsertId();
                 $data['id'] = $id;
@@ -122,7 +125,7 @@ class GlobalModel
     {
         if ($class instanceof Element) {
             $elementToRemove = static::getInstance($class, $id);
-            foreach ($elementToRemove.getSubElements() as $subElementId) {
+            foreach ($elementToRemove->getSubElements() as $subElementId) {
                 $subElement = static::getElement($subElementId);
                 static::removeInstance($subElement.getType(), $id);
             }
@@ -185,8 +188,18 @@ class GlobalModel
         $req = $bdd->prepare($request);
         
         $usefulData = self::extractUsefullValueForUpdate($class::$UPDATE_FIELD_VALUES, $data);
+        
+        
+        $specificDatabaseType=$class::getSpecificDatabaseType();
+        foreach($usefulData as $key => $value) {
+            if (isset($specificDatabaseType[$key])) {
+                $req->bindValue(':'.$key, $value, $specificDatabaseType[$key]);
+            } else {
+                $req->bindValue(':'.$key, $value);
+            }
+        }
 
-        $req->execute($usefulData);
+        $req->execute();
     }
     
     private static function isInstanceOf($class, $id){
@@ -261,14 +274,48 @@ class GlobalModel
     }
     
     public static function getAllFromIds($className, $ids){
-        $restriction='where 1=2';
+        $restriction='';
         if (!empty($ids)){
             $inQuery = implode(',', array_fill(0, count($ids), '?'));
-            $restriction = ' where main.'.$className::getColIdName().' in ('.$inQuery.')';
+            $restriction = ' and main.'.$className::getColIdName().' in ('.$inQuery.')';
         }
         $result=array();
         foreach (static::getAll($className,$restriction, $ids) as $value){
             $result[$value->getId()]=$value;
+        }
+        return $result;
+    }
+    
+    
+    public static function getUsefullValuesForselect($request, $values){
+        $split1 = explode(':', $request);
+        $paramList = array();
+        $result = array();
+        for ($i = 1; $i < count($split1); ++$i) {
+            $split2 = explode(' ', $split1[$i]);
+            $result[$split2[0]]=$values[$split2[0]];
+        }
+        return $result;
+            
+    }
+    
+    public static function getDtoFromUniqueConstraints($className, $values){
+        $restriction='';
+        if (!empty($values) && !empty($className::uniqueConstraintKeyList())){
+            $restriction = ' and ';
+            $first=true;
+            foreach ($className::uniqueConstraintKeyList() as $key){
+                if (!$first){
+                    $restriction .= ' and ';
+                }else {
+                    $first=false;
+                }
+                $restriction .= 'main.'.$key.' = :'.$key;
+            }
+        }
+        $result=null;
+        foreach (static::getAll($className,$restriction, static::getUsefullValuesForselect($restriction,$values)) as $value){
+            $result=$value;
         }
         return $result;
     }
@@ -283,12 +330,14 @@ class GlobalModel
         if ($param == null){
             $param = array();
         }
+        
         $preparedRequest->execute($param);
         $result=array();
         while ($data = $preparedRequest->fetch(PDO::FETCH_ASSOC)) {
             
             $result[]= new $className($data);
         }
+        
         return $result;
     }
 }

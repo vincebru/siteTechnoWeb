@@ -25,14 +25,18 @@ abstract class AccessPoint {
     abstract protected function display();
     
     protected static function getFileData(){
-        
-        if (isset($_FILES["file"]) && isset($_FILES["file"]["tmp_name"])){
-            $tmpFileName=$_FILES["file"]["tmp_name"];
-            $mime=mime_content_type($tmpFileName);
-            $file=fopen($tmpFileName, 'rb');
-            return array('mime'=> $mime,'file'=> $file, 'name' => $_FILES["file"]["name"]);
+        $fileDataArray= array();
+        foreach ($_FILES as $inputFileName => $inputFileProperties){
+            if (isset($inputFileProperties["tmp_name"])){
+                $tmpFileName=$inputFileProperties["tmp_name"];
+                if ($tmpFileName != null && $tmpFileName!=""){
+                    $mime=mime_content_type($tmpFileName);
+                    $file=fopen($tmpFileName, 'rb');
+                    $fileDataArray[$inputFileName] = array('mime'=> $mime,'file'=> $file, 'name' => $inputFileProperties["name"]);
+                }
+            }
         }
-        return array();
+        return $fileDataArray;
     }
 
     protected function manageAction($refArray){

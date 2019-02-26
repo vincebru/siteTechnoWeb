@@ -43,7 +43,7 @@ class FacilitateurAddElementView extends AbstractView
             "<input type='hidden' name='parent_id' value='".$this->getParamValue("parent_id")."' />".
             "<select  onchange='this.form.submit()' name='object'>";
         
-        $objectList=array('Code','Input','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
+        $objectList=array('Code','Input','InputFile','Menu','Table','Title','Ul','Li','Form','Lesson','Page','TableCell',
             'Image','File','IncludeCode','Link','Paragraph','TableRow');
         foreach ($objectList as $object){
             echo "<option value='".$object."' ";
@@ -84,6 +84,18 @@ class FacilitateurAddElementView extends AbstractView
                     case 'content':
                         echo "<br>".$property.":<textarea name='".$property."' style='margin-top: 0px; margin-bottom: 0px; width: 800px;height: 238px;' >".
                             $this->getParamValue("$property")."</textarea>";
+                        break;
+                    case 'mime_allowed':
+                        echo "<br>".$property.":".'<br><table><tr>';
+                            $i =0;
+                            foreach(InputModel::$acceptedMime as $key => $value){
+                                ++$i;
+                                echo '<td><input type="checkbox" name="'.$property.'[]" value="'.$key.'">'.$key.'</td>';
+                                if ($i % 5 ==0){
+                                    echo '</tr><tr>';
+                                }
+                            }
+                            echo '</tr></table>';
                         break;
                     default:
                         echo "<br>".$property.":<input type='text' name='".$property."' value='".$this->getParamValue("$property")."'/>";

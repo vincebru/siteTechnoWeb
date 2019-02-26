@@ -18,9 +18,13 @@ class LessonModel
         
         $request .= ' LEFT JOIN lesson_session_group ON lesson.element_id = lesson_session_group.lesson_id ';
         
-        $request .= ' WHERE menu.code = :menu ';
-
-        $param = array('menu' => $menu);
+        $request .= ' WHERE 1=1 ';
+        
+        if ($menu != null) {
+            $request .= ' AND menu.code = :menu ';
+    
+            $param = array('menu' => $menu);
+        }
 
         if (isset($sessionGroupId)) {
             $request .= ' AND session_group_id = :sessionGroupId ';
@@ -78,5 +82,38 @@ class LessonModel
         } else {
             return self::getLessonParent(GlobalModel::getElementParent($element));
         }
+    }
+    /**
+     * retourne un tableau array($lessonName=> array($from))
+     */
+    public static function getFormForSession($sessionGroupId){
+        
+        $lessons = self::getAllLessonsForMenu(null,$sessionGroupId,null);
+        $formByLesson = self::getFormByLesson();
+        $result=array();
+        foreach($lessons as $lesson){
+            if (array_key_exists($lesson->getId(),$formByLesson)) {
+                if (array_key_exists($lesson->getContent(),$result)) {
+                    $result[$lesson->getContent()] = $formByLesson[$lesson->getId()];
+                } else {
+                    $result[$lesson->getContent()] = $formByLesson[$lesson->getId()];
+                }
+            }
+        }
+        return $result;
+    }
+    
+    public static function getFormByLesson(){
+        $result=array();
+        $allForm = GlobalModel::getAll("Form",null,null);
+        foreach ($allForm as $form) {
+            $lesson = self::getLessonParent($form);
+            if (array_key_exists($lesson->getId(),$result)) {
+                $result[$lesson->getId()][] = $form;
+            } else {
+                $result[$lesson->getId()] = array($form);
+            }
+        }
+        return $result;
     }
 }

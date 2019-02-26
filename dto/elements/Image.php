@@ -24,13 +24,6 @@ class Image extends Element{
             " values (:id,:width, :height, :mime,:file)"));
     }
 
-    public static function getRemoveRequests(){
-		return array_merge(
-		    array("delete from ".strtolower(static::$complementTableName)." where element_id = :element_id"),
-            parent::getRemovetRequests()
-        );
-	}
-
     static public function getSpecificDatabaseType(){
         return array(static::$file=>PDO::PARAM_LOB);
     }

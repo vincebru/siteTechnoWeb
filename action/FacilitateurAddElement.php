@@ -4,6 +4,9 @@ class FacilitateurAddElement extends WriteAction{
     public function execute() {
         $id=null;
         if (isset($this->data['saveElement'])){
+            if ($this->data['object'] == Element::TYPE_FILE || $this->data['object'] == Element::TYPE_IMAGE){
+                $this->data=array_merge($this->data,$this->data['file']);
+            }
             if (isset($this->data['elementId']) && $this->data['elementId']!="") {
                 $this->data["id"] = $this->data['elementId'];
                 GlobalModel::patchInstance($this->data['object'],$this->data);

@@ -32,9 +32,9 @@ class AdminFormValuesView extends AbstractAdminView{
     {
         $this->displaySessionGroupForm();
         
-        $this->displayFormsForm();
-        
-        $this->displayUserTable();
+        if ($this->displayFormsForm()){
+            $this->displayUserTable();
+        }
         
         // pour la session courante recuperer tous les formulaires existants en parcourant l'arborescence
         // ou recuperation de tous les formulaires et on recupere leur lesson associée (utilisation de element::isRootElements())
@@ -156,7 +156,12 @@ class AdminFormValuesView extends AbstractAdminView{
     }
     
     private function displayFormsForm(){
+        
         $formByLesson = LessonModel::getFormForSession($this->sessionGroupId);
+        if (empty($formByLesson)){
+            ?>Il n' y a pas de formulaire a traiter<?php
+            return false;
+        }else{
         ?>
         <form id="FormsForm" action='index.php' method="get">
         	<input type='hidden' name='page' value='AdminFormValuesLink' />
@@ -181,6 +186,8 @@ class AdminFormValuesView extends AbstractAdminView{
             </select>
         </form>
         <?php
+            return true;
+        }
     }
     
     private function displaySessionGroupForm(){

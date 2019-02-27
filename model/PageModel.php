@@ -78,7 +78,7 @@ class PageModel
                 foreach (LessonModel::getAllLessonsForMenu(
                         $dynamicMenu->getCode(), 
                         UserModel::isAdminConnectedUser() ? $adminCurrentSessionGroupId : UserModel::getCurrentSessionGroupId(),
-                        null) as $lesson){
+                        null, true) as $lesson){
                     $currentMenu[] = MenuLinkView::getInstance($lesson->getContent(), $lesson->getId());
                 }
                 if (!empty($currentMenu)){

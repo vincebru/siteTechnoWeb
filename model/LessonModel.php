@@ -4,10 +4,10 @@ class LessonModel
 {
     public static function isAllowed($sessionGroupId, $menu, $lesson)
     {
-        return count(self::getAllLessonsForMenu($menu, $sessionGroupId, $lesson)) > 0;
+        return count(self::getAllLessonsForMenu($menu, $sessionGroupId, $lesson, true)) > 0;
     }
 
-    public static function getAllLessonsForMenu($menu, $sessionGroupId, $lesson)
+    public static function getAllLessonsForMenu($menu, $sessionGroupId, $lesson, $onlyActive)
     {
         $bdd = Database::getDb();
 
@@ -27,10 +27,13 @@ class LessonModel
         }
 
         if (isset($sessionGroupId)) {
-            $request .= ' AND session_group_id = :sessionGroupId ';
+            if ($onlyActive){
+                $request .= ' AND lesson_session_group.active=1';
+            }
+            $request .= ' and session_group_id = :sessionGroupId ';
             $param['sessionGroupId'] = $sessionGroupId;
         } else {
-            $request .= ' AND session_group_id is null ';
+            $request .= ' AND (session_group_id is null or lesson_session_group.active=0) ';
         }
 
         if (isset($lesson)) {
@@ -87,8 +90,7 @@ class LessonModel
      * retourne un tableau array($lessonName=> array($from))
      */
     public static function getFormForSession($sessionGroupId){
-        
-        $lessons = self::getAllLessonsForMenu(null,$sessionGroupId,null);
+        $lessons = self::getAllLessonsForMenu(null,$sessionGroupId,null, false);
         $formByLesson = self::getFormByLesson();
         $result=array();
         foreach($lessons as $lesson){

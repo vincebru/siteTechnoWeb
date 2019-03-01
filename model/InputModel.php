@@ -32,6 +32,7 @@ class InputModel
             
             // archives
             'zip' => 'application/zip',
+            'zipw' => 'inode/x-empty',
             'rar' => 'application/x-rar-compressed',
 //             'exe' => 'application/x-msdownload',
 //             'msi' => 'application/x-msdownload',

@@ -33,9 +33,9 @@ class AdminUserView extends AbstractAdminView{
     {
         $this->getSessionGroupForm();
         
-        $groupBy="user_id";
+        $groupBy="lastname,firstname, user_id";
         if ($this->isGrouped){
-            $groupBy="work_group_id, user_id";
+            $groupBy="work_group_id, ".$groupBy;
         }
         
         $userList = UserModel::getUsersBySessionGroupId($this->sessionGroupId , $groupBy);

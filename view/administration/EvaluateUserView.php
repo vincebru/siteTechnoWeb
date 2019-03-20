@@ -43,14 +43,14 @@ class EvaluateUserView extends AbstractAdminView{
     }
     
     private function displayTab($evaluations,$rg){
-        $result = 0;
+        $result = null;
         $sumCoef=0;
  
         foreach($evaluations as $evaluationId => $childs ){
             
             $currentResult = $this->getResult($evaluationId);
             if ($currentResult==''){
-                $currentResult = 0;
+                $currentResult = null;
             }
             
             $evaluation=GlobalModel::getInstance('Evaluation',$evaluationId);
@@ -63,13 +63,17 @@ class EvaluateUserView extends AbstractAdminView{
             	<div class="col-<?php echo 12-$rg?>"><?php echo $evaluation->getName();?></div>
             </div>
             <?php }
-             
-            $currentResult+=$this->displayTab($childs,$rg+1);
-            if ($evaluation->getCoef()!=null){
-                $result+=$evaluation->getCoef()*$currentResult;
-                $sumCoef+=$evaluation->getCoef();
-            }else{
-                $result+=$currentResult;
+            $subResult=$this->displayTab($childs,$rg+1);
+            if ($subResult!=null){
+                $currentResult+=$subResult;
+            }
+            if ($currentResult!=null){
+                if ($evaluation->getCoef()!=null){
+                    $result+=$evaluation->getCoef()*$currentResult;
+                    $sumCoef+=$evaluation->getCoef();
+                }else{
+                    $result+=$currentResult;
+                }
             }
             
             ?>
@@ -111,6 +115,7 @@ class EvaluateUserView extends AbstractAdminView{
                     <input type='hidden' name='page' value='EvaluateUser' />
                     <input type='hidden' name='save' value='true' />
                     <input type='hidden' name='userId' value='<?php echo $this->user->getId()?>' />
+                    <input type='hidden' name='sessionGroupId' value='<?php echo $this->user->getSessionGroupId()?>' />
             <?php }
             ?>
         <div class="container-fluid table">

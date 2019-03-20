@@ -32,9 +32,6 @@ class UpdateGroupView extends AbstractAdminView{
 
         $usersWithoutGroup = $this->getAllUserWithoutGroup();
 
-        //echo "<pre>";
-        //var_dump($usersWithoutGroup);
-
         if (!empty($usersWithoutGroup   )){
 
             ?>

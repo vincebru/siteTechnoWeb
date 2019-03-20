@@ -6,13 +6,15 @@ class SessionGroup extends DTO{
     static protected $id = 'session_group_id';
     static protected $code='code';
     static protected $name='name';
+    static protected $evaluationId='evaluation_id';
     static protected $isAdminUptable = true;
     
     
     static protected function propertyNameList (){
         return array(static::$id,
             static::$code,
-            static::$name
+            static::$name,
+            static::$evaluationId
         );
     }
     
@@ -43,6 +45,17 @@ class SessionGroup extends DTO{
     public function setName($name)
     {
         $this->set(static::$name, $name);
+        return $this;
+    }
+    
+    public function getEvaluationId()
+    {
+        return $this->get(static::$evaluationId);
+    }
+    
+    public function setEvaluationId($evaluationId)
+    {
+        $this->set(static::$evaluationId, $evaluationId);
         return $this;
     }
 }

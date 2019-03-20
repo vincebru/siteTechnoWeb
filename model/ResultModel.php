@@ -31,4 +31,16 @@ class ResultModel
         return $result;
     }
     
+    
+    public static function getEvaluations($evaluationId){
+        $result= array();
+        $evaluationsChild=GlobalModel::getAll('Evaluation',' and '.Evaluation::$parentId.'=:'.Evaluation::$parentId,
+            array(Evaluation::$parentId=>$evaluationId) );
+        $result[$evaluationId] = array();
+        foreach ($evaluationsChild as $child){
+            $result[$evaluationId][$child->getId()]=self::getEvaluations($child->getId())[$child->getId()];
+        }
+        return $result;
+    }
+    
 }

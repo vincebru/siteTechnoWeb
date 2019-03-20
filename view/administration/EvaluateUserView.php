@@ -138,17 +138,6 @@ class EvaluateUserView extends AbstractAdminView{
         
     }
 
-
-    private function getSum(){
-        return round(2*($this->getResult(2)+
-            $this->getResult(3)+
-            $this->getResult(4)+
-            $this->getResult(5)+
-            $this->getResult(6))*20/15,0,PHP_ROUND_HALF_UP )/2+
-            $this->getResult(1)+
-            $this->getResult(10);
-    }
-    
     private function getResult($evaluationId){
         if (isset($this->results[''.$evaluationId])){
             return $this->results[''.$evaluationId]->getValue();
@@ -274,6 +263,17 @@ class EvaluateUserView extends AbstractAdminView{
                 <div class="col-2"><?php echo($this->getSum()+$this->getResult(8))/2?>/20</div>
             </div>
         <?php }
+    }
+    
+    
+    private function getSum(){
+        return round(2*($this->getResult(2)+
+            $this->getResult(3)+
+            $this->getResult(4)+
+            $this->getResult(5)+
+            $this->getResult(6))*20/15,0,PHP_ROUND_HALF_UP )/2+
+            $this->getResult(1)+
+            $this->getResult(10);
     }
 }
 

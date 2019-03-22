@@ -25,7 +25,7 @@ class EvaluateUserView extends AbstractAdminView{
             if ($this->user->getSessionGroupId()!=null){
                 $session=GlobalModel::getInstance('SessionGroup',$this->user->getSessionGroupId());
                 if ($session!=null &&  $session->getEvaluationId()!=0){
-                    $this->evaluations=ResultModel::getEvaluations($session->getEvaluationId());
+                    $this->evaluations=ResultModel::getEvaluations($session->getEvaluationId(), $this->isEdit());
                 }
             }
             

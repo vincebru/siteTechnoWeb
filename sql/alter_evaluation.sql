@@ -12,3 +12,5 @@ update evaluation e join evaluation_link el on e.evaluation_id=el.child_id
 set e.parent_id=el.parent_id;
 
 drop table evaluation_link;
+
+ALTER TABLE `evaluation` ADD `active` INT(1) NOT NULL DEFAULT '0' AFTER `parent_id`;

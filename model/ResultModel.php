@@ -31,4 +31,21 @@ class ResultModel
         return $result;
     }
     
+    
+    public static function getEvaluations($evaluationId, $isAdminMode){
+        $result= array();
+        $restriction='';
+        if (!$isAdminMode){
+            $restriction=' and active=1 ';
+        }
+        
+        $evaluationsChild=GlobalModel::getAll('Evaluation',$restriction.' and '.Evaluation::$parentId.'=:'.Evaluation::$parentId,
+            array(Evaluation::$parentId=>$evaluationId) );
+        $result[$evaluationId] = array();
+        foreach ($evaluationsChild as $child){
+            $result[$evaluationId][$child->getId()]=self::getEvaluations($child->getId(), $isAdminMode)[$child->getId()];
+        }
+        return $result;
+    }
+    
 }

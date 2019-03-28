@@ -135,6 +135,9 @@ class AdminUserView extends AbstractAdminView{
         $sessionGroupList = GlobalModel::getAll(SessionGroup::class, null, null);
         ?>
         <form id="sessionGroupForm" action='index.php' method="get">
+        	<?php if ($this->isGrouped) {?>
+        		<input type='hidden' name='isGrouped' value='true' />
+        	<?php }?>
         	<input type='hidden' name='page' value='AdminUserLink' />
             <select name='sessionGroupId' id='sessionGroupId'>
             <?php 

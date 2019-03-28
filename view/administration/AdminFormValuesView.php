@@ -196,6 +196,9 @@ class AdminFormValuesView extends AbstractAdminView{
         ?>
         <form id="sessionGroupForm" action='index.php' method="get">
         	<input type='hidden' name='page' value='AdminFormValuesLink' />
+        	<?php if ($this->isGrouped) {?>
+        		<input type='hidden' name='isGrouped' value='true' />
+        	<?php }?>
             <select name='sessionGroupId' id='sessionGroupId'>
             <?php 
             $isFirstOption = true;

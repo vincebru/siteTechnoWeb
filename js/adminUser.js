@@ -4,10 +4,16 @@ $(document).ready(function () {
 	$('#sessionGroupId').on('change', function(e) {
 		$('#sessionGroupForm').submit()
 	});
+	
+
+
+	$('#formId').on('change', function(e) {
+		$('#FormsForm').submit()
+	});
 
     /*** CREATE GROUP:  START ***/
     var usersId;
-
+    
     function setUsersIdToGroup(event){
     	usersId = [];
     	$('.workGroupBy').each(function() {
